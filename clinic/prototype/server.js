@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Local dev server — mirrors the Vercel deployment exactly.
- * It serves the same static files and reuses the same handlers in
+ * Serves the same static files and reuses the same handlers in
  * lib/api-core.js that /api/*.js use on Vercel.
  *
  * Run:  node clinic/prototype/server.js
@@ -16,12 +16,22 @@ const core = require('./lib/api-core');
 const PORT = process.env.PORT || 4173;
 const ROOT = __dirname;
 
-/** Only these files are public — never serve lib/, api/ or server.js. */
+/** Only these files are public — never serve lib/, api/, tools/ or server.js. */
 const STATIC = {
   '/index.html': 'text/html; charset=utf-8',
   '/styles.css': 'text/css; charset=utf-8',
   '/app.js': 'text/javascript; charset=utf-8',
   '/i18n.js': 'text/javascript; charset=utf-8',
+  '/install.js': 'text/javascript; charset=utf-8',
+  '/sw.js': 'text/javascript; charset=utf-8',
+  '/manifest.webmanifest': 'application/manifest+json; charset=utf-8',
+  '/icons/icon-192.png': 'image/png',
+  '/icons/icon-512.png': 'image/png',
+  '/icons/icon-maskable-192.png': 'image/png',
+  '/icons/icon-maskable-512.png': 'image/png',
+  '/icons/apple-touch-icon.png': 'image/png',
+  '/icons/favicon-16.png': 'image/png',
+  '/icons/favicon-32.png': 'image/png',
 };
 
 function serveStatic(res, pathname) {
@@ -33,9 +43,14 @@ function serveStatic(res, pathname) {
     return;
   }
 
+  const headers = { 'Content-Type': type, 'Cache-Control': 'no-cache' };
+
+  // The service worker must be allowed to control the whole origin.
+  if (file === '/sw.js') headers['Service-Worker-Allowed'] = '/';
+
   fs.readFile(path.join(ROOT, file.slice(1)), (err, data) => {
     if (err) return res.writeHead(404).end('Not found');
-    res.writeHead(200, { 'Content-Type': type, 'Cache-Control': 'no-cache' }).end(data);
+    res.writeHead(200, headers).end(data);
   });
 }
 

@@ -2,10 +2,26 @@
 <html lang="ar" dir="rtl" data-theme="light">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover"
+    />
     <title>حجز موعد — عيادة د. عمرو الأهواني</title>
     <meta name="description" content="احجز موعدك أونلاين في عيادة أ.د. عمرو الأهواني — استشاري جراحات وأمراض الذكورة." />
-    <meta name="theme-color" content="#fbf8f3" id="themeColor" />
+
+    <!-- ── PWA ── -->
+    <link rel="manifest" href="manifest.webmanifest" />
+    <meta name="theme-color" content="#faf7f2" id="themeColor" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="د. عمرو الأهواني" />
+    <meta name="application-name" content="د. عمرو الأهواني" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="icon" href="icons/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="icon" href="icons/favicon-16.png" sizes="16x16" type="image/png" />
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -13,13 +29,17 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
+
     <script>
-      /* Apply the saved theme before first paint to avoid a flash. */
+      /* Apply saved theme + locale before first paint to avoid a flash. */
       (function () {
         try {
-          var saved = localStorage.getItem('dr-theme');
+          var theme = localStorage.getItem('dr-theme');
           var system = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-          document.documentElement.dataset.theme = saved || system;
+          var resolved = theme || system;
+          document.documentElement.dataset.theme = resolved;
+          var meta = document.getElementById('themeColor');
+          if (meta) meta.setAttribute('content', resolved === 'dark' ? '#080f16' : '#faf7f2');
           var locale = localStorage.getItem('dr-locale');
           if (locale) {
             document.documentElement.lang = locale === 'en' ? 'en' : 'ar';
@@ -37,7 +57,7 @@
       <div class="wrap header-inner">
         <div class="brand">
           <div class="brand-mark" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
               <path d="M4 12h4l2-5 3 10 2-5h5" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
           </div>
@@ -48,6 +68,14 @@
         </div>
 
         <div class="header-actions">
+          <button type="button" class="icon-btn install-btn" id="installBtn" hidden aria-label="تثبيت التطبيق">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <path d="M12 3.5v10.5" stroke-linecap="round" />
+              <path d="m7.6 9.8 4.4 4.4 4.4-4.4" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M4.5 16.5v2a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2v-2" stroke-linecap="round" />
+            </svg>
+          </button>
+
           <div class="lang-control">
             <svg class="lang-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
               <circle cx="12" cy="12" r="8.6" />
@@ -72,14 +100,6 @@
             </svg>
             <span data-i18n="nav.call">اتصل</span>
           </a>
-
-          <div class="secure-pill">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-              <rect x="4.5" y="10.5" width="15" height="10" rx="2.5" />
-              <path d="M8 10.5V7.8a4 4 0 0 1 8 0v2.7" stroke-linecap="round" />
-            </svg>
-            <span data-i18n="nav.secure">مشفّر</span>
-          </div>
         </div>
       </div>
     </header>
@@ -132,10 +152,6 @@
                   <span class="muted" data-i18n="card.hoursMuted"></span>
                 </dd>
               </div>
-              <div>
-                <dt data-i18n="card.waitLabel"></dt>
-                <dd><strong data-i18n="card.waitValue"></strong> <span data-i18n="card.waitNote"></span></dd>
-              </div>
             </dl>
           </aside>
         </div>
@@ -144,6 +160,7 @@
       <!-- ══════════════ Booking ══════════════ -->
       <section class="booking" id="booking">
         <div class="wrap">
+          <!-- Stepper: pill-style segmented progress on mobile -->
           <nav class="stepper" aria-label="Booking steps">
             <ol>
               <li class="step is-active" data-step-dot="1"><span>1</span><b data-i18n="steps.1"></b></li>
@@ -201,14 +218,14 @@
               <div class="field-row">
                 <div class="field">
                   <label for="firstName"><span data-i18n="field.firstName"></span> <span class="req">*</span></label>
-                  <input id="firstName" name="first_name" autocomplete="given-name" required minlength="2" />
+                  <input id="firstName" name="first_name" autocomplete="given-name" required minlength="2" enterkeyhint="next" />
                   <p class="err" data-err="firstName"></p>
                 </div>
                 <div class="field">
                   <label for="lastName"
                     ><span data-i18n="field.lastName"></span> <span class="opt" data-i18n="field.optional"></span
                   ></label>
-                  <input id="lastName" name="last_name" autocomplete="family-name" />
+                  <input id="lastName" name="last_name" autocomplete="family-name" enterkeyhint="next" />
                   <p class="err" data-err="lastName"></p>
                 </div>
               </div>
@@ -216,14 +233,23 @@
               <div class="field-row">
                 <div class="field">
                   <label for="phone"><span data-i18n="field.phone"></span> <span class="req">*</span></label>
-                  <input id="phone" name="phone_number" inputmode="numeric" autocomplete="tel" maxlength="11" required />
+                  <input
+                    id="phone"
+                    name="phone_number"
+                    type="tel"
+                    inputmode="numeric"
+                    autocomplete="tel-national"
+                    maxlength="11"
+                    required
+                    enterkeyhint="next"
+                  />
                   <p class="err" data-err="phone"></p>
                 </div>
                 <div class="field">
                   <label for="email"
                     ><span data-i18n="field.email"></span> <span class="opt" data-i18n="field.optional"></span
                   ></label>
-                  <input id="email" name="email" type="email" autocomplete="email" />
+                  <input id="email" name="email" type="email" autocomplete="email" enterkeyhint="done" />
                   <p class="err" data-err="email"></p>
                 </div>
               </div>
@@ -341,6 +367,7 @@
       </div>
     </footer>
 
+    <!-- Sticky mobile action bar -->
     <div class="sticky-bar" id="stickyBar" hidden>
       <div class="sticky-info">
         <span id="stickyService">—</span>
@@ -349,9 +376,26 @@
       <button class="primary-btn small" id="stickyCta"></button>
     </div>
 
+    <!-- Install sheet -->
+    <div class="sheet-backdrop" id="installSheet" hidden>
+      <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="installTitle">
+        <button class="sheet-close" id="installClose" aria-label="إغلاق">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 6 12 12M18 6 6 18" stroke-linecap="round" /></svg>
+        </button>
+        <div class="sheet-icon" aria-hidden="true">
+          <img src="icons/icon-192.png" alt="" width="64" height="64" />
+        </div>
+        <h3 id="installTitle" data-i18n="install.title"></h3>
+        <p data-i18n="install.desc"></p>
+        <ol class="install-steps" id="installSteps"></ol>
+        <button type="button" class="primary-btn sheet-cta" id="installCta" data-i18n="install.cta"></button>
+      </div>
+    </div>
+
     <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 
     <script src="i18n.js"></script>
+    <script src="install.js"></script>
     <script src="app.js"></script>
   </body>
 </html>

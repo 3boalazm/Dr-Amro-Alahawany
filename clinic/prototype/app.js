@@ -116,7 +116,7 @@ async function api(path, body) {
 function setTheme(theme, { persist = true } = {}) {
   state.theme = theme;
   document.documentElement.dataset.theme = theme;
-  $('#themeColor')?.setAttribute('content', theme === 'dark' ? '#0a1118' : '#fbf8f3');
+  $('#themeColor')?.setAttribute('content', theme === 'dark' ? '#080f16' : '#faf7f2');
   $('#themeBtn')?.setAttribute(
     'aria-label',
     `${t('a11y.themeLabel')}: ${theme === 'dark' ? 'dark' : 'light'}`,
@@ -166,6 +166,7 @@ function applyStaticText() {
 
   $('#privacyLink')?.setAttribute('href', '#');
   $('#langSelect')?.setAttribute('aria-label', t('a11y.langLabel'));
+  $('#installBtn')?.setAttribute('aria-label', t('install.ariaInstall'));
 
   // Content that comes from clinic data rather than the dictionary
   if (state.clinic) $('#clinicAddress').textContent = localized(state.clinic.address);
@@ -184,6 +185,7 @@ async function boot() {
 
   buildLangSelect();
   wireControls();
+  wireInstall();
 
   try {
     const data = await api('/api/clinic');
@@ -223,6 +225,112 @@ function wireControls() {
   });
 }
 
+/* ══════════════ Install (PWA) ══════════════ */
+
+const SHARE_ICON =
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">' +
+  '<path d="M12 15.5V4" stroke-linecap="round"/>' +
+  '<path d="m7.8 8 4.2-4.2L16.2 8" stroke-linecap="round" stroke-linejoin="round"/>' +
+  '<path d="M5.5 13.5v5a1.8 1.8 0 0 0 1.8 1.8h9.4a1.8 1.8 0 0 0 1.8-1.8v-5" stroke-linecap="round"/></svg>';
+
+const MENU_ICON =
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">' +
+  '<circle cx="12" cy="5" r="1.4" fill="currentColor" stroke="none"/>' +
+  '<circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/>' +
+  '<circle cx="12" cy="19" r="1.4" fill="currentColor" stroke="none"/></svg>';
+
+/** Steps shown when the browser has no native install prompt (iOS, Firefox…). */
+function installStepsMarkup() {
+  const ios = window.PWA?.isIOS?.();
+  const rows = ios
+    ? [`${t('install.ios1')} ${SHARE_ICON}`, t('install.ios2'), t('install.ios3')]
+    : [`${t('install.android1').replace('(⋮)', '')} ${MENU_ICON}`, t('install.android2'), t('install.android3')];
+  return rows.map(text => `<li>${text}</li>`).join('');
+}
+
+function openInstallSheet() {
+  const sheet = $('#installSheet');
+  if (!sheet) return;
+
+  $('#installTitle').textContent = t('install.title');
+  $('.sheet > p').textContent = t('install.desc');
+  $('#installSteps').innerHTML = installStepsMarkup();
+
+  const cta = $('#installCta');
+  const canPrompt = window.PWA?.canInstall?.();
+  cta.textContent = canPrompt ? t('install.cta') : t('install.ctaManual');
+  cta.dataset.mode = canPrompt ? 'native' : 'manual';
+
+  sheet.hidden = false;
+  document.body.style.overflow = 'hidden';
+  $('#installClose').focus();
+}
+
+function closeInstallSheet() {
+  const sheet = $('#installSheet');
+  if (!sheet) return;
+  sheet.hidden = true;
+  document.body.style.overflow = '';
+}
+
+function wireInstall() {
+  const btn = $('#installBtn');
+  const sheet = $('#installSheet');
+  if (!btn || !sheet) return;
+
+  // Hidden until the app is installable (or when already installed).
+  const syncVisible = () => {
+    const installed = window.PWA?.isStandalone?.() ?? false;
+    btn.hidden = installed;
+  };
+  syncVisible();
+  window.PWA?.onChange?.(syncVisible);
+
+  btn.addEventListener('click', () => {
+    const pwa = window.PWA;
+    if (!pwa) return;
+    if (pwa.isStandalone()) return toast(t('install.done'));
+    // Native prompt if the browser offered one, otherwise show instructions.
+    openInstallSheet();
+  });
+
+  $('#installClose')?.addEventListener('click', closeInstallSheet);
+
+  sheet.addEventListener('click', e => {
+    if (e.target === sheet) closeInstallSheet();
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && !sheet.hidden) closeInstallSheet();
+  });
+
+  $('#installCta')?.addEventListener('click', async e => {
+    const cta = e.currentTarget;
+    if (cta.dataset.mode !== 'native') return closeInstallSheet();
+
+    const outcome = await window.PWA.prompt();
+    if (outcome === 'accepted') {
+      closeInstallSheet();
+      toast(t('install.done'));
+    } else {
+      // Prompt dismissed — fall back to written instructions.
+      openInstallSheet();
+    }
+  });
+
+  window.addEventListener('appinstalled', () => {
+    closeInstallSheet();
+    toast(t('install.done'));
+  });
+
+  // "Add to home screen" deep link from the manifest shortcut.
+  if (new URLSearchParams(location.search).get('action') === 'book') {
+    window.addEventListener('load', () => {
+      $('#booking')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }
+}
+
 /* ══════════════ Step 1 — services ══════════════ */
 
 const ICONS = {
@@ -252,20 +360,22 @@ function renderServices() {
       return `
       <button type="button" class="service-card${selected ? ' is-selected' : ''}"
               role="radio" aria-checked="${selected}" data-service="${s.id}">
-        <span class="sc-top">
-          <span class="sc-icon">${icon(s.icon)}</span>
-          ${s.tag ? `<span class="sc-tag">${t(`tag.${s.tag}`)}</span>` : ''}
+        <span class="sc-icon">${icon(s.icon)}</span>
+        <span class="sc-body">
+          <span class="sc-title">
+            ${localized(s.name)}
+            ${s.tag ? `<span class="sc-tag">${t(`tag.${s.tag}`)}</span>` : ''}
+          </span>
+          <span class="sc-desc">${localized(s.desc)}</span>
         </span>
-        <span class="sc-title">${localized(s.name)}</span>
-        <span class="sc-desc">${localized(s.desc)}</span>
-        <span class="sc-meta">
+        <span class="sc-side">
+          <span class="sc-price">${money(s.price)} <small>${t('unit.currency')}</small></span>
           <span class="sc-dur">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <circle cx="12" cy="12" r="8.4"/><path d="M12 7.6V12l3 1.8" stroke-linecap="round"/>
             </svg>
             ${s.duration} ${t('unit.minutes')}
           </span>
-          <span class="sc-price">${money(s.price)} <small>${t('unit.currency')}</small></span>
         </span>
       </button>`;
     })

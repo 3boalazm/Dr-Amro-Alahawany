@@ -39,6 +39,24 @@ Vercel مش قادر ينشر دلوقتي عن طريق الـ API لأنه ب�
 > مفيش build ولا dependencies — الملفات الثابتة تُخدم من الجذر،
 > وملفات `api/*.js` بتتحوّل تلقائيًا لـ Serverless Functions.
 
+`vercel.json` جاهز في `clinic/prototype` وبيظبط حاجتين:
+- **يمنع الوصول** لـ `server.js` و`package.json` و`lib/` و`tools/` (404 بدل تحميل الكود).
+- **كاش صحيح** لـ `manifest.webmanifest` و`sw.js` (بدون كاش للـ service worker
+  عشان التحديثات توصل فورًا) وأيقونات الـ PWA بصلاحية سنة.
+
+### التحقق بعد النشر (PWA)
+
+```bash
+curl -sI https://<project>.vercel.app/manifest.webmanifest | grep -i content-type
+curl -sI https://<project>.vercel.app/sw.js | grep -i service-worker
+curl -s -o /dev/null -w '%{http_code}\n' https://<project>.vercel.app/server.js   # لازم 404
+curl -s -o /dev/null -w '%{http_code}\n' https://<project>.vercel.app/icons/icon-512.png  # 200
+```
+
+بعدها افتح الموقع على **HTTPS** من الموبايل → هيظهر زر **«ثبّت التطبيق»**
+في الهيدر، وأندروید كمان هيعرض بانر التثبيت التلقائي.
+> التثبيت وservice worker **مش بيشتغلوا** على `http` أو `file://` — لازم localhost أو HTTPS.
+
 ---
 
 ## الطريقة التانية — Vercel CLI

@@ -48,7 +48,6 @@ window.I18N = {
       busy: 'محجوز',
       pickDay: 'اختر يومًا من الأعلى لعرض الأوقات المتاحة.',
       pickDayShort: 'اختر اليوم',
-      pickDayShort: 'اختر اليوم',
       noSlots: 'لا توجد أوقات متاحة في هذا اليوم. جرّب يومًا آخر.',
       closed: 'مغلق',
       full: 'مكتمل',
@@ -147,6 +146,22 @@ window.I18N = {
       slot_taken: 'هذا الموعد تم حجزه للتو. اختر وقتًا آخر.',
     },
 
+    install: {
+      title: 'ثبّت التطبيق على موبايلك',
+      desc: 'افتحه من الشاشة الرئيسية في أي وقت — أسرع، وبيفتح حتى لو النت ضعيف.',
+      cta: 'تثبيت التطبيق',
+      ctaManual: 'تمام، فهمت',
+      ios1: 'اضغط زر المشاركة في شريط المتصفح',
+      ios2: 'اختار «إضافة إلى الشاشة الرئيسية»',
+      ios3: 'اضغط «إضافة»',
+      android1: 'افتح قائمة المتصفح (⋮)',
+      android2: 'اختار «تثبيت التطبيق»',
+      android3: 'أكّد التثبيت',
+      done: 'تم تثبيت التطبيق على جهازك',
+      unavailable: 'التثبيت مش متاح في المتصفح ده — جرّب Chrome أو Safari.',
+      ariaInstall: 'تثبيت التطبيق',
+    },
+
     wa: {
       discreet: 'مرحبًا، أؤكد حجزي رقم {ref} يوم {date} الساعة {time}.',
       normal: 'مرحبًا، أؤكد موعدي في عيادة د. عمرو الأهواني — حجز رقم {ref}، {service}، يوم {date} الساعة {time}.',
@@ -203,6 +218,7 @@ window.I18N = {
       free: 'متاح',
       busy: 'محجوز',
       pickDay: 'اختر يومًا من الأعلى لعرض الأوقات المتاحة.',
+      pickDayShort: 'اختر اليوم',
       noSlots: 'ما فيه أوقات متاحة في هذا اليوم. جرّب يومًا ثاني.',
       closed: 'مغلق',
       full: 'مكتمل',
@@ -299,6 +315,22 @@ window.I18N = {
       consent_required: 'الموافقة على سياسة الخصوصية مطلوبة لإتمام الحجز.',
       consent_stale: 'تم تحديث سياسة الخصوصية — نرجو إعادة الموافقة.',
       slot_taken: 'هذا الموعد انحجز للتو. اختر وقت ثاني.',
+    },
+
+    install: {
+      title: 'ثبّت التطبيق على جوالك',
+      desc: 'افتحه من الشاشة الرئيسية في أي وقت — أسرع، ويفتح حتى لو النت ضعيف.',
+      cta: 'تثبيت التطبيق',
+      ctaManual: 'تمام، فهمت',
+      ios1: 'اضغط زر المشاركة في شريط المتصفح',
+      ios2: 'اختر «إضافة إلى الشاشة الرئيسية»',
+      ios3: 'اضغط «إضافة»',
+      android1: 'افتح قائمة المتصفح (⋮)',
+      android2: 'اختر «تثبيت التطبيق»',
+      android3: 'أكّد التثبيت',
+      done: 'تم تثبيت التطبيق على جهازك',
+      unavailable: 'التثبيت غير متاح في هذا المتصفح — جرّب Chrome أو Safari.',
+      ariaInstall: 'تثبيت التطبيق',
     },
 
     wa: {
@@ -454,6 +486,22 @@ window.I18N = {
       consent_required: 'Privacy policy consent is required to complete the booking.',
       consent_stale: 'The privacy policy was updated — please accept it again.',
       slot_taken: 'That slot was just taken. Please choose another time.',
+    },
+
+    install: {
+      title: 'Install the app',
+      desc: 'Open it from your home screen any time — faster, and it loads even on a weak connection.',
+      cta: 'Install app',
+      ctaManual: 'Got it',
+      ios1: 'Tap the Share button in the browser bar',
+      ios2: 'Choose “Add to Home Screen”',
+      ios3: 'Tap “Add”',
+      android1: 'Open the browser menu (⋮)',
+      android2: 'Choose “Install app”',
+      android3: 'Confirm the install',
+      done: 'App installed on your device',
+      unavailable: 'Installing is not available in this browser — try Chrome or Safari.',
+      ariaInstall: 'Install app',
     },
 
     wa: {
