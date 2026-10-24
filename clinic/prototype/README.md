@@ -43,8 +43,10 @@ prototype/
 ├── vercel.json             ← إعدادات النشر (منع الوصول للملفات الداخلية)
 ├── icons/                  ← أيقونات PWA (any + maskable + apple-touch)
 ├── favicon.ico             ← أيقونة المتصفح (16/32/48)
+├── img/                    ← صورة الطبيب (WebP + JPEG، مقاسين)
 ├── tools/
 │   ├── make-icons.py       ← مولّد الأيقونات (Pillow)
+│   ├── make-photo.py       ← ضغط صورة الطبيب
 │   └── smoke.js            ← فحص النشرة (محلي أو Vercel)
 ├── api/                    ← Vercel serverless functions
 │   ├── clinic.js
@@ -66,6 +68,22 @@ node tools/smoke.js https://<project>.vercel.app     # منشور
 
 ٤٧ فحص: الصفحة نفسها، الملفات الثابتة وأنواعها، حجب الملفات الداخلية،
 الـ manifest وأيقوناته، وردود الـ API.
+
+## صورة الطبيب
+
+الصورة الأصلية ٤٥٧×٧٠٠ PNG وحجمها ٥٧٠ كيلو — تقيلة جدًا على موبايل.
+`tools/make-photo.py` بيطلع نسختين (240 و480) بصيغتين:
+
+```bash
+python3 tools/make-photo.py [مسار-الصورة]
+```
+
+| | JPG | WebP |
+| --- | --- | --- |
+| 240 | 13 KB | 7.6 KB |
+| 480 | 37 KB | 19 KB |
+
+الصفحة بتستخدم `<picture>` بـ `srcset`، فالموبايل بينزّل **7.6 كيلو بس**.
 
 ## إعادة توليد الأيقونات
 

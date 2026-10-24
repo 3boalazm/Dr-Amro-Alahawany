@@ -163,6 +163,9 @@ function applyStaticText() {
   $$('[data-i18n-html]').forEach(el => {
     el.innerHTML = t(el.dataset.i18nHtml);
   });
+  $$('[data-i18n-alt]').forEach(el => {
+    el.setAttribute('alt', t(el.dataset.i18nAlt));
+  });
 
   $('#privacyLink')?.setAttribute('href', '#');
   $('#langSelect')?.setAttribute('aria-label', t('a11y.langLabel'));

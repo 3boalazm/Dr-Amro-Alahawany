@@ -15,6 +15,9 @@ window.I18N = {
     nav: { call: 'اتصل', secure: 'مشفّر' },
 
     hero: {
+      doctorName: 'أ.د. عمرو الأهواني',
+      doctorRole: 'أستاذ طب الذكورة — كلية الطب، جامعة القاهرة',
+      doctorAlt: 'صورة أ.د. عمرو الأهواني',
       eyebrow: 'متاح الآن — حجز فوري بدون انتظار',
       title: 'احجز موعدك في أقل من <em>دقيقة</em>',
       lede: 'تقييم وعلاج أمراض الذكورة وتأخر الإنجاب، على يد أستاذ طب الذكورة بكلية الطب جامعة القاهرة. اختر الخدمة والوقت المناسب لك — والباقي علينا.',
@@ -186,6 +189,9 @@ window.I18N = {
     nav: { call: 'اتصل', secure: 'مشفّر' },
 
     hero: {
+      doctorName: 'أ.د. عمرو الأهواني',
+      doctorRole: 'أستاذ طب الذكورة — كلية الطب، جامعة القاهرة',
+      doctorAlt: 'صورة أ.د. عمرو الأهواني',
       eyebrow: 'متاح الحين — حجز فوري بدون انتظار',
       title: 'موعدك عندنا في أقل من <em>دقيقة</em>',
       lede: 'تقييم وعلاج أمراض الذكورة وتأخر الإنجاب عند أستاذ طب الذكورة بكلية الطب جامعة القاهرة. اختر الخدمة والوقت اللي يناسبك — والباقي علينا.',
@@ -357,6 +363,9 @@ window.I18N = {
     nav: { call: 'Call', secure: 'Encrypted' },
 
     hero: {
+      doctorName: 'Prof. Dr. Amro Alahawany',
+      doctorRole: 'Professor of Andrology — Cairo University School of Medicine',
+      doctorAlt: 'Portrait of Prof. Dr. Amro Alahawany',
       eyebrow: 'Available now — instant booking',
       title: 'Book your appointment in under a <em>minute</em>',
       lede: 'Assessment and treatment for andrology and fertility concerns, with a Professor of Andrology at Cairo University Faculty of Medicine. Pick your service and time — we handle the rest.',

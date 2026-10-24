@@ -110,6 +110,31 @@
       <section class="hero">
         <div class="wrap hero-inner">
           <div class="hero-copy">
+            <div class="doctor">
+              <picture class="doctor-photo">
+                <source
+                  type="image/webp"
+                  srcset="img/doctor-240.webp 240w, img/doctor-480.webp 480w"
+                  sizes="(min-width: 1040px) 176px, (min-width: 760px) 150px, (min-width: 560px) 96px, 76px"
+                />
+                <img
+                  src="img/doctor-480.jpg"
+                  srcset="img/doctor-240.jpg 240w, img/doctor-480.jpg 480w"
+                  sizes="(min-width: 1040px) 176px, (min-width: 760px) 150px, (min-width: 560px) 96px, 76px"
+                  width="480"
+                  height="735"
+                  alt="أ.د. عمرو الأهواني"
+                  data-i18n-alt="hero.doctorAlt"
+                  decoding="async"
+                  fetchpriority="high"
+                />
+              </picture>
+              <div class="doctor-id">
+                <p class="doctor-name" data-i18n="hero.doctorName"></p>
+                <p class="doctor-role" data-i18n="hero.doctorRole"></p>
+              </div>
+            </div>
+
             <p class="eyebrow"><span class="dot"></span> <span data-i18n="hero.eyebrow">متاح الآن</span></p>
             <h1 data-i18n-html="hero.title">احجز موعدك في أقل من <em>دقيقة</em></h1>
             <p class="lede" data-i18n="hero.lede"></p>
