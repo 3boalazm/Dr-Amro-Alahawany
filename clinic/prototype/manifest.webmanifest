@@ -1,18 +1,29 @@
 {
   "name": "عيادة د. عمرو الأهواني — حجز المواعيد",
-  "short_name": "د. عمرو الأهواني",
+  "short_name": "د. الأهواني",
   "description": "احجز موعدك في عيادة أ.د. عمرو الأهواني — استشاري جراحات وأمراض الذكورة. حجز فوري وخصوصية تامة.",
-  "id": "/?source=pwa",
-  "start_url": "/?source=pwa",
+  "id": "/",
+  "start_url": "/",
   "scope": "/",
   "display": "standalone",
-  "display_override": ["standalone", "minimal-ui"],
+  "display_override": [
+    "standalone",
+    "minimal-ui"
+  ],
   "orientation": "portrait-primary",
   "dir": "rtl",
   "lang": "ar",
-  "background_color": "#fbf8f3",
-  "theme_color": "#08131f",
-  "categories": ["health", "medical", "lifestyle"],
+  "background_color": "#faf7f2",
+  "theme_color": "#0b1b2b",
+  "categories": [
+    "health",
+    "medical",
+    "lifestyle"
+  ],
+  "prefer_related_applications": false,
+  "launch_handler": {
+    "client_mode": "navigate-existing"
+  },
   "icons": [
     {
       "src": "icons/icon-192.png",
@@ -45,7 +56,12 @@
       "short_name": "حجز جديد",
       "description": "ابدأ حجز موعد جديد",
       "url": "/booking.html",
-      "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }]
+      "icons": [
+        {
+          "src": "icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
     },
     {
       "name": "اتصل بالعيادة",

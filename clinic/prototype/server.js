@@ -30,6 +30,7 @@ const STATIC = {
   '/install.js': 'text/javascript; charset=utf-8',
   '/sw.js': 'text/javascript; charset=utf-8',
   '/manifest.webmanifest': 'application/manifest+json; charset=utf-8',
+  '/.well-known/assetlinks.json': 'application/json; charset=utf-8',
   '/favicon.ico': 'image/x-icon',
   '/img/avatar-96.webp': 'image/webp',
   '/img/avatar-192.webp': 'image/webp',

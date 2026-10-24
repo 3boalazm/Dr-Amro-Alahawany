@@ -14,7 +14,7 @@
   'use strict';
 
   const DEFAULT_LOCALE = 'ar-EG';
-  const STORAGE = { locale: 'dr-locale', theme: 'dr-theme' };
+  const STORAGE = { locale: 'dr-locale', theme: 'dr-theme', installHidden: 'dr-install-hidden' };
 
   /* Order here is the order in the menu. */
   const PAGES = [
@@ -248,6 +248,9 @@
             </button>
           </div>
           <nav class="menu-links">${navLinks('menu-link')}</nav>
+          <button type="button" class="menu-install" id="menuInstall" hidden>
+            ${ic('install')}<span data-i18n="nav.install"></span>${ic('chevron')}
+          </button>
           <div class="menu-foot">
             <a class="menu-contact" href="tel:${PHONE}">${ic('phone')}<span>012 0005 5755</span></a>
             <a class="menu-contact" href="https://wa.me/${WHATSAPP}" target="_blank" rel="noopener">
@@ -269,9 +272,11 @@
             <img src="icons/icon-192.png" alt="" width="64" height="64" />
           </div>
           <h3 id="installTitle" data-i18n="install.title"></h3>
-          <p data-i18n="install.desc"></p>
+          <p id="installDesc" data-i18n="install.desc"></p>
+          <p class="install-alert" id="installAlert" hidden></p>
           <ol class="install-steps" id="installSteps"></ol>
           <button type="button" class="primary-btn sheet-cta" id="installCta" data-i18n="install.cta"></button>
+          <button type="button" class="ghost-btn sheet-alt" id="installCopy" data-i18n="install.copy"></button>
         </div>
       </div>`;
   }
@@ -439,18 +444,48 @@
     return rows.map(text => `<li>${text}</li>`).join('');
   }
 
+  /* One sheet, five situations. Which one we are in decides the steps, the
+     primary button and whether the in-app warning shows — a "تثبيت" button
+     that cannot do anything is worse than no button. */
   function openInstallSheet() {
     const sheet = $('#installSheet');
     if (!sheet) return;
 
-    $('#installTitle').textContent = t('install.title');
-    $('.sheet > p').textContent = t('install.desc');
-    $('#installSteps').innerHTML = installStepsMarkup();
+    const pwa = window.PWA || {};
+    const standalone = pwa.isStandalone?.() === true;
+    const canPrompt = pwa.canInstall?.() === true;
+    const inApp = pwa.isInAppBrowser?.() === true;
+    const intent = pwa.chromeIntent?.(location.href) || null;
+
+    $('#installTitle').textContent = standalone ? t('install.done') : t('install.title');
+    $('#installDesc').textContent = t('install.desc');
+    $('#installDesc').hidden = standalone;
+
+    const alert = $('#installAlert');
+    alert.hidden = !inApp;
+    alert.textContent = inApp ? t('install.inAppDesc') : '';
+
+    $('#installSteps').innerHTML = standalone || inApp ? '' : installStepsMarkup();
+    $('#installSteps').hidden = standalone || inApp;
 
     const cta = $('#installCta');
-    const canPrompt = window.PWA?.canInstall?.();
-    cta.textContent = canPrompt ? t('install.cta') : t('install.ctaManual');
-    cta.dataset.mode = canPrompt ? 'native' : 'manual';
+    let mode = 'close';
+    if (!standalone) {
+      if (canPrompt) {
+        cta.textContent = t('install.cta');
+        mode = 'native';
+      } else if (intent) {
+        cta.textContent = t('install.openChrome');
+        mode = 'chrome';
+      } else {
+        cta.textContent = t('install.ctaManual');
+      }
+    } else {
+      cta.textContent = t('install.ctaManual');
+    }
+    cta.dataset.mode = mode;
+
+    $('#installCopy').hidden = standalone;
 
     openSheet('installSheet');
   }
@@ -469,8 +504,13 @@
         btn.hidden = true;
         return;
       }
-      const actionable = pwa.canInstall() || pwa.isIOS();
-      btn.hidden = pwa.isStandalone() || !actionable;
+      const actionable = pwa.canInstall() || pwa.isIOS() || pwa.isInAppBrowser?.() === true;
+      const installed = pwa.isStandalone();
+      btn.hidden = installed || !actionable;
+      // The menu keeps a labelled entry even when the icon is hidden, so
+      // "how do I get this on my phone?" always has an answer.
+      const row = $('#menuInstall');
+      if (row) row.hidden = installed;
     };
     syncVisible();
     window.PWA?.onChange?.(syncVisible);
@@ -480,6 +520,23 @@
       openInstallSheet();
     });
 
+    $('#menuInstall')?.addEventListener('click', () => {
+      closeSheets();
+      openInstallSheet();
+    });
+
+    $('#installCopy')?.addEventListener('click', async () => {
+      const url = `${location.origin}/`;
+      try {
+        await navigator.clipboard.writeText(url);
+        toast(t('install.copied'));
+      } catch {
+        // Clipboard API needs a secure context and a user gesture; when both
+        // are missing, pointing at the address bar beats failing silently.
+        toast(url);
+      }
+    });
+
     $('#installClose')?.addEventListener('click', closeSheets);
     $('#installSheet')?.addEventListener('click', e => {
       if (e.target.id === 'installSheet') closeSheets();
@@ -487,6 +544,11 @@
 
     $('#installCta')?.addEventListener('click', async e => {
       const cta = e.currentTarget;
+      if (cta.dataset.mode === 'chrome') {
+        const intent = window.PWA.chromeIntent?.(location.href);
+        if (intent) location.href = intent;
+        return;
+      }
       if (cta.dataset.mode !== 'native') return closeSheets();
 
       const outcome = await window.PWA.prompt();
@@ -502,6 +564,36 @@
     window.addEventListener('appinstalled', () => {
       closeSheets();
       toast(t('install.done'));
+      const card = $('#installCard');
+      if (card) card.hidden = true;
+    });
+  }
+
+  /* The home-page card is the only place a visitor who never opens the menu
+     learns the app can live on their phone. It appears once, and stays gone
+     after a dismissal — a prompt that keeps coming back is an advert. */
+  function wireInstallCard() {
+    const card = $('#installCard');
+    if (!card) return;
+
+    let hidden = true;
+    try {
+      hidden = localStorage.getItem(STORAGE.installHidden) === '1';
+    } catch {}
+
+    const sync = () => {
+      // Already installed? The card has nothing left to offer.
+      card.hidden = hidden || window.PWA?.isStandalone?.() === true;
+    };
+    sync();
+
+    $('#installCardBtn')?.addEventListener('click', openInstallSheet);
+    $('#installCardClose')?.addEventListener('click', () => {
+      hidden = true;
+      try {
+        localStorage.setItem(STORAGE.installHidden, '1');
+      } catch {}
+      sync();
     });
   }
 
@@ -525,6 +617,7 @@
     wireTheme();
     wireMenu();
     wireInstall();
+    wireInstallCard();
     setLocale(state.locale, { persist: false });
 
     // Give every page the clinic card, then let it render.

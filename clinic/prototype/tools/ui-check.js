@@ -140,6 +140,60 @@ async function waitFor(fn, ms = 5000) {
     await sleep(150);
     check('closing restores scrolling', doc.body.style.overflow === '');
 
+    /* ── the home-page install card ── */
+    check('home offers an install card', !!$('#installCard'));
+    check('card is visible on a first visit', $('#installCard').hidden === false);
+    check('card names the benefit', ($('#installCard h3')?.textContent || '').trim().length > 0);
+    click(window, $('#installCardBtn'));
+    await sleep(160);
+    check('card opens the same install sheet', $('#installSheet').hidden === false);
+    click(window, $('#installClose'));
+    await sleep(140);
+    click(window, $('#installCardClose'));
+    await sleep(140);
+    check('dismissing hides the card', $('#installCard').hidden === true);
+    check('dismissal is remembered', window.localStorage.getItem('dr-install-hidden') === '1');
+
+    /* ── install: the two Android routes ── */
+    check('menu carries a labelled install row', !!$('#menuInstall'));
+    check('install row is offered before install', $('#menuInstall').hidden === false);
+
+    click(window, $('#menuInstall'));
+    await sleep(160);
+    check('menu install row opens the sheet', $('#installSheet').hidden === false);
+    check('an ordinary browser gets manual steps', $$('#installSteps li').length === 3);
+    check('copy-link fallback is offered', $('#installCopy').hidden === false);
+    check('in-app warning stays hidden normally', $('#installAlert').hidden === true);
+
+    /* WhatsApp and Instagram open links in a WebView that cannot install a
+       PWA. The sheet must say so and hand over to Chrome — showing steps
+       that cannot work is the bug that makes people think it is broken. */
+    const realInApp = window.PWA.isInAppBrowser;
+    const realIntent = window.PWA.chromeIntent;
+    window.PWA.isInAppBrowser = () => true;
+    window.PWA.chromeIntent = () => 'intent://example#Intent;end';
+
+    click(window, $('#installClose'));
+    await sleep(140);
+    click(window, $('#menuInstall'));
+    await sleep(160);
+    check('an in-app WebView is called out', $('#installAlert').hidden === false);
+    check('the warning explains itself', $('#installAlert').textContent.trim().length > 20);
+    check('dead manual steps are removed', $$('#installSteps li').length === 0, `${$$('#installSteps li').length}`);
+    check('CTA hands off to Chrome', $('#installCta').dataset.mode === 'chrome', $('#installCta').dataset.mode);
+    check('CTA is labelled for the hand-off', $('#installCta').textContent.includes('Chrome'), $('#installCta').textContent);
+
+    window.PWA.isInAppBrowser = realInApp;
+    window.PWA.chromeIntent = realIntent;
+    click(window, $('#installClose'));
+    await sleep(140);
+    click(window, $('#menuInstall'));
+    await sleep(160);
+    check('sheet returns to normal outside the WebView', $$('#installSteps li').length === 3);
+    check('the warning is hidden again', $('#installAlert').hidden === true);
+    click(window, $('#installClose'));
+    await sleep(140);
+
     /* ── footer ── */
     check('footer rendered', !!$('.site-footer .footer-inner'));
     check('footer has the phone link', ($('.footer-links a')?.getAttribute('href') || '').startsWith('tel:'));
