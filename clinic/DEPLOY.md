@@ -67,6 +67,29 @@ Vercel مش قادر ينشر دلوقتي عن طريق الـ API لأنه ب�
 - **كاش صحيح** لـ `manifest.webmanifest` و`sw.js` (بدون كاش للـ service worker
   عشان التحديثات توصل فورًا) وأيقونات الـ PWA بصلاحية سنة.
 
+### 🚨 لو شوفت `500 FUNCTION_INVOCATION_FAILED`
+
+شوف الـ **اسم الحقل `deploymentId`** في اللوج، وقارنه بآخر نشرة ناجحة.
+
+كل نشرة ليها رابط ثابت خاص بيها زي `prototype-nkhhar4vt-aboalazm.vercel.app`،
+والرابط ده **مش بيتحدث أبدًا**. فلو نشرة قديمة كانت بايظة (زي اللي كان Vercel
+بيعامل فيها `app.js` كسيرفر)، فالرابط بتاعها هيفضل 500 للأبد.
+
+**استخدم الرابط الرئيسي بس:** `https://prototype-aboalazm.vercel.app`
+
+ولو فيه Service Worker قديم عالق في المتصفح: افتح
+`Settings → Site data` أو استخدم نافذة خاصة (incognito) مرة واحدة.
+
+### فحص سريع للنشرة
+
+```bash
+node clinic/prototype/tools/smoke.js https://prototype-aboalazm.vercel.app
+```
+
+بيفحص ٤٧ حاجة: إن الصفحة نفسها شغالة (مش دالة بتقع)، كل ملف ثابت ونوعه،
+إن الملفات الداخلية محجوبة، الـ manifest وأيقوناته، والـ API بيرد فعلاً.
+وبيفرّق بين `500` (دالة بتقع) وشاشة تسجيل دخول Vercel (حماية النشر).
+
 ### التحقق بعد النشر (PWA)
 
 ```bash

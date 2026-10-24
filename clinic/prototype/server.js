@@ -25,6 +25,7 @@ const STATIC = {
   '/install.js': 'text/javascript; charset=utf-8',
   '/sw.js': 'text/javascript; charset=utf-8',
   '/manifest.webmanifest': 'application/manifest+json; charset=utf-8',
+  '/favicon.ico': 'image/x-icon',
   '/icons/icon-192.png': 'image/png',
   '/icons/icon-512.png': 'image/png',
   '/icons/icon-maskable-192.png': 'image/png',

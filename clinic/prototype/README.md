@@ -42,7 +42,10 @@ prototype/
 ├── manifest.webmanifest    ← بيانات التطبيق والأيقونات والاختصارات
 ├── vercel.json             ← إعدادات النشر (منع الوصول للملفات الداخلية)
 ├── icons/                  ← أيقونات PWA (any + maskable + apple-touch)
-├── tools/make-icons.py     ← مولّد الأيقونات (Pillow)
+├── favicon.ico             ← أيقونة المتصفح (16/32/48)
+├── tools/
+│   ├── make-icons.py       ← مولّد الأيقونات (Pillow)
+│   └── smoke.js            ← فحص النشرة (محلي أو Vercel)
 ├── api/                    ← Vercel serverless functions
 │   ├── clinic.js
 │   ├── calendar.js
@@ -53,6 +56,16 @@ prototype/
 │   └── api-core.js         ← معالجات مشتركة بين السيرفر المحلي وVercel
 └── server.js               ← سيرفر تطوير محلي (مش بينشر)
 ```
+
+## فحص النشرة
+
+```bash
+node tools/smoke.js                                  # محلي
+node tools/smoke.js https://<project>.vercel.app     # منشور
+```
+
+٤٧ فحص: الصفحة نفسها، الملفات الثابتة وأنواعها، حجب الملفات الداخلية،
+الـ manifest وأيقوناته، وردود الـ API.
 
 ## إعادة توليد الأيقونات
 
