@@ -70,6 +70,7 @@ const check = (name, ok, detail = '') => results.push({ name, ok: !!ok, detail }
   check('every markup class has styles', orphans.length === 0, orphans.join(', '));
 
   const critical = [
+    'nav-pill', 'nav-actions', 'nav-cta', 'lang-control', 'icon-btn',
     'brand-avatar', 'doctor', 'doctor-badge', 'doctor-crest', 'doctor-photo',
     'doctor-id', 'doctor-name', 'doctor-role',
     'service-card', 'sc-icon', 'sc-body', 'sc-side', 'sc-title', 'sc-price', 'sc-dur',
@@ -80,6 +81,36 @@ const check = (name, ok, detail = '') => results.push({ name, ok: !!ok, detail }
 
   // Nothing should still reference the old SVG header tile.
   check('no dead .brand-mark rules', !cssClasses.has('brand-mark'));
+
+  // <picture> is display:inline by default, so width/height on it are
+  // ignored and the <img> inside renders at its intrinsic size — this is
+  // what blew the header logo up to full width. Every <picture> must be
+  // made block-level, either by its own class or by a `X picture` rule on
+  // the frame that wraps it.
+  const blockish = /display:\s*(block|grid|flex|inline-block|inline-flex)/;
+
+  const ruleFor = sel => {
+    const esc = sel.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const m = css.match(new RegExp(`(?:^|\\})[^{}]*${esc}[^{}]*\\{[^}]*\\}`, 'm'));
+    return m ? m[0] : '';
+  };
+
+  const pictures = [...html.matchAll(/<picture(?:\s+class="([^"]*)")?/g)];
+  const unwrapped = [];
+  for (const m of pictures) {
+    const ownClasses = (m[1] || '').split(/\s+/).filter(Boolean);
+    if (ownClasses.length) {
+      if (!ownClasses.some(c => blockish.test(ruleFor(`.${c}`)))) unwrapped.push(ownClasses.join('.'));
+      continue;
+    }
+    // No class of its own: find the nearest enclosing element's class.
+    const before = html.slice(0, m.index);
+    const ancestors = [...before.matchAll(/class="([^"]+)"/g)].reverse();
+    const host = ancestors.length ? ancestors[0][1].split(/\s+/)[0] : null;
+    const wrapped = host && blockish.test(ruleFor(`.${host} picture`));
+    if (!wrapped) unwrapped.push(host ? `${host} > picture` : 'unclassed picture');
+  }
+  check('every <picture> is made block-level', unwrapped.length === 0, unwrapped.join(', '));
 }
 
 /* ─────────────────────── responsive ─────────────────────── */
