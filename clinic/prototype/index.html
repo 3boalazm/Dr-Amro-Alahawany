@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>حجز موعد — عيادة د. عمرو الأهواني</title>
+    <meta name="description" content="احجز موعدك أونلاين في عيادة أ.د. عمرو الأهواني — استشاري جراحات وأمراض الذكورة." />
+    <meta name="theme-color" content="#fbf8f3" id="themeColor" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script>
+      /* Apply the saved theme before first paint to avoid a flash. */
+      (function () {
+        try {
+          var saved = localStorage.getItem('dr-theme');
+          var system = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          document.documentElement.dataset.theme = saved || system;
+          var locale = localStorage.getItem('dr-locale');
+          if (locale) {
+            document.documentElement.lang = locale === 'en' ? 'en' : 'ar';
+            document.documentElement.dir = locale === 'en' ? 'ltr' : 'rtl';
+          }
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#booking" data-i18n="a11y.skip">تجاوز إلى الحجز</a>
+
+    <!-- ══════════════ Header ══════════════ -->
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+              <path d="M4 12h4l2-5 3 10 2-5h5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </div>
+          <div class="brand-text">
+            <strong data-i18n="brand.name">د. عمرو الأهواني</strong>
+            <span data-i18n="brand.role">استشاري جراحات وأمراض الذكورة</span>
+          </div>
+        </div>
+
+        <div class="header-actions">
+          <div class="lang-control">
+            <svg class="lang-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+              <circle cx="12" cy="12" r="8.6" />
+              <path d="M3.6 12h16.8M12 3.4c2.2 2.3 3.4 5.3 3.4 8.6s-1.2 6.3-3.4 8.6c-2.2-2.3-3.4-5.3-3.4-8.6S9.8 5.7 12 3.4Z" />
+            </svg>
+            <select id="langSelect" aria-label="Language"></select>
+          </div>
+
+          <button type="button" class="icon-btn" id="themeBtn" aria-label="Theme">
+            <svg class="ico-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <circle cx="12" cy="12" r="4.2" />
+              <path d="M12 2.8v2M12 19.2v2M2.8 12h2M19.2 12h2M5.5 5.5l1.4 1.4M17.1 17.1l1.4 1.4M18.5 5.5l-1.4 1.4M6.9 17.1l-1.4 1.4" stroke-linecap="round" />
+            </svg>
+            <svg class="ico-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <path d="M20 14.2A8.4 8.4 0 0 1 9.8 4a8.4 8.4 0 1 0 10.2 10.2Z" stroke-linejoin="round" />
+            </svg>
+          </button>
+
+          <a class="ghost-btn call-btn" href="tel:+201200055755">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+              <path d="M6.6 3.5 9 3l1.6 4-2 1.4a12 12 0 0 0 6 6L16 12.4 20 14l-.5 2.4A2 2 0 0 1 17.4 18C10.2 17.6 6.4 13.8 6 6.6a2 2 0 0 1 .6-1.5Z" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span data-i18n="nav.call">اتصل</span>
+          </a>
+
+          <div class="secure-pill">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <rect x="4.5" y="10.5" width="15" height="10" rx="2.5" />
+              <path d="M8 10.5V7.8a4 4 0 0 1 8 0v2.7" stroke-linecap="round" />
+            </svg>
+            <span data-i18n="nav.secure">مشفّر</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- ══════════════ Hero ══════════════ -->
+      <section class="hero">
+        <div class="wrap hero-inner">
+          <div class="hero-copy">
+            <p class="eyebrow"><span class="dot"></span> <span data-i18n="hero.eyebrow">متاح الآن</span></p>
+            <h1 data-i18n-html="hero.title">احجز موعدك في أقل من <em>دقيقة</em></h1>
+            <p class="lede" data-i18n="hero.lede"></p>
+
+            <ul class="trust">
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                  <path d="M12 3 4.5 6v5.5c0 4.4 3.1 8.2 7.5 9.5 4.4-1.3 7.5-5.1 7.5-9.5V6Z" stroke-linejoin="round" />
+                  <path d="m9 12 2.2 2.2L15.5 10" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span data-i18n="hero.trust1">خصوصية تامة</span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                  <circle cx="12" cy="12" r="8.2" />
+                  <path d="M12 7.6V12l3 1.8" stroke-linecap="round" />
+                </svg>
+                <span data-i18n="hero.trust2">خبرة 25 عامًا</span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                  <circle cx="12" cy="9" r="5.2" />
+                  <path d="m8.4 13.6L7 21l5-2.6L17 21l-1.4-7.4" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span data-i18n="hero.trust3">زمالة أوروبية</span>
+              </li>
+            </ul>
+          </div>
+
+          <aside class="hero-card">
+            <span class="badge-live"><i></i> <span data-i18n="card.live">العيادة مفتوحة اليوم</span></span>
+            <dl class="hero-facts">
+              <div>
+                <dt data-i18n="card.addressLabel">العنوان</dt>
+                <dd id="clinicAddress">—</dd>
+              </div>
+              <div>
+                <dt data-i18n="card.hoursLabel">مواعيد العمل</dt>
+                <dd>
+                  <span data-i18n="card.hoursValue"></span>
+                  <span class="muted" data-i18n="card.hoursMuted"></span>
+                </dd>
+              </div>
+              <div>
+                <dt data-i18n="card.waitLabel"></dt>
+                <dd><strong data-i18n="card.waitValue"></strong> <span data-i18n="card.waitNote"></span></dd>
+              </div>
+            </dl>
+          </aside>
+        </div>
+      </section>
+
+      <!-- ══════════════ Booking ══════════════ -->
+      <section class="booking" id="booking">
+        <div class="wrap">
+          <nav class="stepper" aria-label="Booking steps">
+            <ol>
+              <li class="step is-active" data-step-dot="1"><span>1</span><b data-i18n="steps.1"></b></li>
+              <li class="step" data-step-dot="2"><span>2</span><b data-i18n="steps.2"></b></li>
+              <li class="step" data-step-dot="3"><span>3</span><b data-i18n="steps.3"></b></li>
+              <li class="step" data-step-dot="4"><span>4</span><b data-i18n="steps.4"></b></li>
+            </ol>
+            <div class="stepper-bar"><i id="stepperProgress"></i></div>
+          </nav>
+
+          <!-- Step 1 -->
+          <div class="panel" id="panel-1">
+            <header class="panel-head">
+              <h2 data-i18n="panel1.title"></h2>
+              <p data-i18n="panel1.desc"></p>
+            </header>
+            <div class="services" id="serviceList" role="radiogroup"></div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="panel" id="panel-2" hidden>
+            <header class="panel-head">
+              <h2 data-i18n="panel2.title"></h2>
+              <p data-i18n="panel2.desc"></p>
+            </header>
+
+            <div class="date-rail-wrap">
+              <button class="rail-arrow" id="railPrev" aria-label="Previous days">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 5-7 7 7 7" stroke-linecap="round" stroke-linejoin="round" /></svg>
+              </button>
+              <div class="date-rail" id="dateRail" role="listbox"></div>
+              <button class="rail-arrow" id="railNext" aria-label="Next days">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 5 7 7-7 7" stroke-linecap="round" stroke-linejoin="round" /></svg>
+              </button>
+            </div>
+
+            <div class="slots-head">
+              <h3 data-i18n="panel2.slots"></h3>
+              <div class="slot-legend">
+                <span><i class="dot-free"></i> <span data-i18n="panel2.free"></span></span>
+                <span><i class="dot-busy"></i> <span data-i18n="panel2.busy"></span></span>
+              </div>
+            </div>
+            <div class="slots" id="slotGrid" aria-live="polite"></div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="panel" id="panel-3" hidden>
+            <header class="panel-head">
+              <h2 data-i18n="panel3.title"></h2>
+              <p data-i18n="panel3.desc"></p>
+            </header>
+
+            <form class="form" id="detailsForm" novalidate>
+              <div class="field-row">
+                <div class="field">
+                  <label for="firstName"><span data-i18n="field.firstName"></span> <span class="req">*</span></label>
+                  <input id="firstName" name="first_name" autocomplete="given-name" required minlength="2" />
+                  <p class="err" data-err="firstName"></p>
+                </div>
+                <div class="field">
+                  <label for="lastName"
+                    ><span data-i18n="field.lastName"></span> <span class="opt" data-i18n="field.optional"></span
+                  ></label>
+                  <input id="lastName" name="last_name" autocomplete="family-name" />
+                  <p class="err" data-err="lastName"></p>
+                </div>
+              </div>
+
+              <div class="field-row">
+                <div class="field">
+                  <label for="phone"><span data-i18n="field.phone"></span> <span class="req">*</span></label>
+                  <input id="phone" name="phone_number" inputmode="numeric" autocomplete="tel" maxlength="11" required />
+                  <p class="err" data-err="phone"></p>
+                </div>
+                <div class="field">
+                  <label for="email"
+                    ><span data-i18n="field.email"></span> <span class="opt" data-i18n="field.optional"></span
+                  ></label>
+                  <input id="email" name="email" type="email" autocomplete="email" />
+                  <p class="err" data-err="email"></p>
+                </div>
+              </div>
+
+              <label class="switch-row">
+                <span class="switch-copy">
+                  <strong data-i18n="discreet.title"></strong>
+                  <small data-i18n="discreet.desc"></small>
+                </span>
+                <input type="checkbox" id="discreet" checked />
+                <span class="switch-ui" aria-hidden="true"></span>
+              </label>
+
+              <label class="consent-row" for="consent">
+                <input type="checkbox" id="consent" required />
+                <span>
+                  <span data-i18n="consent.before"></span>
+                  <a href="#" id="privacyLink" data-i18n="consent.link"></a>
+                  <span data-i18n="consent.after"></span>
+                  <small class="consent-note" data-i18n="consent.note"></small>
+                </span>
+              </label>
+              <p class="err err-block" data-err="consent"></p>
+
+              <div class="form-actions">
+                <button type="button" class="link-btn" id="backTo2" data-i18n="btn.back"></button>
+                <button type="submit" class="primary-btn" id="submitBtn">
+                  <span data-i18n="btn.confirm"></span>
+                  <svg class="dir-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="m14 5-7 7 7 7" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </button>
+              </div>
+              <p class="fineprint" data-i18n="fineprint"></p>
+            </form>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="panel panel-success" id="panel-4" hidden>
+            <div class="success-mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <path d="m5 12.5 4.5 4.5L19 7.5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+            <h2 data-i18n="success.title"></h2>
+            <p class="success-sub" id="successSub"></p>
+
+            <div class="ticket">
+              <div class="ticket-main">
+                <span class="ticket-label" data-i18n="success.reference"></span>
+                <strong class="ticket-code" id="refCode">—</strong>
+              </div>
+              <div class="ticket-grid">
+                <div><span data-i18n="success.service"></span><strong id="sumService">—</strong></div>
+                <div><span data-i18n="success.date"></span><strong id="sumDate">—</strong></div>
+                <div><span data-i18n="success.time"></span><strong id="sumTime">—</strong></div>
+                <div><span data-i18n="success.duration"></span><strong id="sumDuration">—</strong></div>
+              </div>
+            </div>
+
+            <div class="success-actions">
+              <a class="primary-btn" id="whatsappBtn" href="#" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="width: 18px; height: 18px">
+                  <path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.1-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.6-6.1c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.6.1l-.8 1c-.2.2-.3.2-.6.1a6.7 6.7 0 0 1-3.3-2.9c-.1-.2 0-.4.1-.5l.6-.7c.1-.2.1-.3 0-.5l-.7-1.6c-.2-.4-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 2.9 2.9 0 0 0-.9 2.2 5.1 5.1 0 0 0 1.1 2.7 11 11 0 0 0 4.2 3.7c1.5.6 2 .7 2.7.6a2.3 2.3 0 0 0 1.5-1.1 1.9 1.9 0 0 0 .1-1.1c0-.1-.1-.2-.2-.3Z" />
+                </svg>
+                <span data-i18n="btn.whatsapp"></span>
+              </a>
+              <button class="ghost-btn" id="icsBtn" type="button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" style="width: 18px; height: 18px">
+                  <rect x="3.5" y="5" width="17" height="15" rx="2.5" />
+                  <path d="M3.5 10h17M8 3v4M16 3v4" stroke-linecap="round" />
+                </svg>
+                <span data-i18n="btn.calendar"></span>
+              </button>
+            </div>
+
+            <ul class="next-steps">
+              <li data-i18n-html="success.step1"></li>
+              <li data-i18n-html="success.step2"></li>
+              <li data-i18n-html="success.step3"></li>
+            </ul>
+
+            <button class="link-btn restart" id="restartBtn" data-i18n="btn.restart"></button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ══════════════ Trust strip ══════════════ -->
+      <section class="trust-strip">
+        <div class="wrap trust-strip-inner">
+          <div>
+            <h3 data-i18n="trust.title"></h3>
+            <p data-i18n="trust.text"></p>
+          </div>
+          <ul class="pill-list">
+            <li data-i18n="trust.p1"></li>
+            <li data-i18n="trust.p2"></li>
+            <li data-i18n="trust.p3"></li>
+            <li data-i18n="trust.p4"></li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap footer-inner">
+        <p data-i18n-html="footer.copy"></p>
+        <p class="footer-links">
+          <a href="tel:+201200055755">01200055755</a>
+          <span aria-hidden="true">·</span>
+          <a href="https://wa.me/201200055755" target="_blank" rel="noopener" data-i18n="footer.whatsapp"></a>
+          <span aria-hidden="true">·</span>
+          <a href="https://ahwani.com/" target="_blank" rel="noopener" data-i18n="footer.site"></a>
+        </p>
+      </div>
+    </footer>
+
+    <div class="sticky-bar" id="stickyBar" hidden>
+      <div class="sticky-info">
+        <span id="stickyService">—</span>
+        <strong id="stickyWhen">—</strong>
+      </div>
+      <button class="primary-btn small" id="stickyCta"></button>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+    <script src="i18n.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
