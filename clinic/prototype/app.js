@@ -119,7 +119,9 @@ function setTheme(theme, { persist = true } = {}) {
   $('#themeColor')?.setAttribute('content', theme === 'dark' ? '#080f16' : '#faf7f2');
   $('#themeBtn')?.setAttribute(
     'aria-label',
-    `${t('a11y.themeLabel')}: ${theme === 'dark' ? 'dark' : 'light'}`,
+    // Names the mode in the reader's own language; the old label ended
+    // with the English word "dark"/"light" even in Arabic.
+    theme === 'dark' ? t('a11y.themeDark') : t('a11y.themeLight'),
   );
   if (persist) {
     try {
