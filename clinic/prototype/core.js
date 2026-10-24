@@ -23,6 +23,7 @@
     { id: 'clinic', href: 'clinic.html', key: 'nav.clinic' },
     { id: 'about', href: 'about.html', key: 'nav.about' },
     { id: 'privacy', href: 'privacy.html', key: 'nav.privacy' },
+    { id: 'studio', href: 'studio.html', key: 'nav.studio' },
   ];
 
   const PHONE = '+201200055755';
