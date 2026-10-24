@@ -113,6 +113,21 @@ def save(img, name):
     print(f"  {name:32} {img.size[0]}x{img.size[1]}  {os.path.getsize(path) / 1024:.1f} KB")
 
 
+def save_ico(sizes, name):
+    """Browsers still request /favicon.ico on their own — ship a real one.
+
+    Pillow's ICO writer downsamples a single master image into every size in
+    `sizes`, so the master must be the largest one (256) or the big frames
+    come out upscaled and blurry.
+    """
+    path = os.path.join(OUT, "..", name)
+    master = build(256)
+    master.save(path, format="ICO", sizes=[(s, s) for s in sorted(sizes)])
+    with Image.open(path) as ico:
+        got = sorted(getattr(ico, "ico", None).sizes()) if getattr(ico, "ico", None) else "?"
+    print(f"  {name:32} {got}  {os.path.getsize(path) / 1024:.1f} KB")
+
+
 if __name__ == "__main__":
     print("Generating PWA icons…")
     save(build(192), "icon-192.png")
@@ -122,4 +137,5 @@ if __name__ == "__main__":
     save(build(180, rounded=False), "apple-touch-icon.png")
     save(build(32), "favicon-32.png")
     save(build(16), "favicon-16.png")
+    save_ico([16, 32, 48], "favicon.ico")
     print("Done.")

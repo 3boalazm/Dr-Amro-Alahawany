@@ -10,7 +10,7 @@
      • Anything else                 → network, falling back to cache.
    ══════════════════════════════════════════════════════════ */
 
-const VERSION = 'v1';
+const VERSION = 'v2';
 const SHELL_CACHE = `shell-${VERSION}`;
 const RUNTIME_CACHE = `runtime-${VERSION}`;
 
@@ -25,6 +25,7 @@ const SHELL = [
   '/icons/icon-512.png',
   '/icons/apple-touch-icon.png',
   '/icons/favicon-32.png',
+  '/favicon.ico',
 ];
 
 /* ── install: precache the shell ── */
