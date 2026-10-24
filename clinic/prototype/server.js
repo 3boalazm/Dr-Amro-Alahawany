@@ -19,8 +19,13 @@ const ROOT = __dirname;
 /** Only these files are public — never serve lib/, api/, tools/ or server.js. */
 const STATIC = {
   '/index.html': 'text/html; charset=utf-8',
+  '/booking.html': 'text/html; charset=utf-8',
+  '/clinic.html': 'text/html; charset=utf-8',
+  '/privacy.html': 'text/html; charset=utf-8',
   '/styles.css': 'text/css; charset=utf-8',
-  '/app.js': 'text/javascript; charset=utf-8',
+  '/core.js': 'text/javascript; charset=utf-8',
+  '/booking.js': 'text/javascript; charset=utf-8',
+  '/home.js': 'text/javascript; charset=utf-8',
   '/i18n.js': 'text/javascript; charset=utf-8',
   '/install.js': 'text/javascript; charset=utf-8',
   '/sw.js': 'text/javascript; charset=utf-8',

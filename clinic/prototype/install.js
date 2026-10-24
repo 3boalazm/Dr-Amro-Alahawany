@@ -1,7 +1,7 @@
 /* ══════════════════════════════════════════════════════════
    PWA install + service worker registration
    ──────────────────────────────────────────────────────────
-   Exposes  window.PWA  for app.js:
+   Exposes  window.PWA  for core.js (the install button + sheet):
      PWA.canInstall()   → boolean
      PWA.isStandalone() → boolean
      PWA.prompt()       → Promise<'accepted'|'dismissed'|'manual'>

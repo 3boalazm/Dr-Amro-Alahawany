@@ -99,7 +99,7 @@ function clinic() {
 
 function calendar(body = {}) {
   if (!body.service_id) return fail(400, 'invalid_service');
-  return { status: 200, body: { calendar: availableDates(body.service_id) } };
+  return { status: 200, body: { calendar: withBookings(body.service_id) } };
 }
 
 /* Times already taken for one service on one day.
@@ -108,6 +108,39 @@ function calendar(body = {}) {
    date, not its bookings. Without subtracting BOOKINGS here, a patient who
    taps an already-taken slot only finds out after typing in the whole form
    and getting 409 slot_taken. */
+/** The clinic runs on Cairo time, whatever timezone the server is in. */
+function cairoNow() {
+  const now = new Date();
+  return {
+    date: new Intl.DateTimeFormat('en-CA', { timeZone: 'Africa/Cairo' }).format(now),
+    time: new Intl.DateTimeFormat('en-GB', {
+      timeZone: 'Africa/Cairo',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+    }).format(now),
+  };
+}
+
+/** Slots a patient can actually pick: on offer, not booked, not already past.
+
+    Without the past check the app offered 2 pm at 9 pm, and the calendar
+    advertised a day as free while every slot on it had gone. */
+function openSlots(serviceId, dateKey) {
+  const now = cairoNow();
+  const taken = bookedTimes(serviceId, dateKey);
+  return buildSlots(serviceId, dateKey).filter(s => {
+    if (taken.has(s.time)) return false;
+    if (dateKey === now.date && s.time <= now.time) return false;
+    return true;
+  });
+}
+
+/** The 21-day rail, with counts that match what openSlots will return. */
+function withBookings(serviceId) {
+  return availableDates(serviceId).map(day => ({ ...day, available: openSlots(serviceId, day.date).length }));
+}
+
 function bookedTimes(serviceId, dateKey) {
   const taken = new Set();
   for (const b of BOOKINGS) {
@@ -122,14 +155,8 @@ function bookedTimes(serviceId, dateKey) {
 function availability(body = {}) {
   if (!body.service_id || !body.selected_date) return fail(400, 'invalid_appointment');
 
-  const taken = bookedTimes(body.service_id, body.selected_date);
-  const slots = buildSlots(body.service_id, body.selected_date).filter(s => !taken.has(s.time));
-
-  // A day with nothing left should stop advertising itself as available.
-  const calendar = availableDates(body.service_id).map(day => {
-    if (day.date !== body.selected_date) return day;
-    return { ...day, available: slots.length };
-  });
+  const slots = openSlots(body.service_id, body.selected_date);
+  const calendar = withBookings(body.service_id);
 
   return {
     status: 200,
@@ -158,13 +185,13 @@ function register(body = {}) {
   // Never trust the posted time. Without this a caller can book 03:00, a
   // Friday, or a slot that was never on offer — the UI would never ask for
   // those, so anything else is a malformed or replayed request.
-  const offered = buildSlots(serviceId, dateKey).some(s => s.time === time);
-  if (!offered) return fail(409, 'slot_unavailable');
-
-  const clash = BOOKINGS.find(
-    b => b.start_datetime === startDatetime && b.service_id === serviceId,
-  );
-  if (clash) return fail(409, 'slot_taken');
+  const offered = openSlots(serviceId, dateKey).some(s => s.time === time);
+  if (!offered) {
+    const clash = BOOKINGS.some(
+      b => b.start_datetime === startDatetime && b.service_id === serviceId,
+    );
+    return fail(409, clash ? 'slot_taken' : 'slot_unavailable');
+  }
 
   const record = {
     id: String(BOOKINGS.length + 1),

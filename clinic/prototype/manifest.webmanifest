@@ -44,7 +44,7 @@
       "name": "احجز موعد",
       "short_name": "حجز جديد",
       "description": "ابدأ حجز موعد جديد",
-      "url": "/?action=book",
+      "url": "/booking.html",
       "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }]
     },
     {

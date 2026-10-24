@@ -6,7 +6,7 @@
      node tools/smoke.js https://example.com   # نشرة على Vercel
 
    بيفشل (exit 1) لو أي حاجة مش مظبوطة، وبيميّز بين:
-     • 500  → الدالة بتقع (زي مشكلة app.js اللي كانت بتتحسب سيرفر)
+     • 500  → الدالة بتقع
      • تسجيل دخول Vercel → حماية النشر مفعّلة
    ══════════════════════════════════════════════════════════════ */
 
@@ -17,7 +17,9 @@ const check = (name, ok, detail = '') => results.push({ name, ok: !!ok, detail }
 
 const ASSETS = [
   ['/styles.css', 'text/css'],
-  ['/app.js', 'javascript'],
+  ['/core.js', 'javascript'],
+  ['/booking.js', 'javascript'],
+  ['/home.js', 'javascript'],
   ['/i18n.js', 'javascript'],
   ['/install.js', 'javascript'],
   ['/sw.js', 'javascript'],
@@ -75,15 +77,29 @@ async function get(path, init) {
   }
 
   // The page must be the app, not an error page.
-  check('الصفحة فيها التطبيق', home.body.includes('app.js') && home.body.includes('serviceList'));
+  check('الصفحة فيها التطبيق', home.body.includes('core.js') && home.body.includes('serviceList'));
   check('الصفحة مش صفحة خطأ', !/FUNCTION_INVOCATION_FAILED|Application error/i.test(home.body));
   check('الصفحة فيها manifest', home.body.includes('manifest.webmanifest'));
   check('الصفحة RTL عربي', home.body.includes('dir="rtl"'));
   check('فيها رابط الأيقونة', home.body.includes('favicon.ico'));
   check('HTML متطابق مع المستودع', home.body.length > 5000, `${home.body.length} حرف`);
   check('صورة الطبيب في الصفحة', home.body.includes('img/doctor-480.webp'));
-  check('أفاتار الهيدر موجود', home.body.includes('img/avatar-96.webp'));
+  // الهيدر (والأفاتار) بقوا في core.js، بيتحقنوا في كل صفحة.
+  check('أفاتار الهيدر موجود', (await get('/core.js')).body.includes('img/avatar-96.webp'));
   check('صورة الطبيب فيها alt', /img[^>]*data-i18n-alt/.test(home.body) || home.body.includes('data-i18n-alt'));
+
+  /* ── 1b. الصفحات الأربعة ── */
+  for (const page of ['/booking.html', '/clinic.html', '/privacy.html']) {
+    try {
+      const r = await get(page);
+      check(`${page} 200`, r.status === 200, `${r.status}`);
+      check(`${page} HTML`, r.type.includes('text/html'), r.type);
+      check(`${page} بيحمّل core.js`, r.body.includes('src="core.js"'));
+      check(`${page} مش صفحة خطأ`, !/FUNCTION_INVOCATION_FAILED|Application error/i.test(r.body));
+    } catch (err) {
+      check(`${page}`, false, err.message);
+    }
+  }
 
   /* ── 2. static assets ── */
   for (const [path, expected] of ASSETS) {
@@ -129,7 +145,7 @@ async function get(path, init) {
   try {
     const r = await get('/sw.js');
     check('sw يمنع كاش الـ API', r.body.includes("'/api/'"));
-    check('sw بيكاش الواجهة', r.body.includes("'/index.html'"));
+    check('sw بيكاش الواجهة', r.body.includes("'/index.html'") && r.body.includes("'/booking.html'"));
   } catch (err) {
     check('sw', false, err.message);
   }
