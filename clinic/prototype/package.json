@@ -1,0 +1,10 @@
+{
+  "name": "dr-amro-booking",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Arabic/Gulf/English booking UI for Dr. Amro Alahawany Clinic (Easy!Appointments front-end)",
+  "license": "GPL-3.0",
+  "scripts": {
+    "dev": "node server.js"
+  }
+}
