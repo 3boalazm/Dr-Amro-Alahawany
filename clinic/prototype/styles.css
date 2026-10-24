@@ -46,6 +46,8 @@
   --select-bg: #08131f;
   --select-text: #ffffff;
   --select-muted: rgba(255, 255, 255, 0.62);
+  --accent-border: #08131f;
+  --accent-on: #f5ecd9;
 
   --btn-1: #16293a;
   --btn-2: #08131f;
@@ -119,6 +121,8 @@
   --select-bg: #d3a95f;
   --select-text: #0a1118;
   --select-muted: rgba(10, 17, 24, 0.6);
+  --accent-border: #d3a95f;
+  --accent-on: #0a1118;
 
   --btn-1: #e3bd7d;
   --btn-2: #c9a25a;
@@ -738,7 +742,7 @@ button {
   box-shadow: var(--shadow-md);
 }
 .service-card.is-selected {
-  border-color: var(--text);
+  border-color: var(--accent-border);
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--text) 8%, transparent), var(--shadow-md);
 }
 
@@ -764,8 +768,8 @@ button {
   height: 21px;
 }
 .service-card.is-selected .sc-icon {
-  background: var(--text);
-  color: var(--gold-soft);
+  background: var(--accent-border);
+  color: var(--accent-on);
 }
 
 .sc-tag {
@@ -848,9 +852,9 @@ button {
   height: 17px;
 }
 .rail-arrow:hover:not(:disabled) {
-  background: var(--text);
-  color: var(--bg);
-  border-color: var(--text);
+  background: var(--accent-border);
+  color: var(--accent-on);
+  border-color: var(--accent-border);
 }
 .rail-arrow:disabled {
   opacity: 0.32;
@@ -997,7 +1001,7 @@ button {
   transition: all 0.18s var(--ease);
 }
 .slot:hover:not(:disabled) {
-  border-color: var(--text);
+  border-color: var(--accent-border);
   transform: translateY(-1px);
 }
 .slot.is-selected {
