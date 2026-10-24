@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover"
+    />
+    <title>العيادة والموقع — د. عمرو الأهواني</title>
+    <meta name="description" content="عنوان العيادة ومواعيد العمل وطرق التواصل مع عيادة أ.د. عمرو الأهواني." />
+
+    <!-- ── PWA ── -->
+    <link rel="manifest" href="manifest.webmanifest" />
+    <meta name="theme-color" content="#faf7f2" id="themeColor" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="د. عمرو الأهواني" />
+    <meta name="application-name" content="د. عمرو الأهواني" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="icon" href="favicon.ico" sizes="any" />
+    <link rel="icon" href="icons/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="icon" href="icons/favicon-16.png" sizes="16x16" type="image/png" />
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+
+    <script>
+      /* Apply saved theme + locale before first paint to avoid a flash. */
+      (function () {
+        try {
+          var theme = localStorage.getItem('dr-theme');
+          var system = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          var resolved = theme || system;
+          document.documentElement.dataset.theme = resolved;
+          var meta = document.getElementById('themeColor');
+          if (meta) meta.setAttribute('content', resolved === 'dark' ? '#080f16' : '#faf7f2');
+          var locale = localStorage.getItem('dr-locale');
+          if (locale) {
+            document.documentElement.lang = locale === 'en' ? 'en' : 'ar';
+            document.documentElement.dir = locale === 'en' ? 'ltr' : 'rtl';
+          }
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+
+  <body data-page="clinic" data-title="meta.clinicTitle">
+    <script src="i18n.js"></script>
+    <script src="core.js"></script>
+
+    <main id="main" class="page">
+      <div class="wrap">
+        <header class="page-head">
+          <h1 data-i18n="clinic.title"></h1>
+          <p data-i18n="clinic.lede"></p>
+        </header>
+
+        <div class="info-grid">
+          <article class="info-card">
+            <span class="info-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+                <path d="M12 21s6.5-5.4 6.5-10.2A6.5 6.5 0 0 0 5.5 10.8C5.5 15.6 12 21 12 21Z" stroke-linejoin="round" />
+                <circle cx="12" cy="10.6" r="2.4" />
+              </svg>
+            </span>
+            <h2 data-i18n="clinic.address.title"></h2>
+            <p class="info-value" data-clinic="address"></p>
+            <p class="info-note" data-i18n="clinic.address.note"></p>
+            <a
+              class="text-link"
+              href="https://maps.google.com/?q=26+شارع+البطل+احمد+عبد+العزيز+المهندسين"
+              target="_blank"
+              rel="noopener"
+              data-i18n="clinic.map"
+            ></a>
+          </article>
+
+          <article class="info-card">
+            <span class="info-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+                <circle cx="12" cy="12" r="8.4" />
+                <path d="M12 7.6V12l3 1.8" stroke-linecap="round" />
+              </svg>
+            </span>
+            <h2 data-i18n="clinic.hours.title"></h2>
+            <p class="info-value" data-i18n="clinic.hours.days"></p>
+            <p class="info-note" data-i18n="clinic.hours.friday"></p>
+          </article>
+
+          <article class="info-card">
+            <span class="info-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+                <path
+                  d="M6.6 3.5 9 3l1.6 4-2 1.4a12 12 0 0 0 6 6L16 12.4 20 14l-.5 2.4A2 2 0 0 1 17.4 18C10.2 17.6 6.4 13.8 6 6.6a2 2 0 0 1 .6-1.5Z"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </span>
+            <h2 data-i18n="clinic.contact.title"></h2>
+            <p class="info-note" data-i18n="clinic.contact.desc"></p>
+            <div class="contact-row">
+              <a class="contact-btn" href="tel:+201200055755">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                  <path
+                    d="M6.6 3.5 9 3l1.6 4-2 1.4a12 12 0 0 0 6 6L16 12.4 20 14l-.5 2.4A2 2 0 0 1 17.4 18C10.2 17.6 6.4 13.8 6 6.6a2 2 0 0 1 .6-1.5Z"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                <span data-i18n="clinic.call"></span>
+              </a>
+              <a class="contact-btn" href="https://wa.me/201200055755" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path
+                    d="M12 2a10 10 0 0 0-8.6 15L2 22l5.1-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Z"
+                  />
+                </svg>
+                <span data-i18n="clinic.whatsapp"></span>
+              </a>
+            </div>
+          </article>
+        </div>
+
+        <div class="page-cta">
+          <a class="primary-btn" href="booking.html">
+            <span data-i18n="home.cta.book"></span>
+            <svg class="dir-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m14 5-7 7 7 7" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer"></footer>
+
+    <script src="install.js"></script>
+  </body>
+</html>

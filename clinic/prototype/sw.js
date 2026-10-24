@@ -10,16 +10,22 @@
      • Anything else                 → network, falling back to cache.
    ══════════════════════════════════════════════════════════ */
 
-const VERSION = 'v2';
+const VERSION = 'v3';
 const SHELL_CACHE = `shell-${VERSION}`;
 const RUNTIME_CACHE = `runtime-${VERSION}`;
 
 const SHELL = [
   '/',
   '/index.html',
+  '/booking.html',
+  '/clinic.html',
+  '/privacy.html',
   '/styles.css',
-  '/app.js',
+  '/core.js',
+  '/booking.js',
+  '/home.js',
   '/i18n.js',
+  '/install.js',
   '/manifest.webmanifest',
   '/icons/icon-192.png',
   '/icons/icon-512.png',
@@ -77,10 +83,15 @@ self.addEventListener('fetch', event => {
       fetch(request)
         .then(response => {
           const copy = response.clone();
-          caches.open(RUNTIME_CACHE).then(c => c.put('/index.html', copy));
+          caches.open(RUNTIME_CACHE).then(c => c.put(request, copy));
           return response;
         })
-        .catch(async () => (await caches.match('/index.html')) || Response.error()),
+        .catch(
+          async () =>
+            (await caches.match(request)) ||
+            (await caches.match('/index.html')) ||
+            Response.error(),
+        ),
     );
     return;
   }

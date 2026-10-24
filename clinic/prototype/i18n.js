@@ -9,10 +9,17 @@ window.I18N = {
     meta: {
       title: 'حجز موعد — عيادة د. عمرو الأهواني',
       desc: 'احجز موعدك أونلاين في عيادة أ.د. عمرو الأهواني — استشاري جراحات وأمراض الذكورة. خصوصية تامة وتأكيد فوري.',
+      bookingTitle: 'حجز موعد — د. عمرو الأهواني',
+      clinicTitle: 'العيادة والموقع — د. عمرو الأهواني',
+      privacyTitle: 'الخصوصية والأمان — د. عمرو الأهواني',
     },
-    a11y: { skip: 'تجاوز إلى الحجز', langLabel: 'اللغة', themeDark: 'الوضع الليلي', themeLight: 'الوضع النهاري' },
+    a11y: { skip: 'تجاوز إلى المحتوى', langLabel: 'اللغة', themeDark: 'الوضع الليلي', themeLight: 'الوضع النهاري' },
     brand: { name: 'د. عمرو الأهواني', role: 'استشاري جراحات وأمراض الذكورة' },
-    nav: { call: 'اتصل', secure: 'مشفّر' },
+    nav: {
+      home: 'الرئيسية', book: 'الحجز', clinic: 'العيادة', privacy: 'الخصوصية',
+      menu: 'القائمة', close: 'قفل القائمة', call: 'اتصل', secure: 'مشفّر',
+      cta: 'احجز موعدك',
+    },
 
     hero: {
       doctorName: 'أ.د. عمرو الأهواني',
@@ -85,6 +92,7 @@ window.I18N = {
     },
 
     btn: {
+      home: 'الرئيسية',
       continue: 'متابعة',
       back: 'رجوع',
       confirm: 'تأكيد الحجز',
@@ -177,6 +185,76 @@ window.I18N = {
       ref: 'رقم الحجز: {ref}',
       alarm: 'تذكير بموعدك',
     },
+    /* ── الصفحات ── */
+    home: {
+      cta: { book: 'احجز موعدك', clinic: 'العيادة والموقع' },
+      status: {
+        open: 'مفتوح الآن — بنستقبل لحد 10 بالليل',
+        closed: 'مقفول النهاردة (الجمعة) — احجز براحتك وهنأكد في أول يوم عمل',
+        later: 'مفتوح كل يوم من {hours} ما عدا الجمعة',
+      },
+      services: {
+        title: 'الخدمات',
+        desc: 'السعر والمدة ظاهرين قبل الحجز — من غير مفاجآت.',
+        all: 'ابدأ الحجز',
+      },
+      steps: { title: 'الحجز في 3 خطوات' },
+      step1: { title: 'اختار الخدمة', desc: 'استشارة أولى أو متابعة، وكل خدمة لها مدتها.' },
+      step2: { title: 'اختار الوقت', desc: 'المواعيد المعروضة متاحة فعليًا وبتتحجز لك وحدك.' },
+      step3: { title: 'أكّد', desc: 'بيانات قليلة وتأكيد فوري على واتساب.' },
+      privacy: {
+        title: 'بياناتك تفضل بياناتك',
+        desc: 'من غير اسم عيادة ولا تخصص في أي رسالة، ومن غير أي سجل طبي على الإنترنت. وتقدر تطلب حذف بياناتك في أي وقت.',
+        link: 'اقرأ سياسة الخصوصية',
+      },
+    },
+
+    clinic: {
+      title: 'العيادة',
+      lede: 'في قلب المهندسين، ومواعيد واضحة من غير انتظار طويل.',
+      address: { title: 'العنوان', note: 'الزيارة بالحجز المسبق فقط.' },
+      map: 'افتح الموقع على الخريطة',
+      hours: { title: 'مواعيد العمل', days: 'يوميًا من 2 العصر لـ 10 بالليل', friday: 'الجمعة مقفول.' },
+      contact: { title: 'كلمنا', desc: 'للحجز أو لأي سؤال قبل الزيارة.' },
+      call: 'اتصل',
+      whatsapp: 'واتساب',
+    },
+
+    privacy: {
+      title: 'الخصوصية والأمان',
+      lede: 'التخصص حساس، وعشان كده بنتعامل مع بياناتك على أقل حاجة ممكنة.',
+      updated: 'آخر تحديث: أكتوبر 2026',
+      collect: {
+        title: 'بنجمع إيه بالظبط',
+        desc: 'الحجز محتاج 3 حاجات بس عشان يتأكد:',
+        1: 'اسمك الأول ورقم الموبايل.',
+        2: 'نوع الزيارة والوقت اللي اخترته.',
+        3: 'إيميل اختياري — لو حبيت تضيفه.',
+      },
+      use: {
+        title: 'بنستخدمها في إيه',
+        desc: 'في حاجة واحدة بس: تأكيد الموعد وتذكيرك بيه. مفيش تسويق، ومفيش بيع لأي طرف.',
+      },
+      rights: {
+        title: 'حقوقك',
+        1: 'تسأل عن أي بيانات محفوظة عنك.',
+        2: 'تطلب تصحيحها أو حذفها في أي وقت.',
+        3: 'تسحب موافقتك، والحجز اللي تم مش هيتأثر.',
+      },
+      discreet: {
+        title: 'الإشعارات السرّية',
+        desc: 'مفيش اسم عيادة ولا تخصص في أي رسالة — رقم محايد، والاسم الأول بس لو فعّلت الخيار.',
+      },
+      contact: { title: 'لو عندك سؤال', desc: 'كلمنا على 01200055755 أو ابعت على واتساب، وهنرد عليك في نفس يوم العمل.' },
+    },
+
+    sum: { service: 'الخدمة', when: 'الموعد', edit: 'تعديل', none: 'لسه ما اخترت' },
+
+    toast: {
+      serviceChanged: 'غيّرت الخدمة — اختار الموعد من جديد.',
+      ics: 'تم تنزيل ملف الموعد — افتحه لإضافته للتقويم.',
+    },
+
   },
 
   /* ─────────────── العربية الخليجية ─────────────── */
@@ -184,10 +262,17 @@ window.I18N = {
     meta: {
       title: 'احجز موعدك — عيادة د. عمرو الأهواني',
       desc: 'احجز موعدك أونلاين في عيادة أ.د. عمرو الأهواني — استشاري جراحات وأمراض الذكورة. خصوصية تامة وتأكيد على طول.',
+      bookingTitle: 'حجز موعد — د. عمرو الأهواني',
+      clinicTitle: 'العيادة والموقع — د. عمرو الأهواني',
+      privacyTitle: 'الخصوصية والأمان — د. عمرو الأهواني',
     },
-    a11y: { skip: 'روح للحجز على طول', langLabel: 'اللغة', themeDark: 'الوضع الليلي', themeLight: 'الوضع النهاري' },
+    a11y: { skip: 'روح للمحتوى على طول', langLabel: 'اللغة', themeDark: 'الوضع الليلي', themeLight: 'الوضع النهاري' },
     brand: { name: 'د. عمرو الأهواني', role: 'استشاري جراحات وأمراض الذكورة' },
-    nav: { call: 'كلمنا', secure: 'محمي' },
+    nav: {
+      home: 'الرئيسية', book: 'الحجز', clinic: 'العيادة', privacy: 'الخصوصية',
+      menu: 'القائمة', close: 'سكّر القائمة', call: 'كلمنا', secure: 'محمي',
+      cta: 'احجز موعدك',
+    },
 
     hero: {
       doctorName: 'أ.د. عمرو الأهواني',
@@ -260,6 +345,7 @@ window.I18N = {
     },
 
     btn: {
+      home: 'الرئيسية',
       continue: 'متابعة',
       back: 'رجوع',
       confirm: 'أكّد الحجز',
@@ -352,6 +438,76 @@ window.I18N = {
       ref: 'رقم الحجز: {ref}',
       alarm: 'تذكير بموعدك',
     },
+    /* ── الصفحات ── */
+    home: {
+      cta: { book: 'احجز موعدك', clinic: 'العيادة والموقع' },
+      status: {
+        open: 'مفتوح الحين — نستقبل لين 10 بالليل',
+        closed: 'مقفل هاليوم (الجمعة) — احجز على راحتك ونتأكد أول يوم دوام',
+        later: 'الدوام كل يوم من {hours} ما عدا الجمعة',
+      },
+      services: {
+        title: 'الخدمات',
+        desc: 'السعر والمدة واضحين قبل الحجز — وما فيه أي مفاجآت.',
+        all: 'ابدأ الحجز',
+      },
+      steps: { title: 'الحجز في 3 خطوات' },
+      step1: { title: 'اختر الخدمة', desc: 'استشارة أولى أو متابعة، وكل خدمة لها مدتها.' },
+      step2: { title: 'اختر الوقت', desc: 'المواعيد المعروضة متاحة فعلًا وتنحجز لك وحدك.' },
+      step3: { title: 'أكّد', desc: 'بيانات قليلة وتأكيد على طول على واتساب.' },
+      privacy: {
+        title: 'بياناتك تبقى لك',
+        desc: 'ما فيه اسم عيادة ولا تخصص في أي رسالة، وما فيه أي سجل طبي على النت. وتقدر تطلب حذف بياناتك أي وقت.',
+        link: 'اقرأ سياسة الخصوصية',
+      },
+    },
+
+    clinic: {
+      title: 'العيادة',
+      lede: 'بقلب المهندسين، وأوقات الدوام واضحة من غير انتظار طويل.',
+      address: { title: 'العنوان', note: 'الزيارة بالحجز المسبق بس.' },
+      map: 'افتح الموقع على الخريطة',
+      hours: { title: 'أوقات الدوام', days: 'كل يوم من 2 العصر إلى 10 بالليل', friday: 'الجمعة مقفل.' },
+      contact: { title: 'كلمنا', desc: 'للحجز أو لأي سؤال قبل الزيارة.' },
+      call: 'اتصل',
+      whatsapp: 'واتساب',
+    },
+
+    privacy: {
+      title: 'الخصوصية والأمان',
+      lede: 'التخصص حساس، وعشان كذا نتعامل مع بياناتك على أقل شي ممكن.',
+      updated: 'آخر تحديث: أكتوبر 2026',
+      collect: {
+        title: 'وش نجمع بالضبط',
+        desc: 'الحجز يحتاج 3 أشياء بس عشان يتأكد:',
+        1: 'اسمك الأول ورقم جوالك.',
+        2: 'نوع الزيارة والوقت اللي اخترته.',
+        3: 'إيميل اختياري — إذا تبي تضيفه.',
+      },
+      use: {
+        title: 'نستخدمها في وش',
+        desc: 'في شي واحد بس: تأكيد الموعد وتذكيرك فيه. ما فيه تسويق، وما فيه بيع لأي جهة.',
+      },
+      rights: {
+        title: 'حقوقك',
+        1: 'تسأل عن أي بيانات محفوظة عنك.',
+        2: 'تطلب تصحيحها أو حذفها أي وقت.',
+        3: 'تقدر تسحب موافقتك، والحجز اللي تم ما يتأثر.',
+      },
+      discreet: {
+        title: 'الإشعارات السرّية',
+        desc: 'ما فيه اسم عيادة ولا تخصص في أي رسالة — رقم محايد، والاسم الأول بس إذا فعّلت الخيار.',
+      },
+      contact: { title: 'إذا عندك سؤال', desc: 'كلمنا على 01200055755 أو راسلنا على واتساب، ونرد عليك نفس يوم الدوام.' },
+    },
+
+    sum: { service: 'الخدمة', when: 'الموعد', edit: 'تعديل', none: 'ما اخترت شي بعد' },
+
+    toast: {
+      serviceChanged: 'غيّرت الخدمة — اختر الموعد من جديد.',
+      ics: 'نزّل ملف الموعد — افتحه عشان تضيفه للتقويم.',
+    },
+
   },
 
   /* ─────────────── English ─────────────── */
@@ -359,10 +515,17 @@ window.I18N = {
     meta: {
       title: 'Book an appointment — Dr. Amro Alahawany Clinic',
       desc: 'Book online with Prof. Amro Alahawany, Consultant of Andrology & Male Surgery. Complete privacy and instant confirmation.',
+      bookingTitle: 'Book an appointment — Dr. Amro Alahawany',
+      clinicTitle: 'Clinic & location — Dr. Amro Alahawany',
+      privacyTitle: 'Privacy — Dr. Amro Alahawany',
     },
-    a11y: { skip: 'Skip to booking', langLabel: 'Language', themeDark: 'Dark mode', themeLight: 'Light mode' },
+    a11y: { skip: 'Skip to content', langLabel: 'Language', themeDark: 'Dark mode', themeLight: 'Light mode' },
     brand: { name: 'Dr. Amro Alahawany', role: 'Consultant of Andrology & Male Surgery' },
-    nav: { call: 'Call', secure: 'Encrypted' },
+    nav: {
+      home: 'Home', book: 'Booking', clinic: 'Clinic', privacy: 'Privacy',
+      menu: 'Menu', close: 'Close menu', call: 'Call', secure: 'Encrypted',
+      cta: 'Book now',
+    },
 
     hero: {
       doctorName: 'Prof. Dr. Amro Alahawany',
@@ -435,6 +598,7 @@ window.I18N = {
     },
 
     btn: {
+      home: 'Home',
       continue: 'Continue',
       back: 'Back',
       confirm: 'Confirm booking',
@@ -527,6 +691,76 @@ window.I18N = {
       ref: 'Booking reference: {ref}',
       alarm: 'Reminder for your appointment',
     },
+    /* ── pages ── */
+    home: {
+      cta: { book: 'Book an appointment', clinic: 'Clinic & location' },
+      status: {
+        open: 'Open now — until 10 pm',
+        closed: 'Closed today (Friday) — book any time, we confirm on the next working day',
+        later: 'Open daily {hours}, except Friday',
+      },
+      services: {
+        title: 'Services',
+        desc: 'Price and duration are shown before you book — no surprises.',
+        all: 'Start booking',
+      },
+      steps: { title: 'Booking in 3 steps' },
+      step1: { title: 'Choose the visit', desc: 'First consultation or follow-up, each with its own duration.' },
+      step2: { title: 'Choose a time', desc: 'Every slot shown is genuinely free, and it is held for you alone.' },
+      step3: { title: 'Confirm', desc: 'A few details, then an instant WhatsApp confirmation.' },
+      privacy: {
+        title: 'Your data stays yours',
+        desc: 'No clinic name or specialty in any message, and no medical record online. You can ask us to delete your data at any time.',
+        link: 'Read the privacy policy',
+      },
+    },
+
+    clinic: {
+      title: 'The clinic',
+      lede: 'In the heart of Mohandessin, with clear hours and no long wait.',
+      address: { title: 'Address', note: 'Visits are by prior booking only.' },
+      map: 'Open in Maps',
+      hours: { title: 'Opening hours', days: 'Daily, 2 pm – 10 pm', friday: 'Closed on Friday.' },
+      contact: { title: 'Talk to us', desc: 'For a booking or any question before your visit.' },
+      call: 'Call',
+      whatsapp: 'WhatsApp',
+    },
+
+    privacy: {
+      title: 'Privacy & security',
+      lede: 'This specialty is sensitive, so we handle as little of your data as we can.',
+      updated: 'Last updated: October 2026',
+      collect: {
+        title: 'What we collect',
+        desc: 'A booking needs only three things to be confirmed:',
+        1: 'Your first name and mobile number.',
+        2: 'The type of visit and the time you chose.',
+        3: 'An email, optional — only if you want to add one.',
+      },
+      use: {
+        title: 'What we use it for',
+        desc: 'One thing only: confirming your appointment and reminding you about it. No marketing, and never sold on.',
+      },
+      rights: {
+        title: 'Your rights',
+        1: 'Ask what data we hold about you.',
+        2: 'Ask us to correct or delete it at any time.',
+        3: 'Withdraw your consent — a booking already made is unaffected.',
+      },
+      discreet: {
+        title: 'Discreet notifications',
+        desc: 'No clinic name and no specialty in any message — a neutral number, and only your first name if you turn the option on.',
+      },
+      contact: { title: 'Any questions', desc: 'Call 01200055755 or message us on WhatsApp; we reply the same working day.' },
+    },
+
+    sum: { service: 'Service', when: 'Appointment', edit: 'Change', none: 'Not chosen yet' },
+
+    toast: {
+      serviceChanged: 'Service changed — pick your appointment again.',
+      ics: 'Calendar file downloaded — open it to add the appointment.',
+    },
+
   },
 };
 

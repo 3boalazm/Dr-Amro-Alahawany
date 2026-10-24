@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover"
+    />
+    <title>حجز موعد — عيادة د. عمرو الأهواني</title>
+    <meta
+      name="description"
+      content="احجز موعدك أونلاين في عيادة أ.د. عمرو الأهواني — استشاري جراحات وأمراض الذكورة."
+    />
+
+    <!-- ── PWA ── -->
+    <link rel="manifest" href="manifest.webmanifest" />
+    <meta name="theme-color" content="#faf7f2" id="themeColor" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="د. عمرو الأهواني" />
+    <meta name="application-name" content="د. عمرو الأهواني" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="icon" href="favicon.ico" sizes="any" />
+    <link rel="icon" href="icons/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="icon" href="icons/favicon-16.png" sizes="16x16" type="image/png" />
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+
+    <script>
+      /* Apply saved theme + locale before first paint to avoid a flash. */
+      (function () {
+        try {
+          var theme = localStorage.getItem('dr-theme');
+          var system = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          var resolved = theme || system;
+          document.documentElement.dataset.theme = resolved;
+          var meta = document.getElementById('themeColor');
+          if (meta) meta.setAttribute('content', resolved === 'dark' ? '#080f16' : '#faf7f2');
+          var locale = localStorage.getItem('dr-locale');
+          if (locale) {
+            document.documentElement.lang = locale === 'en' ? 'en' : 'ar';
+            document.documentElement.dir = locale === 'en' ? 'ltr' : 'rtl';
+          }
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+
+  <body data-page="booking" data-title="meta.bookingTitle">
+    <script src="i18n.js"></script>
+    <script src="core.js"></script>
+
+    <main id="main" class="booking">
+      <div class="wrap">
+        <!-- Steps are buttons, not decoration: any step you have already
+             reached can be reopened to change that choice. -->
+        <nav class="stepper" aria-label="Booking steps">
+          <ol>
+            <li class="step is-active" data-step="1">
+              <button type="button" class="step-btn" data-go="1">
+                <span>1</span><b data-i18n="steps.1"></b>
+              </button>
+            </li>
+            <li class="step" data-step="2">
+              <button type="button" class="step-btn" data-go="2" disabled>
+                <span>2</span><b data-i18n="steps.2"></b>
+              </button>
+            </li>
+            <li class="step" data-step="3">
+              <button type="button" class="step-btn" data-go="3" disabled>
+                <span>3</span><b data-i18n="steps.3"></b>
+              </button>
+            </li>
+            <li class="step" data-step="4">
+              <button type="button" class="step-btn" data-go="4" disabled>
+                <span>4</span><b data-i18n="steps.4"></b>
+              </button>
+            </li>
+          </ol>
+          <div class="stepper-bar"><i id="stepperProgress"></i></div>
+        </nav>
+
+        <!-- What you have picked so far, and the way back to change it. -->
+        <div class="summary" id="summary" hidden>
+          <button type="button" class="summary-row" data-edit="1">
+            <span class="summary-label" data-i18n="sum.service"></span>
+            <strong id="sumService">—</strong>
+            <span class="summary-edit" data-i18n="sum.edit"></span>
+          </button>
+          <button type="button" class="summary-row" data-edit="2">
+            <span class="summary-label" data-i18n="sum.when"></span>
+            <strong id="sumWhen">—</strong>
+            <span class="summary-edit" data-i18n="sum.edit"></span>
+          </button>
+        </div>
+
+        <!-- ══════════ Step 1 — service ══════════ -->
+        <div class="panel" id="panel-1">
+          <header class="panel-head">
+            <h2 data-i18n="panel1.title"></h2>
+            <p data-i18n="panel1.desc"></p>
+          </header>
+          <div class="services" id="serviceList" role="radiogroup"></div>
+
+          <div class="form-actions">
+            <a class="link-btn" href="index.html" data-i18n="btn.home"></a>
+            <button type="button" class="primary-btn" id="next1" disabled>
+              <span data-i18n="btn.continue"></span>
+              <svg class="dir-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="m14 5-7 7 7 7" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- ══════════ Step 2 — day & time ══════════ -->
+        <div class="panel" id="panel-2" hidden>
+          <header class="panel-head">
+            <h2 data-i18n="panel2.title"></h2>
+            <p data-i18n="panel2.desc"></p>
+          </header>
+
+          <div class="date-rail-wrap">
+            <button class="rail-arrow" id="railPrev" aria-label="Previous days">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 5-7 7 7 7" stroke-linecap="round" stroke-linejoin="round" /></svg>
+            </button>
+            <div class="date-rail" id="dateRail" role="listbox"></div>
+            <button class="rail-arrow" id="railNext" aria-label="Next days">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 5 7 7-7 7" stroke-linecap="round" stroke-linejoin="round" /></svg>
+            </button>
+          </div>
+
+          <div class="slots-head">
+            <h3 data-i18n="panel2.slots"></h3>
+            <div class="slot-legend">
+              <span><i class="dot-free"></i> <span data-i18n="panel2.free"></span></span>
+              <span><i class="dot-busy"></i> <span data-i18n="panel2.busy"></span></span>
+            </div>
+          </div>
+          <div class="slots" id="slotGrid" aria-live="polite"></div>
+
+          <div class="form-actions">
+            <button type="button" class="link-btn" id="backTo1" data-i18n="btn.back"></button>
+            <button type="button" class="primary-btn" id="next2" disabled>
+              <span data-i18n="btn.continue"></span>
+              <svg class="dir-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="m14 5-7 7 7 7" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- ══════════ Step 3 — details ══════════ -->
+        <div class="panel" id="panel-3" hidden>
+          <header class="panel-head">
+            <h2 data-i18n="panel3.title"></h2>
+            <p data-i18n="panel3.desc"></p>
+          </header>
+
+          <form class="form" id="detailsForm" novalidate>
+            <div class="field-row">
+              <div class="field">
+                <label for="firstName"><span data-i18n="field.firstName"></span> <span class="req">*</span></label>
+                <input id="firstName" name="first_name" autocomplete="given-name" required minlength="2" enterkeyhint="next" />
+                <p class="err" data-err="firstName"></p>
+              </div>
+              <div class="field">
+                <label for="lastName"
+                  ><span data-i18n="field.lastName"></span> <span class="opt" data-i18n="field.optional"></span
+                ></label>
+                <input id="lastName" name="last_name" autocomplete="family-name" enterkeyhint="next" />
+                <p class="err" data-err="lastName"></p>
+              </div>
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="phone"><span data-i18n="field.phone"></span> <span class="req">*</span></label>
+                <input
+                  id="phone"
+                  name="phone_number"
+                  type="tel"
+                  inputmode="numeric"
+                  autocomplete="tel-national"
+                  maxlength="11"
+                  required
+                  enterkeyhint="next"
+                />
+                <p class="err" data-err="phone"></p>
+              </div>
+              <div class="field">
+                <label for="email"
+                  ><span data-i18n="field.email"></span> <span class="opt" data-i18n="field.optional"></span
+                ></label>
+                <input id="email" name="email" type="email" autocomplete="email" enterkeyhint="done" />
+                <p class="err" data-err="email"></p>
+              </div>
+            </div>
+
+            <label class="switch-row">
+              <span class="switch-copy">
+                <strong data-i18n="discreet.title"></strong>
+                <small data-i18n="discreet.desc"></small>
+              </span>
+              <input type="checkbox" id="discreet" checked />
+              <span class="switch-ui" aria-hidden="true"></span>
+            </label>
+
+            <label class="consent-row" for="consent">
+              <input type="checkbox" id="consent" required />
+              <span>
+                <span data-i18n="consent.before"></span>
+                <a href="privacy.html" data-i18n="consent.link"></a>
+                <span data-i18n="consent.after"></span>
+                <small class="consent-note" data-i18n="consent.note"></small>
+              </span>
+            </label>
+            <p class="err err-block" data-err="consent"></p>
+
+            <div class="form-actions">
+              <button type="button" class="link-btn" id="backTo2" data-i18n="btn.back"></button>
+              <button type="submit" class="primary-btn" id="submitBtn">
+                <span data-i18n="btn.confirm"></span>
+                <svg class="dir-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="m14 5-7 7 7 7" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </button>
+            </div>
+            <p class="fineprint" data-i18n="fineprint"></p>
+          </form>
+        </div>
+
+        <!-- ══════════ Step 4 — confirmation ══════════ -->
+        <div class="panel panel-success" id="panel-4" hidden>
+          <div class="success-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="m5 12.5 4.5 4.5L19 7.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </div>
+          <h2 data-i18n="success.title"></h2>
+          <p class="success-sub" id="successSub"></p>
+
+          <div class="ticket">
+            <div class="ticket-main">
+              <span class="ticket-label" data-i18n="success.reference"></span>
+              <strong class="ticket-code" id="refCode">—</strong>
+            </div>
+            <div class="ticket-grid">
+              <div><span data-i18n="success.service"></span><strong id="sumServiceName">—</strong></div>
+              <div><span data-i18n="success.date"></span><strong id="sumDate">—</strong></div>
+              <div><span data-i18n="success.time"></span><strong id="sumTime">—</strong></div>
+              <div><span data-i18n="success.duration"></span><strong id="sumDuration">—</strong></div>
+            </div>
+          </div>
+
+          <div class="success-actions">
+            <a class="primary-btn" id="whatsappBtn" href="#" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="width: 18px; height: 18px">
+                <path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.1-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.6-6.1c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.6.1l-.8 1c-.2.2-.3.2-.6.1a6.7 6.7 0 0 1-3.3-2.9c-.1-.2 0-.4.1-.5l.6-.7c.1-.2.1-.3 0-.5l-.7-1.6c-.2-.4-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 2.9 2.9 0 0 0-.9 2.2 5.1 5.1 0 0 0 1.1 2.7 11 11 0 0 0 4.2 3.7c1.5.6 2 .7 2.7.6a2.3 2.3 0 0 0 1.5-1.1 1.9 1.9 0 0 0 .1-1.1c0-.1-.1-.2-.2-.3Z" />
+              </svg>
+              <span data-i18n="btn.whatsapp"></span>
+            </a>
+            <button class="ghost-btn" id="icsBtn" type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" style="width: 18px; height: 18px">
+                <rect x="3.5" y="5" width="17" height="15" rx="2.5" />
+                <path d="M3.5 10h17M8 3v4M16 3v4" stroke-linecap="round" />
+              </svg>
+              <span data-i18n="btn.calendar"></span>
+            </button>
+          </div>
+
+          <ul class="next-steps">
+            <li data-i18n-html="success.step1"></li>
+            <li data-i18n-html="success.step2"></li>
+            <li data-i18n-html="success.step3"></li>
+          </ul>
+
+          <div class="form-actions">
+            <a class="link-btn" href="index.html" data-i18n="btn.home"></a>
+            <button type="button" class="link-btn restart" id="restartBtn" data-i18n="btn.restart"></button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer"></footer>
+
+    <script src="install.js"></script>
+    <script src="booking.js"></script>
+  </body>
+</html>

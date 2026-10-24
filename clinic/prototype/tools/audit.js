@@ -19,9 +19,15 @@ const path = require('node:path');
 const ROOT = path.join(__dirname, '..');
 const read = f => fs.readFileSync(path.join(ROOT, f), 'utf8');
 
-const html = read('index.html');
+/* Every page and every script, not just the home page: a class, an
+   asset or a translation key can go missing on page four just as easily
+   as on page one. */
+const PAGES = ['index.html', 'booking.html', 'clinic.html', 'privacy.html'];
+const SCRIPTS = ['core.js', 'booking.js', 'home.js'];
+
+const html = PAGES.map(read).join('\n');
 const css = read('styles.css');
-const app = read('app.js');
+const app = SCRIPTS.map(read).join('\n');
 const i18n = read('i18n.js');
 
 const results = [];
@@ -71,10 +77,12 @@ const check = (name, ok, detail = '') => results.push({ name, ok: !!ok, detail }
 
   const critical = [
     'nav-pill', 'nav-actions', 'nav-cta', 'lang-control', 'icon-btn',
-    'brand-avatar', 'doctor', 'doctor-badge', 'doctor-crest', 'doctor-photo',
+    'brand-avatar', 'doctor', 'doctor-badge', 'doctor-photo',
     'doctor-id', 'doctor-name', 'doctor-role',
     'service-card', 'sc-icon', 'sc-body', 'sc-side', 'sc-title', 'sc-price', 'sc-dur',
-    'date-chip', 'slot', 'sheet', 'sheet-cta', 'sticky-bar', 'toast', 'ticket', 'stepper',
+    'date-chip', 'slot', 'sheet', 'sheet-cta', 'toast', 'ticket', 'stepper',
+    'nav-links', 'nav-link', 'menu-link', 'summary', 'summary-row', 'svc-row',
+    'page-head', 'info-card', 'prose-block', 'step-btn',
   ];
   const miss = critical.filter(c => !cssClasses.has(c));
   check('critical component classes styled', miss.length === 0, miss.join(', '));
@@ -172,6 +180,10 @@ const check = (name, ok, detail = '') => results.push({ name, ok: !!ok, detail }
     ...[...html.matchAll(/data-i18n(?:-html|-alt)?="([^"]+)"/g)].map(m => m[1]),
     ...[...app.matchAll(/\bt\('([a-z0-9_.]+)'/gi)].map(m => m[1]),
   ]);
+  // data-title is read straight into document.title, so a missing key
+  // puts the literal string "meta.bookingTitle" in the browser tab.
+  for (const m of html.matchAll(/data-title="([^"]+)"/g)) refs.add(m[1]);
+
   const missingRefs = [...refs].filter(k => !base.includes(k));
   check('all referenced keys exist', missingRefs.length === 0, missingRefs.join(', '));
 
@@ -239,6 +251,42 @@ const check = (name, ok, detail = '') => results.push({ name, ok: !!ok, detail }
   const coverage = prose.length ? voiced.length / prose.length : 1;
   check('[ar-SA] prose carries Gulf vocabulary', coverage >= 0.85,
     `${voiced.length}/${prose.length}`);
+}
+
+/* ───────────────────────── page structure ───────────────────────── */
+
+{
+  const pages = PAGES.map(f => ({ file: f, text: read(f) }));
+  const exists = f => fs.existsSync(path.join(ROOT, f));
+
+  const noShell = pages.filter(p => !/src="i18n\.js"/.test(p.text) || !/src="core\.js"/.test(p.text));
+  check('every page loads i18n + core', noShell.length === 0, noShell.map(p => p.file).join(', '));
+
+  const noMain = pages.filter(p => !/id="main"/.test(p.text));
+  check('every page has a <main id="main"> target', noMain.length === 0, noMain.map(p => p.file).join(', '));
+
+  const noFooter = pages.filter(p => !/class="site-footer"/.test(p.text));
+  check('every page has a footer slot', noFooter.length === 0, noFooter.map(p => p.file).join(', '));
+
+  const ids = pages.map(p => (p.text.match(/data-page="([a-z]+)"/) || [])[1]);
+  check('every page declares data-page', ids.every(Boolean), ids.join(', '));
+  check('data-page values are unique', new Set(ids).size === ids.length, ids.join(', '));
+
+  // The menu is the only navigation; a link to a page that does not exist
+  // is a 404 the user finds before we do.
+  const menu = [...read('core.js').matchAll(/href:\s*'([\w.-]+\.html)'/g)].map(m => m[1]);
+  check('menu entries exist', menu.length >= 4 && menu.every(exists), menu.join(', '));
+  check('menu covers every page', PAGES.every(f => menu.includes(f)), PAGES.filter(f => !menu.includes(f)).join(', '));
+
+  const deadLinks = new Set();
+  for (const text of [html, app]) {
+    for (const m of text.matchAll(/href="([\w.-]+\.html)[^"]*"/g)) {
+      if (!exists(m[1])) deadLinks.add(m[1]);
+    }
+  }
+  check('no links to missing pages', deadLinks.size === 0, [...deadLinks].join(', '));
+
+  check('the old single-file app is gone', !exists('app.js') && !/src="app\.js"/.test(html));
 }
 
 /* ─────────────────────── assets on disk ─────────────────────── */
