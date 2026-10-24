@@ -18,7 +18,7 @@ window.I18N = {
     nav: {
       home: 'الرئيسية', book: 'الحجز', clinic: 'العيادة', privacy: 'الخصوصية',
       menu: 'القائمة', close: 'قفل القائمة', call: 'اتصل', secure: 'مشفّر',
-      cta: 'احجز موعدك',
+      cta: 'احجز موعدك', install: 'ثبّت التطبيق',
     },
 
     hero: {
@@ -172,6 +172,14 @@ window.I18N = {
       done: 'تم تثبيت التطبيق على جهازك',
       unavailable: 'التثبيت مش متاح في المتصفح ده — جرّب Chrome أو Safari.',
       ariaInstall: 'تثبيت التطبيق',
+      inAppDesc:
+        'إنت فاتح الصفحة من جوّه تطبيق تاني (واتساب، فيسبوك، انستجرام…). التثبيت مش بيشتغل من هناك — افتح الصفحة في Chrome وهتلاقي زرار التثبيت جاهز على طول.',
+      openChrome: 'افتح في Chrome',
+      copy: 'انسخ رابط التطبيق',
+      copied: 'الرابط اتنسخ — الصقه في Chrome وهتلاقي «تثبيت».',
+      cardTitle: 'خُد العيادة معاك',
+      cardText: 'أيقونة على شاشتك، ويفتح حتى بدون نت.',
+      dismiss: 'إخفاء',
     },
 
     wa: {
@@ -271,7 +279,7 @@ window.I18N = {
     nav: {
       home: 'الرئيسية', book: 'الحجز', clinic: 'العيادة', privacy: 'الخصوصية',
       menu: 'القائمة', close: 'سكّر القائمة', call: 'كلمنا', secure: 'محمي',
-      cta: 'احجز موعدك',
+      cta: 'احجز موعدك', install: 'ثبّت التطبيق',
     },
 
     hero: {
@@ -425,6 +433,14 @@ window.I18N = {
       done: 'تم تثبيت التطبيق على جهازك',
       unavailable: 'التثبيت مو متاح في هالمتصفح — جرّب Chrome أو Safari.',
       ariaInstall: 'تثبيت التطبيق',
+      inAppDesc:
+        'أنت فاتح الصفحة من داخل تطبيق ثاني (واتساب، فيسبوك، انستقرام…). التثبيت ما فيه طريقة يشتغل من هناك — افتحها في Chrome وبتلقى زر التثبيت على طول.',
+      openChrome: 'افتحه في Chrome',
+      copy: 'انسخ رابط التطبيق',
+      copied: 'تم نسخ الرابط — الصقه في Chrome وبتلقى «تثبيت».',
+      cardTitle: 'خُذ العيادة معك',
+      cardText: 'أيقونة على شاشتك، وتفتح حتى بدون نت.',
+      dismiss: 'إخفاء',
     },
 
     wa: {
@@ -524,7 +540,7 @@ window.I18N = {
     nav: {
       home: 'Home', book: 'Booking', clinic: 'Clinic', privacy: 'Privacy',
       menu: 'Menu', close: 'Close menu', call: 'Call', secure: 'Encrypted',
-      cta: 'Book now',
+      cta: 'Book now', install: 'Install app',
     },
 
     hero: {
@@ -678,6 +694,14 @@ window.I18N = {
       done: 'App installed on your device',
       unavailable: 'Installing is not available in this browser — try Chrome or Safari.',
       ariaInstall: 'Install app',
+      inAppDesc:
+        'You opened this page inside another app (WhatsApp, Facebook, Instagram…). Installing cannot work there — open the page in Chrome and the install button will be waiting.',
+      openChrome: 'Open in Chrome',
+      copy: 'Copy app link',
+      copied: 'Link copied — paste it in Chrome, then tap Install.',
+      cardTitle: 'Take the clinic with you',
+      cardText: 'An icon on your home screen — opens even offline.',
+      dismiss: 'Hide',
     },
 
     wa: {

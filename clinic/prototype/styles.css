@@ -1757,6 +1757,82 @@ svg {
   width: 100%;
 }
 
+.sheet-alt {
+  width: 100%;
+  margin-top: 10px;
+}
+
+/* Opened from inside WhatsApp or Instagram, installing is impossible — say
+   why before the visitor decides the button is broken. */
+/* Home-page install card — one row of chrome, not a banner. */
+.home-install {
+  padding-bottom: 8px;
+}
+
+.install-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  box-shadow: var(--sh-1);
+}
+.install-card-icon {
+  width: 52px;
+  height: 52px;
+  flex: none;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(11, 27, 43, 0.14);
+}
+.install-card-body {
+  flex: 1;
+  min-width: 0;
+}
+.install-card-body h3 {
+  margin: 0 0 2px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+}
+.install-card-body p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+.install-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: none;
+}
+.install-card-btn {
+  height: 40px;
+  padding-inline: 16px;
+  font-size: 13px;
+}
+.install-card-close {
+  width: 36px;
+  height: 36px;
+}
+.install-card-close svg {
+  width: 16px;
+  height: 16px;
+}
+
+.install-alert {
+  margin: 0 0 14px;
+  padding: 11px 14px;
+  border: 1px solid var(--gold);
+  border-radius: var(--r-sm);
+  background: var(--gold-soft);
+  color: var(--gold-deep);
+  font-size: 13px;
+  line-height: 1.75;
+}
+
 /* ─────────────────────────────── Toast ──────────────────────────── */
 
 .toast {
@@ -1904,6 +1980,50 @@ svg {
 }
 [dir="ltr"] .menu-link::after {
   content: "›";
+}
+
+/* The install row sits with the page links but reads as an action, not a
+   destination — dashed edge, gold icon, same rhythm as the rows above. */
+.menu-install {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  margin-top: 8px;
+  padding: 13px 14px;
+  border: 1px dashed var(--line-2);
+  border-radius: var(--r-md);
+  background: var(--surface-2);
+  color: var(--text-2);
+  font-family: inherit;
+  font-size: 14.5px;
+  font-weight: 600;
+  text-align: start;
+  cursor: pointer;
+  transition: border-color 0.2s var(--ease), background-color 0.2s var(--ease),
+    color 0.2s var(--ease);
+}
+.menu-install:hover {
+  border-color: var(--gold);
+  background: var(--gold-soft);
+  color: var(--gold-deep);
+}
+.menu-install svg {
+  width: 19px;
+  height: 19px;
+  flex: none;
+  color: var(--gold);
+}
+.menu-install span {
+  flex: 1;
+}
+.menu-install svg:last-child {
+  width: 15px;
+  height: 15px;
+  color: var(--faint);
+}
+[dir="ltr"] .menu-install svg:last-child {
+  transform: scaleX(-1);
 }
 
 .menu-foot {

@@ -32,6 +32,16 @@
     /iPad|iPhone|iPod/.test(navigator.userAgent) ||
     (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 
+  const isAndroid = () => /Android/i.test(navigator.userAgent);
+
+  /* Most of this clinic's traffic arrives from a WhatsApp or Instagram link,
+     which opens an in-app WebView. Those WebViews cannot install a PWA at
+     all — no `beforeinstallprompt`, no "Add to Home screen" — so the app has
+     to say so out loud and offer the jump into Chrome instead of showing a
+     dead button. */
+  const IN_APP = /FBAN|FBAV|FB_IAB|Instagram|Line\/|Snapchat|musical_ly|BytedanceWebview|TikTok|Twitter|WhatsApp/i;
+  const isInAppBrowser = () => IN_APP.test(navigator.userAgent);
+
   const emit = () => listeners.forEach(fn => fn({ canInstall: !!deferredPrompt, isStandalone: isStandalone() }));
 
   /* ── capture the install prompt ── */
@@ -60,10 +70,21 @@
     return outcome; // 'accepted' | 'dismissed'
   }
 
+  /* Android-only deep link that hands the current page to Chrome proper.
+     Returns null everywhere else so callers can fall back to "copy the link". */
+  function chromeIntent(url = location.href) {
+    if (!isAndroid()) return null;
+    const { host, pathname, search } = new URL(url);
+    return `intent://${host}${pathname}${search}#Intent;scheme=https;package=com.android.chrome;end`;
+  }
+
   window.PWA = {
     canInstall: () => !!deferredPrompt,
     isStandalone,
     isIOS,
+    isAndroid,
+    isInAppBrowser,
+    chromeIntent,
     prompt,
     onChange(fn) {
       listeners.add(fn);

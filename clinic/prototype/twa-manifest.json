@@ -1,0 +1,51 @@
+{
+  "packageId": "com.ahwani.clinic",
+  "host": "prototype-ttxw.vercel.app",
+  "name": "عيادة د. عمرو الأهواني",
+  "launcherName": "د. عمرو الأهواني",
+  "display": "standalone",
+  "themeColor": "#0b1b2b",
+  "navigationColor": "#0b1b2b",
+  "navigationColorDark": "#080f16",
+  "navigationDividerColor": "#0b1b2b",
+  "navigationDividerColorDark": "#080f16",
+  "backgroundColor": "#faf7f2",
+  "enableNotifications": false,
+  "startUrl": "/",
+  "iconUrl": "https://prototype-ttxw.vercel.app/icons/icon-512.png",
+  "maskableIconUrl": "https://prototype-ttxw.vercel.app/icons/icon-maskable-512.png",
+  "monochromeIconUrl": "https://prototype-ttxw.vercel.app/icons/icon-512.png",
+  "splashScreenFadeOutDuration": 300,
+  "signingKey": {
+    "path": "./android.keystore",
+    "alias": "android"
+  },
+  "appVersionName": "1.0.0",
+  "appVersionCode": 1,
+  "shortcuts": [
+    {
+      "name": "احجز موعد",
+      "shortName": "حجز جديد",
+      "url": "/booking.html",
+      "chosenIconUrl": "https://prototype-ttxw.vercel.app/icons/icon-192.png"
+    },
+    {
+      "name": "العيادة والموقع",
+      "shortName": "العيادة",
+      "url": "/clinic.html",
+      "chosenIconUrl": "https://prototype-ttxw.vercel.app/icons/icon-192.png"
+    }
+  ],
+  "generatorApp": "bubblewrap-cli",
+  "webManifestUrl": "https://prototype-ttxw.vercel.app/manifest.webmanifest",
+  "fallbackType": "customtabs",
+  "features": {},
+  "alphaDependencies": { "enabled": false },
+  "enableSiteSettingsShortcut": true,
+  "isChromeOSOnly": false,
+  "orientation": "portrait",
+  "fingerprints": [],
+  "additionalTrustedOrigins": [],
+  "retainedBundles": [],
+  "minSdkVersion": 21
+}
