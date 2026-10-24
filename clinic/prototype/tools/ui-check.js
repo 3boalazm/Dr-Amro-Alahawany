@@ -101,11 +101,11 @@ async function waitFor(fn, ms = 5000) {
 
     /* ── nav ── */
     const links = $$('.nav-link');
-    check('desktop nav has 5 links', links.length === 5, `${links.length}`);
+    check('desktop nav has 6 links', links.length === 6, `${links.length}`);
     check('nav labels are translated', links.every(l => l.textContent.trim().length > 0), links.map(l => l.textContent).join('/'));
-    check('nav order is home, booking, clinic, about, privacy',
+    check('nav order is home, booking, clinic, about, privacy, studio',
       links.map(l => l.getAttribute('href')).join(',') ===
-        'index.html,booking.html,clinic.html,about.html,privacy.html',
+        'index.html,booking.html,clinic.html,about.html,privacy.html,studio.html',
       links.map(l => l.getAttribute('href')).join(','));
     check('current page is marked', $('.nav-link.is-active')?.getAttribute('href') === 'index.html');
     check('current page has aria-current', $('.nav-link.is-active')?.getAttribute('aria-current') === 'page');
@@ -116,7 +116,7 @@ async function waitFor(fn, ms = 5000) {
     click(window, $('#menuBtn'));
     await sleep(120);
     check('menu opens', $('#menuSheet').hidden === false);
-    check('menu shows 5 links', $$('.menu-link').length === 5, `${$$('.menu-link').length}`);
+    check('menu shows 6 links', $$('.menu-link').length === 6, `${$$('.menu-link').length}`);
     check('menu marks the current page', $('.menu-link.is-active')?.getAttribute('href') === 'index.html');
     check('body scroll locked while open', doc.body.style.overflow === 'hidden');
     check('menu button reports expanded', $('#menuBtn').getAttribute('aria-expanded') === 'true');
@@ -300,6 +300,7 @@ async function waitFor(fn, ms = 5000) {
   {
     const { window, $, $$, errors } = await mount('studio.html');
     check('studio page has no errors', errors.length === 0, errors.join(' | '));
+    check('studio marks its own nav item', $('.nav-link.is-active')?.getAttribute('href') === 'studio.html');
     check('studio names both founders', $$('.studio-person').length === 2, `${$$('.studio-person').length}`);
     const review = $('.review-card .primary-btn') || $('#review .primary-btn');
     check('studio sends the doctor to the questionnaire',
