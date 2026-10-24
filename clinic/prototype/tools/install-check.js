@@ -20,7 +20,10 @@ const ROOT = path.join(__dirname, '..');
 const read = f => fs.readFileSync(path.join(ROOT, f), 'utf8');
 const exists = f => fs.existsSync(path.join(ROOT, f));
 
-const PAGES = ['index.html', 'booking.html', 'clinic.html', 'privacy.html'];
+const PAGES = ['index.html', 'booking.html', 'clinic.html', 'about.html', 'studio.html', 'privacy.html'];
+/* Documents rather than app screens: they still carry the manifest so the
+   browser keeps offering the install, but they load no app scripts. */
+const DOCS = ['dossier.html'];
 
 const results = [];
 const check = (name, ok, detail = '') => results.push({ name, ok: !!ok, detail });
@@ -160,6 +163,13 @@ for (const page of PAGES) {
   check(`${page} is web-app-capable on iOS`, has(/apple-mobile-web-app-capable/));
   check(`${page} loads the installer`, has(/src="install\.js"/));
   check(`${page} loads the shared shell`, has(/src="core\.js"/));
+}
+
+for (const doc of DOCS) {
+  const html = read(doc);
+  check(`${doc} links the manifest`, /<link[^>]+rel="manifest"/.test(html));
+  check(`${doc} sets a theme-color`, /<meta[^>]+name="theme-color"/.test(html));
+  check(`${doc} declares a viewport`, /width=device-width/.test(html));
 }
 
 /* ───────────────────── the install experience ───────────────── */

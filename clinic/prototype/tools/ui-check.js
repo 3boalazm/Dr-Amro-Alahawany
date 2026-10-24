@@ -101,10 +101,11 @@ async function waitFor(fn, ms = 5000) {
 
     /* ── nav ── */
     const links = $$('.nav-link');
-    check('desktop nav has 4 links', links.length === 4, `${links.length}`);
+    check('desktop nav has 5 links', links.length === 5, `${links.length}`);
     check('nav labels are translated', links.every(l => l.textContent.trim().length > 0), links.map(l => l.textContent).join('/'));
-    check('nav order is home, booking, clinic, privacy',
-      links.map(l => l.getAttribute('href')).join(',') === 'index.html,booking.html,clinic.html,privacy.html',
+    check('nav order is home, booking, clinic, about, privacy',
+      links.map(l => l.getAttribute('href')).join(',') ===
+        'index.html,booking.html,clinic.html,about.html,privacy.html',
       links.map(l => l.getAttribute('href')).join(','));
     check('current page is marked', $('.nav-link.is-active')?.getAttribute('href') === 'index.html');
     check('current page has aria-current', $('.nav-link.is-active')?.getAttribute('aria-current') === 'page');
@@ -115,7 +116,7 @@ async function waitFor(fn, ms = 5000) {
     click(window, $('#menuBtn'));
     await sleep(120);
     check('menu opens', $('#menuSheet').hidden === false);
-    check('menu shows 4 links', $$('.menu-link').length === 4, `${$$('.menu-link').length}`);
+    check('menu shows 5 links', $$('.menu-link').length === 5, `${$$('.menu-link').length}`);
     check('menu marks the current page', $('.menu-link.is-active')?.getAttribute('href') === 'index.html');
     check('body scroll locked while open', doc.body.style.overflow === 'hidden');
     check('menu button reports expanded', $('#menuBtn').getAttribute('aria-expanded') === 'true');
@@ -198,6 +199,9 @@ async function waitFor(fn, ms = 5000) {
     check('footer rendered', !!$('.site-footer .footer-inner'));
     check('footer has the phone link', ($('.footer-links a')?.getAttribute('href') || '').startsWith('tel:'));
     check('footer year interpolated', /20\d\d/.test($('.site-footer').textContent), $('.site-footer').textContent.trim().slice(0, 40));
+    check('footer links the developer page', ($('.footer-docs a')?.getAttribute('href')) === 'studio.html');
+    check('footer links the research file', $$('.footer-docs a').some(a => a.getAttribute('href') === 'dossier.html'));
+    check('footer carries the build credit', ($('.footer-credit a')?.textContent || '').includes('Code'));
 
     /* ── home content ── */
     check('hero headline present', $('.hero h1').textContent.includes('دقيقة'), $('.hero h1').textContent);
@@ -275,6 +279,38 @@ async function waitFor(fn, ms = 5000) {
     check('privacy links back to booking', ($('.page-cta a')?.getAttribute('href')) === 'booking.html');
     check('privacy tab title from the dictionary',
       window.document.title === 'الخصوصية والأمان — د. عمرو الأهواني', window.document.title);
+  }
+
+  {
+    const { window, $, $$, errors } = await mount('about.html');
+    check('about page has no errors', errors.length === 0, errors.join(' | '));
+    check('about marks its own nav item', $('.nav-link.is-active')?.getAttribute('href') === 'about.html');
+    check('about shows four numbers', $$('.about-stat').length === 4, `${$$('.about-stat').length}`);
+    check('about lists eight credentials', $$('.cred-item').length === 8, `${$$('.cred-item').length}`);
+    check('about lists five procedures', $$('.prose-block .prose-list li').length === 5);
+    check('about lists publications', $$('.pub-row').length === 5, `${$$('.pub-row').length}`);
+    check('about keeps paper titles in English order', $('.pub-title')?.getAttribute('dir') !== 'rtl');
+    check('about links to the real Scholar profile',
+      ($('.prose .text-link')?.getAttribute('href') || '').includes('scholar.google.com'));
+    check('about title comes from the dictionary',
+      window.document.title === 'عن الدكتور — عمرو الأهواني', window.document.title);
+    check('about keeps the booking CTA', $('.page-cta a')?.getAttribute('href') === 'booking.html');
+  }
+
+  {
+    const { window, $, $$, errors } = await mount('studio.html');
+    check('studio page has no errors', errors.length === 0, errors.join(' | '));
+    check('studio names both founders', $$('.studio-person').length === 2, `${$$('.studio-person').length}`);
+    const review = $('.review-card .primary-btn') || $('#review .primary-btn');
+    check('studio sends the doctor to the questionnaire',
+      (review?.getAttribute('href') || '') === 'https://codeandcanvas.net/clinic-review/', review?.getAttribute('href'));
+    check('questionnaire link opens in a new tab', review?.getAttribute('target') === '_blank');
+    check('questionnaire link is marked noopener', (review?.getAttribute('rel') || '').includes('noopener'));
+    check('studio credits the studio site',
+      ($('.prose a[href="https://codeandcanvas.net/"]') || null) !== null);
+    check('studio links the research file', ($('a[href="dossier.html"]') || null) !== null);
+    check('studio footer credit links out',
+      (($('.footer-credit a') || {}).getAttribute?.('href') || '').includes('codeandcanvas.net'));
   }
 
   /* ═══════════════ Booking flow ═══════════════ */

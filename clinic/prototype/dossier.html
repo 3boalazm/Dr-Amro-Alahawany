@@ -5,6 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ملف أ.د. عمرو الأهواني — دوسيه شامل</title>
 <meta name="description" content="ملف تعريفي شامل عن أ.د. عمرو الأهواني، أستاذ طب وجراحة أمراض الذكورة بجامعة القاهرة: المؤهلات، البحث العلمي، العمليات، العيادات، الحضور الرقمي، وملاحظات.">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#faf7f2">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="د. عمرو الأهواني">
 <style>
   :root{
     --ink:#12252c;
@@ -141,6 +147,24 @@
     .toc ol{columns:1}
     header.cover{padding-top:40px}
   }
+
+  /* ── doc bar ──────────────────────────────────────── */
+  .doc-bar{
+    display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+    max-width:var(--maxw);margin:0 auto;padding:16px 20px 0
+  }
+  .doc-back{
+    display:inline-flex;align-items:center;gap:7px;font-size:14px;font-weight:600;
+    color:var(--accent);border-bottom:0
+  }
+  .doc-back:hover{text-decoration:underline}
+  .doc-badge{
+    font-size:11.5px;font-weight:700;letter-spacing:.06em;color:var(--gold);
+    background:color-mix(in srgb,var(--gold) 12%,transparent);
+    border-radius:999px;padding:4px 11px
+  }
+  @media print{.doc-bar{display:none}}
+
   @media print{
     body{background:#fff;color:#000;font-size:11.5pt}
     .toc{display:none}
@@ -150,6 +174,11 @@
 </style>
 </head>
 <body>
+<div class="doc-bar">
+  <a class="doc-back" href="index.html">→ العودة للموقع</a>
+  <span class="doc-badge">ملف بحثي · مرجع داخلي</span>
+</div>
+
 <div class="wrap">
 
 <header class="cover">

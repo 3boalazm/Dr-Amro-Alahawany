@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover"
+    />
+    <title>المطوّر — Code &amp; Canvas</title>
+    <meta
+      name="description"
+      content="موقع وتطبيق عيادة أ.د. عمرو الأهواني من تصميم وتطوير Code & Canvas — براند وأنظمة وتقنية. واستبيان المراجعة لإكمال التعديلات."
+    />
+
+    <!-- ── PWA ── -->
+    <link rel="manifest" href="manifest.webmanifest" />
+    <meta name="theme-color" content="#faf7f2" id="themeColor" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="د. عمرو الأهواني" />
+    <meta name="application-name" content="د. عمرو الأهواني" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="icon" href="favicon.ico" sizes="any" />
+    <link rel="icon" href="icons/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="icon" href="icons/favicon-16.png" sizes="16x16" type="image/png" />
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+
+    <script>
+      /* Apply saved theme + locale before first paint to avoid a flash. */
+      (function () {
+        try {
+          var theme = localStorage.getItem('dr-theme');
+          var system = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          var resolved = theme || system;
+          document.documentElement.dataset.theme = resolved;
+          var meta = document.getElementById('themeColor');
+          if (meta) meta.setAttribute('content', resolved === 'dark' ? '#080f16' : '#faf7f2');
+          var locale = localStorage.getItem('dr-locale');
+          if (locale) {
+            document.documentElement.lang = locale === 'en' ? 'en' : 'ar';
+            document.documentElement.dir = locale === 'en' ? 'ltr' : 'rtl';
+          }
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+
+  <body data-page="studio" data-title="meta.studioTitle">
+    <script src="i18n.js"></script>
+    <script src="core.js"></script>
+
+    <main id="main" class="page">
+      <div class="wrap prose">
+        <header class="page-head">
+          <h1 data-i18n="studio.title"></h1>
+          <p data-i18n="studio.lede"></p>
+          <p class="prose-meta">Code &amp; Canvas · MENA</p>
+        </header>
+
+        <section class="prose-block">
+          <h2 data-i18n="studio.who.title"></h2>
+          <p data-i18n="studio.who.1"></p>
+          <p data-i18n="studio.who.2"></p>
+
+          <div class="studio-people">
+            <article class="studio-person">
+              <h3>Ahmed M. Bedeer</h3>
+              <p class="studio-role" data-i18n="studio.ahmed.role"></p>
+              <p class="studio-tags">CPHIMS · HIMSS EMRAM · TOGAF · NORA · HL7 / FHIR</p>
+            </article>
+            <article class="studio-person">
+              <h3>Mustafa Aboalazm</h3>
+              <p class="studio-role" data-i18n="studio.mustafa.role"></p>
+              <p class="studio-tags" data-i18n="studio.mustafa.tags"></p>
+            </article>
+          </div>
+        </section>
+
+        <section class="prose-block">
+          <h2 data-i18n="studio.build.title"></h2>
+          <ul class="prose-list">
+            <li data-i18n="studio.build.1"></li>
+            <li data-i18n="studio.build.2"></li>
+            <li data-i18n="studio.build.3"></li>
+            <li data-i18n="studio.build.4"></li>
+          </ul>
+        </section>
+
+        <!-- ── the questionnaire ── -->
+        <section class="review-card" id="review">
+          <span class="review-kicker" data-i18n="studio.review.kicker"></span>
+          <h2 data-i18n="studio.review.title"></h2>
+          <p data-i18n="studio.review.desc"></p>
+
+          <ul class="review-facts">
+            <li data-i18n="studio.review.fact1"></li>
+            <li data-i18n="studio.review.fact2"></li>
+            <li data-i18n="studio.review.fact3"></li>
+          </ul>
+
+          <a
+            class="primary-btn review-cta"
+            href="https://codeandcanvas.net/clinic-review/"
+            target="_blank"
+            rel="noopener"
+          >
+            <span data-i18n="studio.review.cta"></span>
+            <svg class="dir-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m14 5-7 7 7 7" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </a>
+
+          <p class="review-note" data-i18n="studio.review.note"></p>
+        </section>
+
+        <section class="prose-block">
+          <h2 data-i18n="studio.links.title"></h2>
+          <ul class="prose-list">
+            <li>
+              <a class="text-link" href="https://codeandcanvas.net/" target="_blank" rel="noopener">codeandcanvas.net</a>
+              — <span data-i18n="studio.links.site"></span>
+            </li>
+            <li>
+              <a class="text-link" href="https://codeandcanvas.net/healthcare/" target="_blank" rel="noopener">
+                <span data-i18n="studio.links.healthcareLabel"></span>
+              </a>
+              — <span data-i18n="studio.links.healthcare"></span>
+            </li>
+            <li>
+              <a class="text-link" href="dossier.html" data-i18n="studio.links.dossierLabel"></a>
+              — <span data-i18n="studio.links.dossier"></span>
+            </li>
+          </ul>
+        </section>
+
+        <div class="page-cta">
+          <a class="primary-btn" href="booking.html">
+            <span data-i18n="home.cta.book"></span>
+            <svg class="dir-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m14 5-7 7 7 7" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer"></footer>
+
+    <script src="install.js"></script>
+  </body>
+</html>
