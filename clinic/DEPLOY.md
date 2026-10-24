@@ -39,6 +39,47 @@ Vercel مش قادر ينشر دلوقتي عن طريق الـ API لأنه ب�
 > مفيش build ولا dependencies — الملفات الثابتة تُخدم من الجذر،
 > وملفات `api/*.js` بتتحوّل تلقائيًا لـ Serverless Functions.
 
+## ⚠️ حاجتين لازم تتظبط مرة واحدة من لوحة Vercel
+
+### ١. إلغاء حماية النشر (عشان الموقع يفتح لأي حد)
+
+المشروع الجديد على Vercel بيجي عليه **Vercel Authentication** مفعّل، وده بيعرض
+شاشة تسجيل دخول Vercel لأي زائر. يعني المرضى مش هيقدروا يشوفوا الصفحة،
+و**التطبيق مش هيتثبت** على موبايلهم.
+
+`Settings → Deployment Protection → Vercel Authentication → Disabled`
+
+### ٢. تأكيد إن نوع المشروع «Other» مش «Node»
+
+لو Vercel شاف `package.json` جنب `app.js`، بيعتبر المشروع سيرفر Node وبياخد
+`app.js` كنقطة دخول — في الصفحة الرئيسية تشتغل ملف المتصفح جوه دالة serverless
+وتطلع خطأ. عشان كده فيه `.vercelignore` بيستثني `package.json` و`server.js`
+و`tools/` من الرفع، و`framework: null` في `vercel.json`.
+
+**علامة إن ده حصل:** في الـ build log تلاقي
+`Build complete — Using app.js as the root entrypoint`.
+لو ظهر، راجع `.vercelignore` الأول.
+
+---
+
+`vercel.json` جاهز في `clinic/prototype` وبيظبط حاجتين:
+- **يمنع الوصول** لـ `server.js` و`package.json` و`lib/` و`tools/` (404 بدل تحميل الكود).
+- **كاش صحيح** لـ `manifest.webmanifest` و`sw.js` (بدون كاش للـ service worker
+  عشان التحديثات توصل فورًا) وأيقونات الـ PWA بصلاحية سنة.
+
+### التحقق بعد النشر (PWA)
+
+```bash
+curl -sI https://<project>.vercel.app/manifest.webmanifest | grep -i content-type
+curl -sI https://<project>.vercel.app/sw.js | grep -i service-worker
+curl -s -o /dev/null -w '%{http_code}\n' https://<project>.vercel.app/server.js   # لازم 404
+curl -s -o /dev/null -w '%{http_code}\n' https://<project>.vercel.app/icons/icon-512.png  # 200
+```
+
+بعدها افتح الموقع على **HTTPS** من الموبايل → هيظهر زر **«ثبّت التطبيق»**
+في الهيدر، وأندروید كمان هيعرض بانر التثبيت التلقائي.
+> التثبيت وservice worker **مش بيشتغلوا** على `http` أو `file://` — لازم localhost أو HTTPS.
+
 ---
 
 ## الطريقة التانية — Vercel CLI
