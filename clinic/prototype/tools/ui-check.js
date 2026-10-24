@@ -304,9 +304,13 @@ async function waitFor(fn, ms = 5000) {
     check('studio names both founders', $$('.studio-person').length === 2, `${$$('.studio-person').length}`);
     const review = $('.review-card .primary-btn') || $('#review .primary-btn');
     check('studio sends the doctor to the questionnaire',
-      (review?.getAttribute('href') || '') === 'https://codeandcanvas.net/clinic-review/', review?.getAttribute('href'));
+      (review?.getAttribute('href') || '') === 'https://codeandcanvas.net/amro-alahawany-review/', review?.getAttribute('href'));
     check('questionnaire link opens in a new tab', review?.getAttribute('target') === '_blank');
     check('questionnaire link is marked noopener', (review?.getAttribute('rel') || '').includes('noopener'));
+    check('questionnaire uses the doctor-specific URL',
+      (review?.getAttribute('href') || '').includes('amro-alahawany-review'),
+      review?.getAttribute('href'));
+    check('the retired questionnaire URL is gone', !window.document.body.innerHTML.includes('clinic-review/'));
     check('studio credits the studio site',
       ($('.prose a[href="https://codeandcanvas.net/"]') || null) !== null);
     check('studio links the research file', ($('a[href="dossier.html"]') || null) !== null);
