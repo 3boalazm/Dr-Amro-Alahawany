@@ -147,6 +147,7 @@ window.I18N = {
       consent_required: 'الموافقة على سياسة الخصوصية مطلوبة لإتمام الحجز.',
       consent_stale: 'تم تحديث سياسة الخصوصية — يرجى إعادة الموافقة.',
       slot_taken: 'هذا الموعد تم حجزه للتو. اختر وقتًا آخر.',
+      slot_unavailable: 'هذا الوقت لم يعد متاحًا. اختر وقتًا آخر من القائمة.',
     },
 
     install: {
@@ -321,6 +322,7 @@ window.I18N = {
       consent_required: 'الموافقة على سياسة الخصوصية مطلوبة لإتمام الحجز.',
       consent_stale: 'تم تحديث سياسة الخصوصية — نرجو إعادة الموافقة.',
       slot_taken: 'هذا الموعد انحجز للتو. اختر وقت ثاني.',
+      slot_unavailable: 'هذا الوقت ما عاد متاح. اختر وقت ثاني من القائمة.',
     },
 
     install: {
@@ -495,6 +497,7 @@ window.I18N = {
       consent_required: 'Privacy policy consent is required to complete the booking.',
       consent_stale: 'The privacy policy was updated — please accept it again.',
       slot_taken: 'That slot was just taken. Please choose another time.',
+      slot_unavailable: 'That time is no longer available. Please pick another from the list.',
     },
 
     install: {

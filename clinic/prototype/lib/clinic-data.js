@@ -167,6 +167,19 @@ function buildSlots(serviceId, dateKey) {
   return slots;
 }
 
+/* End of an appointment, derived from the service duration.
+
+   The client must not be trusted to send end_datetime: a wrong value
+   becomes a wrong slot length in the clinic's records. */
+function slotEndTime(serviceId, time) {
+  const service = SERVICES.find(s => s.id === String(serviceId));
+  if (!service) return null;
+  const [h, m] = String(time).split(':').map(Number);
+  if (Number.isNaN(h) || Number.isNaN(m)) return null;
+  const total = h * 60 + m + service.duration;
+  return `${pad(Math.floor(total / 60))}:${pad(total % 60)}`;
+}
+
 function availableDates(serviceId, days = 21) {
   const out = [];
   const today = new Date();
@@ -223,6 +236,7 @@ module.exports = {
   SERVICES,
   PROVIDERS,
   buildSlots,
+  slotEndTime,
   availableDates,
   makeReference,
   validateBooking,
