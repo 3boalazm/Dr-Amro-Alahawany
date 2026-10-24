@@ -288,10 +288,19 @@ function wireInstall() {
   const sheet = $('#installSheet');
   if (!btn || !sheet) return;
 
-  // Hidden until the app is installable (or when already installed).
+  /* Show the button only when there is something it can do.
+     `hidden = installed` alone left it on screen in desktop Firefox and
+     Safari, where neither the native prompt nor the iOS instructions
+     apply — tapping it led to a dead end. */
   const syncVisible = () => {
-    const installed = window.PWA?.isStandalone?.() ?? false;
-    btn.hidden = installed;
+    const pwa = window.PWA;
+    if (!pwa) {
+      btn.hidden = true;
+      return;
+    }
+    const installed = pwa.isStandalone();
+    const actionable = pwa.canInstall() || pwa.isIOS();
+    btn.hidden = installed || !actionable;
   };
   syncVisible();
   window.PWA?.onChange?.(syncVisible);
