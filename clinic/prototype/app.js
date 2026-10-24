@@ -758,6 +758,15 @@ async function submitBooking(e) {
     toast(err.message || t('err.generic'), 'error');
     btn.disabled = false;
     label.textContent = t('btn.confirm');
+
+    // The slot went away between picking it and confirming. Sending the
+    // patient back to the time list is the only useful next step — leaving
+    // them on the form invites them to fail again.
+    if (err.code === 'slot_taken' || err.code === 'slot_unavailable') {
+      state.time = null;
+      go(2);
+      if (state.date) selectDate(state.date, { silent: true });
+    }
   } finally {
     state.submitting = false;
   }

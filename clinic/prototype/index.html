@@ -57,11 +57,17 @@
     <header class="site-header">
       <div class="wrap header-inner">
         <div class="brand">
-          <div class="brand-mark" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-              <path d="M4 12h4l2-5 3 10 2-5h5" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-          </div>
+          <picture class="brand-avatar">
+            <source type="image/webp" srcset="img/avatar-96.webp 1x, img/avatar-192.webp 2x" />
+            <img
+              src="img/avatar-96.jpg"
+              srcset="img/avatar-96.jpg 1x, img/avatar-192.jpg 2x"
+              width="96"
+              height="96"
+              alt=""
+              decoding="async"
+            />
+          </picture>
           <div class="brand-text">
             <strong data-i18n="brand.name">د. عمرو الأهواني</strong>
             <span data-i18n="brand.role">استشاري جراحات وأمراض الذكورة</span>
@@ -111,24 +117,31 @@
         <div class="wrap hero-inner">
           <div class="hero-copy">
             <div class="doctor">
-              <picture class="doctor-photo">
-                <source
-                  type="image/webp"
-                  srcset="img/doctor-240.webp 240w, img/doctor-480.webp 480w"
-                  sizes="(min-width: 1040px) 176px, (min-width: 760px) 150px, (min-width: 560px) 96px, 76px"
-                />
-                <img
-                  src="img/doctor-480.jpg"
-                  srcset="img/doctor-240.jpg 240w, img/doctor-480.jpg 480w"
-                  sizes="(min-width: 1040px) 176px, (min-width: 760px) 150px, (min-width: 560px) 96px, 76px"
-                  width="480"
-                  height="735"
-                  alt="أ.د. عمرو الأهواني"
-                  data-i18n-alt="hero.doctorAlt"
-                  decoding="async"
-                  fetchpriority="high"
-                />
-              </picture>
+              <div class="doctor-badge">
+                <picture class="doctor-photo">
+                  <source
+                    type="image/webp"
+                    srcset="img/doctor-240.webp 240w, img/doctor-480.webp 480w"
+                    sizes="(min-width: 1040px) 176px, (min-width: 760px) 150px, (min-width: 560px) 96px, 76px"
+                  />
+                  <img
+                    src="img/doctor-480.jpg"
+                    srcset="img/doctor-240.jpg 240w, img/doctor-480.jpg 480w"
+                    sizes="(min-width: 1040px) 176px, (min-width: 760px) 150px, (min-width: 560px) 96px, 76px"
+                    width="480"
+                    height="735"
+                    alt="أ.د. عمرو الأهواني"
+                    data-i18n-alt="hero.doctorAlt"
+                    decoding="async"
+                    fetchpriority="high"
+                  />
+                </picture>
+                <span class="doctor-crest" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 12h3.6l2-4.6 2.6 9.4 2-4.8H20" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </span>
+              </div>
               <div class="doctor-id">
                 <p class="doctor-name" data-i18n="hero.doctorName"></p>
                 <p class="doctor-role" data-i18n="hero.doctorRole"></p>

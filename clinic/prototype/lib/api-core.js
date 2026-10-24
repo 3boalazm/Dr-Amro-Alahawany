@@ -9,6 +9,7 @@ const {
   SERVICES,
   PROVIDERS,
   buildSlots,
+  slotEndTime,
   availableDates,
   makeReference,
   validateBooking,
@@ -101,16 +102,42 @@ function calendar(body = {}) {
   return { status: 200, body: { calendar: availableDates(body.service_id) } };
 }
 
+/* Times already taken for one service on one day.
+
+   buildSlots() is deterministic — it models the clinic's pattern for that
+   date, not its bookings. Without subtracting BOOKINGS here, a patient who
+   taps an already-taken slot only finds out after typing in the whole form
+   and getting 409 slot_taken. */
+function bookedTimes(serviceId, dateKey) {
+  const taken = new Set();
+  for (const b of BOOKINGS) {
+    if (b.service_id !== String(serviceId)) continue;
+    const stamp = String(b.start_datetime || '');
+    if (!stamp.startsWith(`${dateKey} `)) continue;
+    taken.add(stamp.slice(11, 16));
+  }
+  return taken;
+}
+
 function availability(body = {}) {
   if (!body.service_id || !body.selected_date) return fail(400, 'invalid_appointment');
+
+  const taken = bookedTimes(body.service_id, body.selected_date);
+  const slots = buildSlots(body.service_id, body.selected_date).filter(s => !taken.has(s.time));
+
+  // A day with nothing left should stop advertising itself as available.
+  const calendar = availableDates(body.service_id).map(day => {
+    if (day.date !== body.selected_date) return day;
+    return { ...day, available: slots.length };
+  });
 
   return {
     status: 200,
     body: {
       service_id: body.service_id,
       selected_date: body.selected_date,
-      slots: buildSlots(body.service_id, body.selected_date),
-      calendar: availableDates(body.service_id),
+      slots,
+      calendar,
     },
   };
 }
@@ -124,9 +151,18 @@ function register(body = {}) {
 
   const { appointment = {}, customer = {} } = body.post_data || {};
   const startDatetime = String(appointment.start_datetime);
+  const serviceId = String(appointment.service_id);
+  const dateKey = startDatetime.slice(0, 10);
+  const time = startDatetime.slice(11, 16);
+
+  // Never trust the posted time. Without this a caller can book 03:00, a
+  // Friday, or a slot that was never on offer — the UI would never ask for
+  // those, so anything else is a malformed or replayed request.
+  const offered = buildSlots(serviceId, dateKey).some(s => s.time === time);
+  if (!offered) return fail(409, 'slot_unavailable');
 
   const clash = BOOKINGS.find(
-    b => b.start_datetime === startDatetime && b.service_id === String(appointment.service_id),
+    b => b.start_datetime === startDatetime && b.service_id === serviceId,
   );
   if (clash) return fail(409, 'slot_taken');
 
@@ -136,7 +172,7 @@ function register(body = {}) {
     service_id: String(appointment.service_id),
     provider_id: String(appointment.provider_id || '1'),
     start_datetime: startDatetime,
-    end_datetime: appointment.end_datetime || null,
+    end_datetime: `${dateKey} ${slotEndTime(serviceId, time)}:00`,
     customer: {
       first_name: customer.first_name,
       last_name: customer.last_name || '',

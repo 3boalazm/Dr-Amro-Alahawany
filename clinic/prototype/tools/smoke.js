@@ -28,6 +28,8 @@ const ASSETS = [
   ['/favicon.ico', 'image'],
   ['/img/doctor-480.webp', 'image/webp'],
   ['/img/doctor-480.jpg', 'image/jpeg'],
+  ['/img/avatar-96.webp', 'image/webp'],
+  ['/img/avatar-192.jpg', 'image/jpeg'],
 ];
 
 const BLOCKED = ['/server.js', '/package.json', '/lib/api-core.js', '/tools/make-icons.py'];
@@ -80,6 +82,7 @@ async function get(path, init) {
   check('فيها رابط الأيقونة', home.body.includes('favicon.ico'));
   check('HTML متطابق مع المستودع', home.body.length > 5000, `${home.body.length} حرف`);
   check('صورة الطبيب في الصفحة', home.body.includes('img/doctor-480.webp'));
+  check('أفاتار الهيدر موجود', home.body.includes('img/avatar-96.webp'));
   check('صورة الطبيب فيها alt', /img[^>]*data-i18n-alt/.test(home.body) || home.body.includes('data-i18n-alt'));
 
   /* ── 2. static assets ── */
