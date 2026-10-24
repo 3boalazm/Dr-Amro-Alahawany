@@ -99,8 +99,13 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
   check('install sheet starts closed', $('#installSheet').hidden === true);
   check('window.PWA exposed', !!window.PWA);
   check('PWA.isStandalone works', window.PWA.isStandalone() === false);
+  // jsdom offers no native install prompt and is not iOS, so there is
+  // nothing the button could do and it must stay out of the way.
+  check('install button hidden when not actionable', $('#installBtn').hidden === true);
 
-  /* ── install sheet ── */
+  /* ── install sheet ──
+     Dispatching on a hidden button is deliberate: it exercises the manual
+     instructions path, which is what iOS users get. */
   $('#installBtn').dispatchEvent(new window.MouseEvent('click', { bubbles: true }));
   await sleep(150);
   check('tapping install opens the sheet', $('#installSheet').hidden === false);
