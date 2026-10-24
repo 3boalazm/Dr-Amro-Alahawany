@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover"
+    />
+    <title>عن أ.د. عمرو الأهواني — السيرة والمؤهلات</title>
+    <meta
+      name="description"
+      content="السيرة الأكاديمية والمهنية لأ.د. عمرو الأهواني — أستاذ طب وجراحة أمراض الذكورة بكلية الطب جامعة القاهرة، مؤهلاته وزمالاته وأبرز أبحاثه."
+    />
+
+    <!-- ── PWA ── -->
+    <link rel="manifest" href="manifest.webmanifest" />
+    <meta name="theme-color" content="#faf7f2" id="themeColor" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="د. عمرو الأهواني" />
+    <meta name="application-name" content="د. عمرو الأهواني" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="icon" href="favicon.ico" sizes="any" />
+    <link rel="icon" href="icons/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="icon" href="icons/favicon-16.png" sizes="16x16" type="image/png" />
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+
+    <script>
+      /* Apply saved theme + locale before first paint to avoid a flash. */
+      (function () {
+        try {
+          var theme = localStorage.getItem('dr-theme');
+          var system = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          var resolved = theme || system;
+          document.documentElement.dataset.theme = resolved;
+          var meta = document.getElementById('themeColor');
+          if (meta) meta.setAttribute('content', resolved === 'dark' ? '#080f16' : '#faf7f2');
+          var locale = localStorage.getItem('dr-locale');
+          if (locale) {
+            document.documentElement.lang = locale === 'en' ? 'en' : 'ar';
+            document.documentElement.dir = locale === 'en' ? 'ltr' : 'rtl';
+          }
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+
+  <body data-page="about" data-title="meta.aboutTitle">
+    <script src="i18n.js"></script>
+    <script src="core.js"></script>
+
+    <main id="main" class="page">
+      <div class="wrap prose">
+        <header class="page-head">
+          <h1 data-i18n="about.title"></h1>
+          <p data-i18n="about.lede"></p>
+          <p class="prose-meta" data-i18n="about.meta"></p>
+        </header>
+
+        <!-- ── the four numbers ── -->
+        <div class="about-stats">
+          <div class="about-stat">
+            <b>+25</b><span data-i18n="about.stat.years"></span>
+          </div>
+          <div class="about-stat">
+            <b>303</b><span data-i18n="about.stat.cites"></span>
+          </div>
+          <div class="about-stat">
+            <b>16</b><span data-i18n="about.stat.papers"></span>
+          </div>
+          <div class="about-stat">
+            <b>3</b><span data-i18n="about.stat.clinics"></span>
+          </div>
+        </div>
+
+        <section class="prose-block">
+          <h2 data-i18n="about.bio.title"></h2>
+          <p data-i18n="about.bio.1"></p>
+          <p data-i18n="about.bio.2"></p>
+        </section>
+
+        <section class="prose-block">
+          <h2 data-i18n="about.cred.title"></h2>
+          <ul class="cred-list">
+            <li class="cred-item" data-i18n="about.cred.1"></li>
+            <li class="cred-item" data-i18n="about.cred.2"></li>
+            <li class="cred-item" data-i18n="about.cred.3"></li>
+            <li class="cred-item" data-i18n="about.cred.4"></li>
+            <li class="cred-item" data-i18n="about.cred.5"></li>
+            <li class="cred-item" data-i18n="about.cred.6"></li>
+            <li class="cred-item" data-i18n="about.cred.7"></li>
+            <li class="cred-item" data-i18n="about.cred.8"></li>
+          </ul>
+        </section>
+
+        <section class="prose-block">
+          <h2 data-i18n="about.proc.title"></h2>
+          <ul class="prose-list">
+            <li data-i18n="about.proc.1"></li>
+            <li data-i18n="about.proc.2"></li>
+            <li data-i18n="about.proc.3"></li>
+            <li data-i18n="about.proc.4"></li>
+            <li data-i18n="about.proc.5"></li>
+          </ul>
+        </section>
+
+        <section class="prose-block">
+          <h2 data-i18n="about.research.title"></h2>
+          <p data-i18n="about.research.note"></p>
+
+          <div class="pub-list">
+            <article class="pub-row">
+              <span class="pub-year">2026</span>
+              <div class="pub-body">
+                <h3 class="pub-title">
+                  Subinguinal antegrade sclerotherapy vs micro-varicocelectomy vs a combined
+                  approach
+                </h3>
+                <p class="pub-meta">Basic and Clinical Andrology</p>
+              </div>
+            </article>
+
+            <article class="pub-row">
+              <span class="pub-year">2026</span>
+              <div class="pub-body">
+                <h3 class="pub-title">
+                  RCT: deep dermal glanular hyaluronic acid injection vs oral dapoxetine for
+                  premature ejaculation
+                </h3>
+                <p class="pub-meta">International Urology and Nephrology</p>
+              </div>
+            </article>
+
+            <article class="pub-row">
+              <span class="pub-year">2025</span>
+              <div class="pub-body">
+                <h3 class="pub-title">
+                  Predictors of sperm retrieval in micro-TESE: mosaic vs non-mosaic Klinefelter
+                </h3>
+                <p class="pub-meta">Basic and Clinical Andrology</p>
+              </div>
+            </article>
+
+            <article class="pub-row">
+              <span class="pub-year">2025</span>
+              <div class="pub-body">
+                <h3 class="pub-title">
+                  Gelatin sponge as a hemostatic agent in inflatable penile prosthesis implantation
+                </h3>
+                <p class="pub-meta">International Journal of Impotence Research</p>
+              </div>
+            </article>
+
+            <article class="pub-row">
+              <span class="pub-year">2019</span>
+              <div class="pub-body">
+                <h3 class="pub-title">
+                  Hyaluronic acid injection in glans penis for premature ejaculation — a randomized
+                  controlled cross-over study
+                </h3>
+                <p class="pub-meta">International Journal of Impotence Research</p>
+              </div>
+            </article>
+          </div>
+
+          <p class="prose-fine">
+            <a
+              class="text-link"
+              href="https://scholar.google.com/citations?user=toxaNUEAAAAJ"
+              target="_blank"
+              rel="noopener"
+              data-i18n="about.research.link"
+            ></a>
+          </p>
+        </section>
+
+        <p class="prose-fine">
+          <a class="text-link" href="dossier.html" data-i18n="about.dossierLink"></a>
+        </p>
+
+        <div class="page-cta">
+          <a class="primary-btn" href="booking.html">
+            <span data-i18n="home.cta.book"></span>
+            <svg class="dir-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m14 5-7 7 7 7" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer"></footer>
+
+    <script src="install.js"></script>
+  </body>
+</html>

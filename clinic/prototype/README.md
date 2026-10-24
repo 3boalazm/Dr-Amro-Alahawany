@@ -92,6 +92,9 @@ prototype/
 ├── index.html              ← الرئيسية: الهيرو + الخدمات + الخطوات + الخصوصية
 ├── booking.html            ← الحجز: ٤ خطوات + الملخّص
 ├── clinic.html             ← العيادة: العنوان والمواعيد والتواصل
+├── about.html              ← السيرة: المؤهلات والزمالات والأبحاث
+├── studio.html             ← المطوّر: Code & Canvas + استبيان المراجعة
+├── dossier.html            ← الملف البحثي الكامل (٢٠ قسمًا + المصادر)
 ├── privacy.html            ← الخصوصية: اللي بنجمعه وحقوقك (قانون ١٥١/٢٠٢٠)
 ├── styles.css              ← التصميم، mobile-first، لايت/دارك
 ├── i18n.js                 ← القواميس الثلاثة + إعدادات اللغات
@@ -125,12 +128,12 @@ prototype/
 تلات طبقات — الأولى والتانية من غير أي اعتماديات، والتالتة محتاجة jsdom.
 
 ```bash
-npm run audit                       # ٤٢ فحص ثابت: CSS · classes · ترجمة · صفحات
-npm run check:install               # ٨٣ فحص جاهزية التثبيت على الأندرويد
-npm run smoke                       # ٧٤ فحص على نشرة (محلي أو Vercel)
+npm run audit                       # ٤٣ فحص ثابت: CSS · classes · ترجمة · صفحات
+npm run check:install               # ١٠٠ فحص جاهزية التثبيت على الأندرويد
+npm run smoke                       # ٨٧ فحص على نشرة (محلي أو Vercel)
 npm run smoke -- https://<project>.vercel.app
 
-npm install && npm run check:ui     # ١٥٠ فحص سلوك في DOM
+npm install && npm run check:ui     # ١٧١ فحص سلوك في DOM
 ```
 
 | الأداة | بتكشف إيه |

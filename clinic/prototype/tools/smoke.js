@@ -88,8 +88,8 @@ async function get(path, init) {
   check('أفاتار الهيدر موجود', (await get('/core.js')).body.includes('img/avatar-96.webp'));
   check('صورة الطبيب فيها alt', /img[^>]*data-i18n-alt/.test(home.body) || home.body.includes('data-i18n-alt'));
 
-  /* ── 1b. الصفحات الأربعة ── */
-  for (const page of ['/booking.html', '/clinic.html', '/privacy.html']) {
+  /* ── 1b. صفحات التطبيق ── */
+  for (const page of ['/booking.html', '/clinic.html', '/about.html', '/studio.html', '/privacy.html']) {
     try {
       const r = await get(page);
       check(`${page} 200`, r.status === 200, `${r.status}`);
@@ -99,6 +99,18 @@ async function get(path, init) {
     } catch (err) {
       check(`${page}`, false, err.message);
     }
+  }
+
+  /* ── 1c. الملف البحثي: مستند قائم بذاته، مش شاشة في التطبيق ── */
+  try {
+    const r = await get('/dossier.html');
+    check('/dossier.html 200', r.status === 200, `${r.status}`);
+    check('/dossier.html HTML', r.type.includes('text/html'), r.type);
+    check('/dossier.html مربوط بالمانيفست', r.body.includes('rel="manifest"'));
+    check('/dossier.html بيرجع للموقع', r.body.includes('href="index.html"'));
+    check('/dossier.html مش صفحة خطأ', !/FUNCTION_INVOCATION_FAILED|Application error/i.test(r.body));
+  } catch (err) {
+    check('/dossier.html', false, err.message);
   }
 
   /* ── 2. static assets ── */

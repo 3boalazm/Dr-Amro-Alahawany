@@ -6,17 +6,102 @@
 window.I18N = {
   /* ─────────────── العربية المصرية ─────────────── */
   'ar-EG': {
+    about: {
+      title: 'عن أ.د. عمرو الأهواني',
+      lede: 'أستاذ طب وجراحة أمراض الذكورة بكلية الطب — جامعة القاهرة، واستشاري جراحات الذكورة والحقن المجهري.',
+      meta: 'آخر تحديث: أكتوبر 2026',
+      bio: {
+        title: 'نبذة',
+        1: 'بدأ مساره في كلية الطب جامعة القاهرة، وحصل على الماجستير والدكتوراه في أمراض الذكورة، وتدرّج حتى درجة الأستاذ. وبجانب الجراحة، أضاف دبلوم جراحة المناظير من فرنسا، وماجستير أطفال الأنابيب من جامعة ليدز في إنجلترا.',
+        2: 'وجوده في معمل الأجنة بجانب غرفة العمليات هو الفرق: يقدّم نفسه كجرّاح ذكورة يعمل داخل دورة الحقن المجهري كاملة، لا كطبيب يُحيل الحالة لغيره.',
+      },
+      stat: {
+        years: 'سنة خبرة',
+        cites: 'اقتباسًا علميًا',
+        papers: 'بحثًا منشورًا',
+        clinics: 'عيادات: القاهرة · سوهاج · دبي',
+      },
+      cred: {
+        title: 'المؤهلات والزمالات',
+        1: 'ماجستير ودكتوراه الذكورة — جامعة القاهرة',
+        2: 'دبلوم الجراحة العامة — جامعة القاهرة',
+        3: 'دبلوم جراحة المناظير — جامعة أوفرن، فرنسا',
+        4: 'ماجستير أطفال الأنابيب — جامعة ليدز، إنجلترا',
+        5: 'الزمالة الأوروبية في علاج الضعف الجنسي',
+        6: 'زمالة أوروبية في علم الأجنة وأطفال الأنابيب',
+        7: 'زمالة ESHRE و ASRM لعلاج العقم',
+        8: 'عضوية كلية الجراحين الملكية بإنجلترا',
+      },
+      proc: {
+        title: 'الإجراءات',
+        1: 'دوالي الخصية بالجراحة الميكروسكوبية',
+        2: 'تفتيش الخصية الميكروسكوبي (micro-TESE)',
+        3: 'الحقن المجهري وأطفال الأنابيب',
+        4: 'دعامة العضو الذكري — مرنة وهيدروليكية',
+        5: 'علاج سرعة القذف وضعف الانتصاب',
+      },
+      research: {
+        title: 'أبرز الأبحاث',
+        note: 'مختارات من أبحاثه المحكّمة — العناوين كما نُشرت بالإنجليزية.',
+        link: 'كل الأبحاث على Google Scholar',
+      },
+      dossierLink: 'الملف البحثي الكامل — ٢٠ قسمًا بمصادره',
+    },
+
+    studio: {
+      title: 'المطوّر',
+      lede: 'الموقع والتطبيق من تصميم وتطوير Code & Canvas — بيت تطوير أعمال في MENA يربط البراند والتقنية والبيانات.',
+      who: {
+        title: 'الفريق',
+        1: 'بيت تطوير أعمال مقره MENA، بيشتغل على الهوية والتقنية والتحول الرقمي والبيانات — بمشاريع محددة النطاق ومراحل واضحة.',
+        2: 'وفي الصحة بالتحديد، عندهم مسار كامل للعيادات والمستشفيات: إطلاق رقمي، وهوية للعيادة، واختيار أنظمة المعلومات الصحية.',
+      },
+      ahmed: { role: 'شريك مؤسس · معماري مؤسسات · تحول رقمي صحي' },
+      mustafa: {
+        role: 'شريك مؤسس · مدير إبداعي · أنظمة هوية بصرية',
+        tags: 'هوية بصرية · أنظمة تصميم · Figma · ويب',
+      },
+      build: {
+        title: 'اللي اتبني هنا',
+        1: 'حجز في 4 خطوات، مع رجوع وتعديل في أي لحظة.',
+        2: 'تلات لغات: مصري، خليجي، وإنجليزي — ووضع ليلي ونهاري.',
+        3: 'تطبيق بيتثبت على الموبايل ويفتح بدون نت.',
+        4: 'بيانات المرضى مش بتتخزن على السيرفر — الحجز في الذاكرة بس.',
+      },
+      review: {
+        kicker: 'الخطوة الجاية',
+        title: 'دكتور عمرو، نكمّلها سوا؟',
+        desc: 'استبيان قصير (6 خطوات) بياخد 8–10 دقايق. إجاباتك هي اللي بتحوّل النموذج ده لموقع العيادة النهائي.',
+        fact1: 'كل الأسئلة اختيارية — عدّي اللي مش جاهز له.',
+        fact2: 'إجاباتك بتتحفظ على جهازك لحد ما تبعتها بنفسك.',
+        fact3: 'مفيش بيانات مرضى في الاستبيان — آراءك عن التطبيق بس.',
+        cta: 'افتح الاستبيان',
+        note: 'الرابط يفتح في نافذة جديدة — تقدر ترجع للموقع في أي وقت.',
+      },
+      links: {
+        title: 'روابط',
+        site: 'الموقع الرسمي والخدمات',
+        healthcareLabel: 'خدمات الصحة',
+        healthcare: 'مسار العيادات والمستشفيات',
+        dossierLabel: 'الملف البحثي',
+        dossier: 'كل ما هو منشور عن الدكتور، في مستند واحد.',
+      },
+    },
+
     meta: {
       title: 'حجز موعد — عيادة د. عمرو الأهواني',
       desc: 'احجز موعدك أونلاين في عيادة أ.د. عمرو الأهواني — استشاري جراحات وأمراض الذكورة. خصوصية تامة وتأكيد فوري.',
       bookingTitle: 'حجز موعد — د. عمرو الأهواني',
       clinicTitle: 'العيادة والموقع — د. عمرو الأهواني',
       privacyTitle: 'الخصوصية والأمان — د. عمرو الأهواني',
+      aboutTitle: 'عن الدكتور — عمرو الأهواني',
+      studioTitle: 'المطوّر — Code & Canvas',
     },
     a11y: { skip: 'تجاوز إلى المحتوى', langLabel: 'اللغة', themeDark: 'الوضع الليلي', themeLight: 'الوضع النهاري' },
     brand: { name: 'د. عمرو الأهواني', role: 'استشاري جراحات وأمراض الذكورة' },
     nav: {
-      home: 'الرئيسية', book: 'الحجز', clinic: 'العيادة', privacy: 'الخصوصية',
+      home: 'الرئيسية', book: 'الحجز', clinic: 'العيادة', about: 'عن الدكتور', privacy: 'الخصوصية',
+      studio: 'المطوّر',
       menu: 'القائمة', close: 'قفل القائمة', call: 'اتصل', secure: 'مشفّر',
       cta: 'احجز موعدك', install: 'ثبّت التطبيق',
     },
@@ -128,7 +213,7 @@ window.I18N = {
       p4: 'بدون إعلانات',
     },
 
-    footer: { copy: '© {year} عيادة أ.د. عمرو الأهواني — جميع الحقوق محفوظة.', whatsapp: 'واتساب', site: 'الموقع الرسمي' },
+    footer: { copy: '© {year} عيادة أ.د. عمرو الأهواني — جميع الحقوق محفوظة.', whatsapp: 'واتساب', site: 'الموقع الرسمي', studio: 'المطوّر', dossier: 'الملف البحثي', credit: 'تصميم وتطوير' },
 
     unit: { minutes: 'دقيقة', currency: 'ج.م' },
 
@@ -267,17 +352,102 @@ window.I18N = {
 
   /* ─────────────── العربية الخليجية ─────────────── */
   'ar-SA': {
+    about: {
+      title: 'عن أ.د. عمرو الأهواني',
+      lede: 'أستاذ طب وجراحة أمراض الذكورة بكلية الطب — جامعة القاهرة، واستشاري جراحات الذكورة والحقن المجهري. تقدر تحجز معه من الموقع على طول.',
+      meta: 'آخر تحديث: أكتوبر 2026',
+      bio: {
+        title: 'نبذة',
+        1: 'بدأ مساره في كلية الطب جامعة القاهرة، وحصل على الماجستير والدكتوراه في أمراض الذكورة، وتدرّج لين وصل درجة الأستاذ. وبعدها أضاف دبلوم جراحة المناظير من فرنسا، وماجستير أطفال الأنابيب من جامعة ليدز بإنجلترا — عشان يجمع الجراحة بعلم الأجنة.',
+        2: 'وجوده في معمل الأجنة جنب غرفة العمليات هو الفرق: يقدّم نفسه كجرّاح ذكورة يشتغل داخل دورة الحقن المجهري كاملة، عشان كذا ما يحوّل الحالة لغيره.',
+      },
+      stat: {
+        years: 'سنة خبرة',
+        cites: 'اقتباس علمي',
+        papers: 'بحث منشور',
+        clinics: 'عيادات: القاهرة · سوهاج · دبي',
+      },
+      cred: {
+        title: 'المؤهلات والزمالات',
+        1: 'ماجستير ودكتوراه في أمراض الذكورة — جامعة القاهرة',
+        2: 'دبلوم الجراحة العامة — جامعة القاهرة',
+        3: 'دبلوم جراحة المناظير — جامعة أوفرن، فرنسا',
+        4: 'ماجستير أطفال الأنابيب — جامعة ليدز، إنجلترا',
+        5: 'الزمالة الأوروبية في علاج الضعف الجنسي',
+        6: 'الزمالة الأوروبية في علم الأجنة وأطفال الأنابيب',
+        7: 'زمالة ESHRE و ASRM لعلاج العقم',
+        8: 'عضوية كلية الجراحين الملكية بإنجلترا',
+      },
+      proc: {
+        title: 'الإجراءات',
+        1: 'دوالي الخصية بالجراحة الميكروسكوبية',
+        2: 'تفتيش الخصية الميكروسكوبي (micro-TESE)',
+        3: 'الحقن المجهري وأطفال الأنابيب',
+        4: 'دعامة العضو الذكري — مرنة وهيدروليكية',
+        5: 'علاج سرعة القذف وضعف الانتصاب',
+      },
+      research: {
+        title: 'أبرز الأبحاث',
+        note: 'مختارات من أبحاثه المحكّمة — العناوين على طول كما نُشرت بالإنجليزية.',
+        link: 'كل الأبحاث على Google Scholar',
+      },
+      dossierLink: 'الملف البحثي الكامل — 20 قسم بمصادره',
+    },
+
+    studio: {
+      title: 'المطوّر',
+      lede: 'الموقع والتطبيق من تصميم وتطوير Code & Canvas — بيت تطوير أعمال في MENA يربط البراند والتقنية والبيانات عشان يطلع شغل من أول مرة.',
+      who: {
+        title: 'الفريق',
+        1: 'بيت تطوير أعمال مقره MENA، يشتغل على الهوية والتقنية والتحول الرقمي والبيانات — بمشاريع محددة النطاق ومراحل واضحة، عشان ما فيه مفاجآت في الفاتورة.',
+        2: 'وفي الصحة بالتحديد، عندهم مسار كامل للعيادات والمستشفيات — ما فيه حاجة يسيبونها للصدفة.',
+      },
+      ahmed: { role: 'شريك مؤسس · معماري مؤسسات · تحول رقمي صحي' },
+      mustafa: {
+        role: 'شريك مؤسس · مدير إبداعي · أنظمة هوية بصرية',
+        tags: 'هوية بصرية · أنظمة تصميم · Figma · ويب',
+      },
+      build: {
+        title: 'اللي انبنى هنا',
+        1: 'حجز في 4 خطوات، مع رجوع وتعديل أي وقت.',
+        2: 'ثلاث لغات: مصري، خليجي، وإنجليزي — ووضع ليلي ونهاري على طول.',
+        3: 'تطبيق يتثبت على الجوال ويفتح بدون نت.',
+        4: 'بيانات المرضى ما تنحفظ على السيرفر — الحجز في الذاكرة بس.',
+      },
+      review: {
+        kicker: 'الخطوة الجاية',
+        title: 'دكتور عمرو، نكمّلها سوا؟',
+        desc: 'استبيان قصير (6 خطوات) ياخذ 8–10 دقايق. إجاباتك هي اللي تحوّل هالنموذج لموقع العيادة النهائي.',
+        fact1: 'كل الأسئلة اختيارية — عدّي اللي ما هو جاهز له.',
+        fact2: 'ما فيه إجابة تطلع من جهازك إلا لما ترسلها بنفسك.',
+        fact3: 'ما فيه بيانات مرضى في الاستبيان — رأيك عن التطبيق بس.',
+        cta: 'افتح الاستبيان',
+        note: 'الرابط يفتح في نافذة جديدة — وتقدر ترجع للموقع أي وقت.',
+      },
+      links: {
+        title: 'روابط',
+        site: 'الموقع الرسمي والخدمات',
+        healthcareLabel: 'خدمات الصحة',
+        healthcare: 'مسار العيادات والمستشفيات',
+        dossierLabel: 'الملف البحثي',
+        dossier: 'كل ما هو منشور عن الدكتور، في مستند واحد بس.',
+      },
+    },
+
     meta: {
       title: 'احجز موعدك — عيادة د. عمرو الأهواني',
       desc: 'احجز موعدك أونلاين في عيادة أ.د. عمرو الأهواني — استشاري جراحات وأمراض الذكورة. خصوصية تامة وتأكيد على طول.',
       bookingTitle: 'حجز موعد — د. عمرو الأهواني',
       clinicTitle: 'العيادة والموقع — د. عمرو الأهواني',
       privacyTitle: 'الخصوصية والأمان — د. عمرو الأهواني',
+      aboutTitle: 'عن الدكتور — عمرو الأهواني',
+      studioTitle: 'المطوّر — Code & Canvas',
     },
     a11y: { skip: 'روح للمحتوى على طول', langLabel: 'اللغة', themeDark: 'الوضع الليلي', themeLight: 'الوضع النهاري' },
     brand: { name: 'د. عمرو الأهواني', role: 'استشاري جراحات وأمراض الذكورة' },
     nav: {
-      home: 'الرئيسية', book: 'الحجز', clinic: 'العيادة', privacy: 'الخصوصية',
+      home: 'الرئيسية', book: 'الحجز', clinic: 'العيادة', about: 'عن الدكتور', privacy: 'الخصوصية',
+      studio: 'المطوّر',
       menu: 'القائمة', close: 'سكّر القائمة', call: 'كلمنا', secure: 'محمي',
       cta: 'احجز موعدك', install: 'ثبّت التطبيق',
     },
@@ -389,7 +559,7 @@ window.I18N = {
       p4: 'بدون إعلانات',
     },
 
-    footer: { copy: '© {year} عيادة أ.د. عمرو الأهواني — جميع الحقوق محفوظة.', whatsapp: 'واتساب', site: 'الموقع الرسمي' },
+    footer: { copy: '© {year} عيادة أ.د. عمرو الأهواني — جميع الحقوق محفوظة.', whatsapp: 'واتساب', site: 'الموقع الرسمي', studio: 'المطوّر', dossier: 'الملف البحثي', credit: 'تصميم وتطوير' },
 
     unit: { minutes: 'دقيقة', currency: 'ج.م' },
 
@@ -528,17 +698,102 @@ window.I18N = {
 
   /* ─────────────── English ─────────────── */
   en: {
+    about: {
+      title: 'About Dr. Amro Alahawany',
+      lede: 'Professor of andrology at the Faculty of Medicine, Cairo University, and a consultant in andrological surgery and ICSI.',
+      meta: 'Last updated: October 2026',
+      bio: {
+        title: 'Profile',
+        1: 'He trained at Cairo University, taking his master’s and doctorate in andrology and rising to professor. Alongside surgery he added a laparoscopic diploma from France and an ART master’s from the University of Leeds in England.',
+        2: 'Being in the embryology lab as well as the operating theatre is the difference: he works inside the whole IVF cycle rather than referring the case onward.',
+      },
+      stat: {
+        years: 'years in practice',
+        cites: 'citations',
+        papers: 'published papers',
+        clinics: 'clinics: Cairo · Sohag · Dubai',
+      },
+      cred: {
+        title: 'Degrees & fellowships',
+        1: 'MSc and PhD in andrology — Cairo University',
+        2: 'Diploma in general surgery — Cairo University',
+        3: 'Diploma in laparoscopy — Université d’Auvergne, France',
+        4: 'MSc in ART — University of Leeds, England',
+        5: 'European fellowship in sexual dysfunction',
+        6: 'European fellowship in embryology and ART',
+        7: 'ESHRE and ASRM fellowships',
+        8: 'Royal College of Surgeons membership',
+      },
+      proc: {
+        title: 'Procedures',
+        1: 'Microsurgical varicocelectomy',
+        2: 'Micro-TESE sperm retrieval',
+        3: 'ICSI and assisted reproduction',
+        4: 'Penile prosthesis — malleable and inflatable',
+        5: 'Premature ejaculation and erectile dysfunction',
+      },
+      research: {
+        title: 'Selected research',
+        note: 'A selection of his peer-reviewed work — titles as published.',
+        link: 'All publications on Google Scholar',
+      },
+      dossierLink: 'The full research file — 20 sections, with sources',
+    },
+
+    studio: {
+      title: 'Built by',
+      lede: 'Designed and built by Code & Canvas — a MENA business-development studio aligning brand, technology and data.',
+      who: {
+        title: 'The team',
+        1: 'A business-development studio based in MENA, working across identity, technology, digital transformation and data — fixed scope, milestone-based delivery.',
+        2: 'In healthcare specifically they run a full clinic and hospital track: digital launch, clinic identity, and HIS selection advisory.',
+      },
+      ahmed: { role: 'Co-founder · Enterprise architect · Healthcare transformation' },
+      mustafa: {
+        role: 'Co-founder · Creative director · Visual identity systems',
+        tags: 'Brand · Design systems · Figma · Web',
+      },
+      build: {
+        title: 'What was built here',
+        1: 'Booking in four steps, with a way back at any moment.',
+        2: 'Three locales — Egyptian, Gulf and English — plus light and dark.',
+        3: 'Installable on a phone, and it opens offline.',
+        4: 'Patient data is never stored on a server — bookings live in memory.',
+      },
+      review: {
+        kicker: 'Next step',
+        title: 'Doctor, shall we finish it together?',
+        desc: 'A short six-step questionnaire, about 8–10 minutes. Your answers are what turn this prototype into the clinic’s final site.',
+        fact1: 'Every question is optional — skip whatever is not decided yet.',
+        fact2: 'Answers stay on your device until you send them yourself.',
+        fact3: 'No patient data — this is about the app, not about cases.',
+        cta: 'Open the questionnaire',
+        note: 'The link opens in a new tab — you can come back any time.',
+      },
+      links: {
+        title: 'Links',
+        site: 'The studio and its services',
+        healthcareLabel: 'Healthcare services',
+        healthcare: 'The clinic and hospital track',
+        dossierLabel: 'Research file',
+        dossier: 'Everything published about the doctor, in one document.',
+      },
+    },
+
     meta: {
       title: 'Book an appointment — Dr. Amro Alahawany Clinic',
       desc: 'Book online with Prof. Amro Alahawany, Consultant of Andrology & Male Surgery. Complete privacy and instant confirmation.',
       bookingTitle: 'Book an appointment — Dr. Amro Alahawany',
       clinicTitle: 'Clinic & location — Dr. Amro Alahawany',
       privacyTitle: 'Privacy — Dr. Amro Alahawany',
+      aboutTitle: 'About — Dr. Amro Alahawany',
+      studioTitle: 'Built by — Code & Canvas',
     },
     a11y: { skip: 'Skip to content', langLabel: 'Language', themeDark: 'Dark mode', themeLight: 'Light mode' },
     brand: { name: 'Dr. Amro Alahawany', role: 'Consultant of Andrology & Male Surgery' },
     nav: {
-      home: 'Home', book: 'Booking', clinic: 'Clinic', privacy: 'Privacy',
+      home: 'Home', book: 'Booking', clinic: 'Clinic', about: 'About', privacy: 'Privacy',
+      studio: 'Built by',
       menu: 'Menu', close: 'Close menu', call: 'Call', secure: 'Encrypted',
       cta: 'Book now', install: 'Install app',
     },
@@ -650,7 +905,7 @@ window.I18N = {
       p4: 'No advertising',
     },
 
-    footer: { copy: '© {year} Dr. Amro Alahawany Clinic — All rights reserved.', whatsapp: 'WhatsApp', site: 'Official website' },
+    footer: { copy: '© {year} Dr. Amro Alahawany Clinic — All rights reserved.', whatsapp: 'WhatsApp', site: 'Official website', studio: 'Built by', dossier: 'Research file', credit: 'Designed & built by' },
 
     unit: { minutes: 'min', currency: 'EGP' },
 
