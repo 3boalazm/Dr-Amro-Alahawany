@@ -28,6 +28,14 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
 (async () => {
   const read = f => fs.readFileSync(path.join(ROOT, f), 'utf8');
 
+  // Fail with a usable message instead of a stack trace three calls deep.
+  try {
+    await fetch(BASE, { signal: AbortSignal.timeout(5000) });
+  } catch {
+    console.error(`\n  مفيش سيرفر على ${BASE}\n  شغّل:  node server.js\n`);
+    process.exit(2);
+  }
+
   const dom = new JSDOM(read('index.html'), {
     url: BASE,
     pretendToBeVisual: true,
@@ -129,7 +137,12 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
   $('#langSelect').dispatchEvent(new window.Event('change', { bubbles: true }));
   await sleep(350);
   check('switch to Gulf', st().locale === 'ar-SA');
-  check('Gulf hero copy', $('.hero h1').textContent.includes('موعدك عندنا'), $('.hero h1').textContent.trim());
+  check('Gulf hero copy', $('.hero h1').textContent.includes('خذ موعدك'), $('.hero h1').textContent.trim());
+  // Rendered text, not just the dictionary: the glass hairline is the
+  // "الحين" the Gulf reader expects instead of MSA "الآن".
+  check('Gulf eyebrow', $('.eyebrow').textContent.includes('الحين'), $('.eyebrow').textContent.trim());
+  check('Gulf hours wording', $('.hero-facts').textContent.includes('الدوام'), 'hero-facts');
+  check('Gulf step labels', $('.stepper').textContent.includes('التأكيد'), 'stepper');
 
   $('#langSelect').value = 'en';
   $('#langSelect').dispatchEvent(new window.Event('change', { bubbles: true }));
@@ -154,7 +167,12 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
 
   /* ── booking flow ── */
   check('next-1 disabled before choosing', $('#next1').disabled);
-  $$('.service-card')[0].dispatchEvent(new window.MouseEvent('click', { bubbles: true }));
+  const firstCard = $$('.service-card')[0];
+  if (!firstCard) {
+    console.error('\n  الصفحة محمّلت من غير خدمة واحدة — اتأكد إن /api/clinic بيرد.\n');
+    process.exit(2);
+  }
+  firstCard.dispatchEvent(new window.MouseEvent('click', { bubbles: true }));
   await sleep(700);
   check('service selected', st().service && st().service.id === '1', st().service?.id);
   check('sticky bar appears', $('#stickyBar').hidden === false);

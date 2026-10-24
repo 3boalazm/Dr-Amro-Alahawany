@@ -180,6 +180,65 @@ const check = (name, ok, detail = '') => results.push({ name, ok: !!ok, detail }
   const mismatch = base.filter(k =>
     vars(maps['ar-EG'][k]) !== vars(maps['en'][k]) || vars(maps['ar-EG'][k]) !== vars(maps['ar-SA'][k]));
   check('placeholders consistent', mismatch.length === 0, mismatch.slice(0, 4).join(', '));
+
+  /* ── dialect ──────────────────────────────────────────────────────
+     ar-SA is a Gulf locale, not Egyptian with a few swapped words.
+     These checks stop it drifting back into MSA-by-default. */
+
+  // Arabic glues و / ف onto the following word ("وما فيه"), so a naive
+  // substring test misses half the markers. Every match goes through a
+  // word-boundary regex that tolerates those prefixes.
+  const normalise = v =>
+    String(v)
+      .replace(/<[^>]+>/g, ' ')
+      .replace(/[«»()\[\]…—–،:!؟"'.,{}\/]/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+
+  const ownsMarker = (value, marker) => {
+    const text = normalise(value);
+    const words = marker.split(' ');
+    // Words that always begin a word, like هال — prefix match, no end bound.
+    const regex = new RegExp(
+      `(?:^|\\s)(?:[وف])?${words.join('\\s+(?:[وف])?')}(?=\\s|$)`,
+    );
+    return regex.test(` ${text} `);
+  };
+
+  const EGYPTIAN = [
+    'مش', 'دلوقتي', 'النهاردة', 'كده', 'كدا', 'لسه', 'أوي', 'اوي', 'عايز', 'عايزة',
+    'إزاي', 'ازاي', 'بتاع', 'بتاعة', 'علشان', 'برضه', 'كويس', 'خلي', 'خليك',
+    'بيوصلك', 'هيوصل', 'بكام', 'إيه',
+  ];
+  const values = Object.values(maps['ar-SA']);
+  const leaks = EGYPTIAN.filter(w => values.some(v => ownsMarker(v, w)));
+  check('[ar-SA] no Egyptian dialect', leaks.length === 0, leaks.join(', '));
+
+  // A Gulf voice shows up as vocabulary, not just punctuation.
+  const GULF = [
+    'الحين', 'تبي', 'أبغى', 'عشان', 'مو', 'ما فيه', 'ينحسب', 'راح', 'عاد',
+    'دقايق', 'الدوام', 'مقفل', 'بس', 'تقدر', 'على طول', 'أول ما', 'هالصفحة',
+    'هالموعد', 'هالمتصفح', 'هاليوم',
+  ];
+  const gulfUsed = GULF.filter(m => values.some(v => ownsMarker(v, m)));
+  check('[ar-SA] reads Gulf, not MSA', gulfUsed.length >= 14,
+    `${gulfUsed.length}/${GULF.length} markers`);
+
+  // Prose is where dialect lives. A long string identical to the Egyptian
+  // one was never localised; one with no Gulf vocabulary at all is MSA.
+  // Legal citations are exempt: they must be reproduced verbatim.
+  const VERBATIM_OK = new Set(['consent.note', 'footer.copy']);
+  const prose = Object.keys(maps['ar-EG'])
+    .filter(k => String(maps['ar-EG'][k]).length > 45 && !VERBATIM_OK.has(k));
+
+  const copied = prose.filter(k => maps['ar-SA'][k] === maps['ar-EG'][k]);
+  check('[ar-SA] prose is rewritten, not copied', copied.length === 0,
+    `${copied.length}/${prose.length}: ${copied.slice(0, 3).join(', ')}`);
+
+  const voiced = prose.filter(k => GULF.some(m => ownsMarker(maps['ar-SA'][k], m)));
+  const coverage = prose.length ? voiced.length / prose.length : 1;
+  check('[ar-SA] prose carries Gulf vocabulary', coverage >= 0.85,
+    `${voiced.length}/${prose.length}`);
 }
 
 /* ─────────────────────── assets on disk ─────────────────────── */
