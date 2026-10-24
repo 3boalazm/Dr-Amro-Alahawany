@@ -168,7 +168,12 @@ function applyStaticText() {
   });
 
   $('#privacyLink')?.setAttribute('href', '#');
-  $('#langSelect')?.setAttribute('aria-label', t('a11y.langLabel'));
+  const langSelect = $('#langSelect');
+  if (langSelect) {
+    langSelect.setAttribute('aria-label', t('a11y.langLabel'));
+    const meta = window.LOCALES.find(l => l.id === state.locale);
+    if (meta) langSelect.title = meta.label;
+  }
   $('#installBtn')?.setAttribute('aria-label', t('install.ariaInstall'));
 
   // Content that comes from clinic data rather than the dictionary
@@ -206,8 +211,10 @@ async function boot() {
 function buildLangSelect() {
   const select = $('#langSelect');
   if (!select) return;
+  // The full name would not fit in the header pill, so the option text is
+  // the short form and the full name rides along as the title.
   select.innerHTML = window.LOCALES.map(
-    l => `<option value="${l.id}">${l.label}</option>`,
+    l => `<option value="${l.id}" title="${l.label}">${l.short || l.label}</option>`,
   ).join('');
   select.value = state.locale;
   select.addEventListener('change', e => setLocale(e.target.value));

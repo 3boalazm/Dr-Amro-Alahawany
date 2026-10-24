@@ -530,8 +530,11 @@ window.I18N = {
   },
 };
 
+/* `label` is the full name shown in the dropdown; `short` is what fits in
+   the header pill, where "العربية (خليجي)" alone was wider than every other
+   control combined. */
 window.LOCALES = [
-  { id: 'ar-EG', dir: 'rtl', intl: 'ar-EG-u-nu-latn', label: 'العربية (مصر)' },
-  { id: 'ar-SA', dir: 'rtl', intl: 'ar-AE-u-nu-latn', label: 'العربية (خليجي)' },
-  { id: 'en', dir: 'ltr', intl: 'en-GB', label: 'English' },
+  { id: 'ar-EG', dir: 'rtl', intl: 'ar-EG-u-nu-latn', label: 'العربية (مصر)', short: 'مصري' },
+  { id: 'ar-SA', dir: 'rtl', intl: 'ar-AE-u-nu-latn', label: 'العربية (خليجي)', short: 'خليجي' },
+  { id: 'en', dir: 'ltr', intl: 'en-GB', label: 'English', short: 'EN' },
 ];

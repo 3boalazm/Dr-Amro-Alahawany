@@ -62,12 +62,32 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
   check('app boots with 5 services', $$('.service-card').length === 5, `${$$('.service-card').length}`);
   check('no runtime errors on boot', errors.length === 0, errors.join(' | '));
 
-  /* ── branding ── */
+  /* ── header ── */
+  check('one pill wraps the whole header', !!$('.nav-pill'));
+  check('header renders exactly one pill', $$('.nav-pill').length === 1, `${$$('.nav-pill').length}`);
+
   const avatar = $('.brand-avatar img');
   check('header shows the portrait', !!avatar);
   check('header avatar has a 2x source', (avatar?.getAttribute('srcset') || '').includes('2x'));
   check('header avatar is decorative (empty alt)', avatar?.getAttribute('alt') === '');
   check('old SVG tile is gone', !$('.brand-mark'));
+
+  // The bug that shipped: <picture> is inline, so the logo rendered at its
+  // intrinsic 96px and spilled out of the bar.
+  const frame = $('.brand-avatar');
+  check('avatar frame is a block, not a <picture>', frame?.tagName === 'SPAN', frame?.tagName);
+  check('avatar frame owns the sizing', !frame?.querySelector(':scope > picture[style]'));
+
+  check('brand name localised', $('.brand-text strong').textContent.trim().length > 3,
+    $('.brand-text strong').textContent);
+  check('CTA sits inside the pill', !!$('.nav-pill .nav-cta'));
+  check('CTA is a real phone link', ($('.nav-cta')?.getAttribute('href') || '').startsWith('tel:'),
+    $('.nav-cta')?.getAttribute('href'));
+  check('CTA keeps an accessible label', $('.nav-cta').textContent.trim().length > 0,
+    $('.nav-cta').textContent.trim());
+  check('theme button inside the pill', !!$('.nav-pill #themeBtn'));
+  check('language picker inside the pill', !!$('.nav-pill #langSelect'));
+  check('install button inside the pill', !!$('.nav-pill #installBtn'));
   check('hero portrait present', !!$('.doctor-photo img'));
   check('hero portrait has srcset', !!$('.doctor-photo img')?.getAttribute('srcset'));
   check('hero credential crest present', !!$('.doctor-crest svg'));

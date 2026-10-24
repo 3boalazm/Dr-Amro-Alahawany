@@ -294,111 +294,143 @@ svg {
 
 /* ─────────────────────────────── Header ─────────────────────────── */
 
+/* ─────────────────────────────── Header ─────────────────────────────
+   One floating pill holds every control, the way the reference does:
+   avatar → circular icon buttons → filled CTA. Nothing sits loose on
+   the bar, so the eye reads a single object instead of a row of chips.
+   ─────────────────────────────────────────────────────────────────── */
+
 .site-header {
   position: sticky;
   top: 0;
   z-index: 60;
-  padding-top: var(--safe-t);
-  background: var(--header-bg);
-  -webkit-backdrop-filter: saturate(1.8) blur(16px);
-  backdrop-filter: saturate(1.8) blur(16px);
-  border-bottom: 1px solid var(--line);
+  padding-block: 8px;
+  padding-top: calc(8px + var(--safe-t));
+  /* Fade the page out behind the pill rather than drawing a hard bar. */
+  background: linear-gradient(to bottom, var(--bg) 55%, transparent);
 }
 
-.header-inner {
+.nav-pill {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
-  min-height: var(--header-h);
+  gap: 8px;
+  padding: 5px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  /* Solid first for browsers without color-mix. */
+  background: var(--surface);
+  background: color-mix(in srgb, var(--surface) 86%, transparent);
+  -webkit-backdrop-filter: saturate(1.7) blur(18px);
+  backdrop-filter: saturate(1.7) blur(18px);
+  box-shadow: var(--sh-2);
 }
 
 .brand {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 9px;
   min-width: 0;
+  padding-inline-start: 4px;
 }
 
+/* <picture> is inline, so width/height on it are ignored and the image
+   renders at its intrinsic size — that is what blew the logo up. The
+   frame is a block-level span instead, and the img fills it. */
 .brand-avatar {
+  display: block;
   flex: none;
-  width: 38px;
-  height: 38px;
-  padding: 1.5px;
+  width: 36px;
+  height: 36px;
+  padding: 2px;
   border-radius: 50%;
-  /* Solid first: without color-mix support the gradient is an invalid
-     value and the ring would disappear. */
   background: var(--gold);
   background: linear-gradient(
     150deg,
     var(--gold),
-    color-mix(in srgb, var(--gold) 30%, var(--line))
+    color-mix(in srgb, var(--gold) 35%, var(--line))
   );
-  box-shadow: var(--sh-1);
+  /* The soft halo the reference uses to make the face the first thing
+     you see in the bar. */
+  box-shadow: 0 0 0 3px var(--glow-gold), 0 1px 3px rgba(11, 27, 43, 0.12);
 }
 
+.brand-avatar picture,
 .brand-avatar img {
   display: block;
   width: 100%;
   height: 100%;
   border-radius: 50%;
+}
+
+.brand-avatar img {
   object-fit: cover;
-  /* The avatar crop is already square and face-centred; the mobile
-     breakpoints only tighten the frame. */
   object-position: 50% 50%;
 }
+
+/* Phones show the portrait alone — the name is the first thing in the
+   hero, one scroll away, and squeezing it in here only produced
+   "د. عمرو ا…" next to four controls. It returns at 560px. */
 .brand-text {
-  display: flex;
+  display: none;
   flex-direction: column;
   min-width: 0;
-  line-height: 1.25;
+  line-height: 1.2;
 }
 .brand-text strong {
-  font-size: 14.5px;
+  font-size: 14px;
   font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 .brand-text span {
-  font-size: 11px;
+  font-size: 10.5px;
   color: var(--muted);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.header-actions {
+.nav-actions {
   display: flex;
   align-items: center;
   gap: 6px;
   flex: none;
 }
 
-/* icon buttons — 40px so they stay comfortable to tap */
+/* Circular, hairline-outlined, transparent — they sit inside the pill
+   rather than reading as separate cards. */
 .icon-btn {
   display: grid;
   place-items: center;
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   flex: none;
   padding: 0;
   border: 1px solid var(--line);
-  border-radius: var(--r-pill);
-  background: var(--surface);
+  border-radius: 50%;
+  background: transparent;
   color: var(--text-2);
-  transition: border-color 0.2s var(--ease), color 0.2s var(--ease), transform 0.2s var(--ease);
+  transition:
+    border-color 0.2s var(--ease),
+    background-color 0.2s var(--ease),
+    color 0.2s var(--ease),
+    transform 0.16s var(--ease);
 }
 .icon-btn svg {
-  width: 17px;
-  height: 17px;
+  width: 16px;
+  height: 16px;
 }
 .icon-btn:hover {
-  border-color: var(--line-hover);
+  border-color: var(--gold);
+  background: var(--gold-soft);
   color: var(--gold-deep);
 }
 .icon-btn:active {
-  transform: scale(0.94);
+  transform: scale(0.92);
 }
 
 [data-theme="light"] .ico-moon,
@@ -406,7 +438,8 @@ svg {
   display: none;
 }
 
-/* install button gets a subtle gold ring so it reads as the special action */
+/* The install button is the one action worth pointing at, so it keeps a
+   gold ring instead of the hairline. */
 .install-btn {
   border-color: var(--gold);
   color: var(--gold-deep);
@@ -414,30 +447,34 @@ svg {
 }
 .install-btn:hover {
   background: var(--gold);
-  color: var(--surface);
   border-color: var(--gold);
+  color: var(--surface);
 }
 
-/* language select */
+/* Language: a compact circle on phones, a labelled pill from 560px. */
 .lang-control {
   position: relative;
   display: flex;
   align-items: center;
-  height: 40px;
-  padding-inline: 10px 6px;
+  justify-content: center;
+  gap: 5px;
+  height: 36px;
+  padding-inline: 9px;
   border: 1px solid var(--line);
   border-radius: var(--r-pill);
-  background: var(--surface);
-  transition: border-color 0.2s var(--ease);
+  background: transparent;
+  transition: border-color 0.2s var(--ease), background-color 0.2s var(--ease);
 }
 .lang-control:hover {
-  border-color: var(--line-hover);
+  border-color: var(--gold);
+  background: var(--gold-soft);
 }
 .lang-globe {
-  width: 14px;
-  height: 14px;
+  width: 15px;
+  height: 15px;
   flex: none;
-  color: var(--muted);
+  color: var(--text-3);
+  pointer-events: none;
 }
 .lang-control select {
   appearance: none;
@@ -446,48 +483,45 @@ svg {
   background: transparent;
   color: var(--text-2);
   font: inherit;
-  font-size: 12.5px;
+  font-size: 11.5px;
   font-weight: 600;
+  /* 16px stops iOS zooming the page on focus; the wrapper clips the
+     visual size instead of shrinking the text. */
   padding: 0;
-  padding-inline: 6px 12px;
   cursor: pointer;
-  outline: none;
-  max-width: 96px;
+  outline-offset: 3px;
 }
-.lang-control::after {
-  content: "";
-  position: absolute;
-  inset-inline-end: 10px;
-  top: 50%;
-  width: 5px;
-  height: 5px;
-  margin-top: -4px;
-  border-inline-end: 1.6px solid var(--muted);
-  border-bottom: 1.6px solid var(--muted);
-  transform: rotate(45deg);
-  pointer-events: none;
+.lang-control select option {
+  color: var(--text);
+  background: var(--surface);
 }
 
-.call-btn {
-  display: none; /* shown from tablet up; the sticky bar covers mobile */
+/* The CTA mirrors the reference's filled pill: one solid accent shape in
+   a bar that is otherwise all hairlines. */
+.nav-cta {
+  display: inline-flex;
   align-items: center;
-  gap: 7px;
-  height: 40px;
-  padding-inline: 16px;
-  border: 1px solid var(--line-2);
+  justify-content: center;
+  gap: 6px;
+  height: 36px;
+  padding-inline: 12px;
   border-radius: var(--r-pill);
-  color: var(--text-2);
-  font-size: 13.5px;
-  font-weight: 600;
-  transition: border-color 0.2s var(--ease), background-color 0.2s var(--ease);
+  background: linear-gradient(180deg, var(--btn-1), var(--btn-2));
+  color: var(--btn-text);
+  font-size: 12.5px;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: filter 0.2s var(--ease), transform 0.16s var(--ease);
 }
-.call-btn svg {
-  width: 16px;
-  height: 16px;
+.nav-cta svg {
+  width: 15px;
+  height: 15px;
 }
-.call-btn:hover {
-  background: var(--surface);
-  border-color: var(--text-3);
+.nav-cta:hover {
+  filter: brightness(1.08);
+}
+.nav-cta:active {
+  transform: scale(0.96);
 }
 
 /* ─────────────────────────────── Hero ───────────────────────────── */
@@ -1969,6 +2003,63 @@ body:has(.sticky-bar:not([hidden])) .toast {
 
 /* ── Large phones / small tablets ── */
 @media (min-width: 560px) {
+  .nav-pill {
+    gap: 10px;
+    padding: 6px;
+  }
+
+  .brand {
+    gap: 11px;
+  }
+
+  .brand-avatar {
+    width: 40px;
+    height: 40px;
+  }
+
+  .brand-text {
+    display: flex;
+  }
+  .brand-text strong {
+    font-size: 15px;
+  }
+  .brand-text span {
+    font-size: 11.5px;
+  }
+
+  .nav-actions {
+    gap: 7px;
+  }
+
+  .icon-btn {
+    width: 40px;
+    height: 40px;
+  }
+  .icon-btn svg {
+    width: 17px;
+    height: 17px;
+  }
+
+  .lang-control {
+    height: 40px;
+    gap: 6px;
+    padding-inline: 12px;
+  }
+  .lang-control select {
+    font-size: 12.5px;
+  }
+
+  .nav-cta {
+    height: 40px;
+    gap: 7px;
+    padding-inline: 18px;
+    font-size: 13.5px;
+  }
+  .nav-cta svg {
+    width: 16px;
+    height: 16px;
+  }
+
   .doctor {
     gap: 14px;
     margin-bottom: 20px;
@@ -2051,10 +2142,6 @@ body:has(.sticky-bar:not([hidden])) .toast {
     font-size: 12px;
   }
 
-  .call-btn {
-    display: inline-flex;
-  }
-
   .step {
     font-size: 12px;
   }
@@ -2099,6 +2186,33 @@ body:has(.sticky-bar:not([hidden])) .toast {
 
 /* ── Tablet ── */
 @media (min-width: 760px) {
+  .nav-pill {
+    padding: 7px;
+  }
+
+  .brand {
+    gap: 13px;
+    padding-inline-start: 6px;
+  }
+
+  .brand-avatar {
+    width: 44px;
+    height: 44px;
+  }
+
+  .brand-text strong {
+    font-size: 16px;
+  }
+  .brand-text span {
+    font-size: 12px;
+  }
+
+  .nav-cta {
+    height: 42px;
+    padding-inline: 22px;
+    font-size: 14px;
+  }
+
   .doctor {
     gap: 18px;
     margin-bottom: 24px;
@@ -2277,13 +2391,41 @@ body:has(.sticky-bar:not([hidden])) .toast {
     --pad: 13px;
   }
 
-  .header-actions {
+  .nav-actions {
     gap: 4px;
   }
 
+  .nav-pill {
+    gap: 5px;
+    padding: 4px;
+  }
+
   .brand-avatar {
+    width: 32px;
+    height: 32px;
+  }
+
+  /* The phone number is one tap away in the sticky bar and the footer,
+     so the narrowest screens keep only the icon. */
+  .nav-cta {
+    width: 34px;
+    padding: 0;
+  }
+  .nav-cta span {
+    display: none;
+  }
+
+  .icon-btn {
     width: 34px;
     height: 34px;
+  }
+
+  .lang-control {
+    height: 34px;
+    padding-inline: 7px;
+  }
+  .lang-control select {
+    font-size: 11px;
   }
   .brand-text strong {
     font-size: 13px;
